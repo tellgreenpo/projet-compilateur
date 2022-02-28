@@ -1,2 +1,2 @@
-# Projet Systeme Informatqieu
+# Projet Systeme Informatique
 ## Sujet: Creation compilateur
