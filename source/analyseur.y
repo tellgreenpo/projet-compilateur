@@ -12,6 +12,8 @@ void yyerror(char *s);
 %%
 declaration: datatype INT
 datatype: INT
+    |CONST
+;
 ;
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
