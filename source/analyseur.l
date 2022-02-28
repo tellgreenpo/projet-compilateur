@@ -1,7 +1,6 @@
 %{
 #include <stdlib.h>
 #include <stdio.h>
-#include "y.tab.h"
 #include "include/analyser.h"
 %}
 
@@ -12,3 +11,14 @@
 "*" ECHO;
 "/" ECHO;
 "=" ECHO;
+
+%%
+int yywrap()
+{
+return 1 ;
+}
+int main ()
+{
+yylex() ;
+return 1 ;
+}
