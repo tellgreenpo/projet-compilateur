@@ -10,9 +10,14 @@ void yyerror(char *s);
        CONST EOL DOT COMMA SEMICOLON OPEN_BRACE CLOSE_BRACE
 %start Analyseur
 %%
-declaration: datatype INT
+statement: declaration SEMICOLON | asign SEMICOLON
+operation: element PLUS element | element MINUS element | element MULTIPLY element | element DIVIDE element
+declaration: datatype ALPHA | datatype asign
 datatype: INT
-    |CONST
+    | constant
+constant: CONST INT
+asign: ALPHA EQUAL NUMBER | ALPHA EQUAL operation
+element: ALPHA | NUMBER
 ;
 ;
 %%
