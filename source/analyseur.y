@@ -8,7 +8,7 @@ void yyerror(char *s);
 %union { int nb; const var; }
 %token PLUS MINUS MULTIPLY DIVIDE EQUAL NUMBER ALPHA INT
        CONST EOL DOT COMMA SEMICOLON OPEN_BRACE CLOSE_BRACE
-       OPEN_BRACKEY CLOSE_BRACKET OPEN_PARENT CLOSE_PARENT 
+       OPEN_BRACKET CLOSE_BRACKET OPEN_PARENT CLOSE_PARENT 
        MAIN RETURN PRINTF
 %start Analyseur
 %%
@@ -25,8 +25,8 @@ inst : declaration
       | print
       | RETURN value SEMICOLON
       | RETURN name SEMICOLON;
-declaration : type name SEMICOLON 
-              | CONST type name SEMICOLON ;
+declaration : type names SEMICOLON 
+              | CONST type names SEMICOLON ;
 affectation : type name EQUAL value SEMICOLON 
               | name EQUAL value SEMICOLON
               | name EQUAL operation SEMICOLON;
@@ -41,6 +41,7 @@ type : INT ;
 
 name : ALPHA end_name ;
 end_name : ALPHA | NUMBER | ;
+names : name COMMA names | name;
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(void) {
