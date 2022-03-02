@@ -1,6 +1,6 @@
-GRM=calc.y
-LEX=calc.l
-BIN=calc
+GRM=./source/analyseur.y
+LEX=./source/analyseur.l
+BIN=analyseur
 
 CC=gcc
 CFLAGS=-Wall -g
@@ -23,4 +23,3 @@ $(BIN): $(OBJ)
 
 clean:
 	rm $(OBJ) y.tab.c y.tab.h lex.yy.c
-
