@@ -34,8 +34,6 @@ type : INT ;
 
 name : ALPHA end_name ;
 end_name : ALPHA | NUMBER ;
-;
-;
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(void) {
