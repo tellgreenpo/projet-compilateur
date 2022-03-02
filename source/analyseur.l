@@ -7,10 +7,6 @@
 
 %%
 [ \t]+ {};
-[0-9]+ {yyval.nb = atoi(yytext);
-        return NUMBER}
-[a-zA-Z]+ {yyval.var = yytext[0];
-            return ALPHA};
 "+" {return PLUS};
 "-" {return MINUS};
 "*" {return MULTIPLY};
@@ -31,6 +27,10 @@
 "return" {return RETURN};
 "main" {return MAIN};
 "printf" {return PRINTF};
+[0-9]+ {yyval.nb = atoi(yytext);
+        return NUMBER};
+[A-Za-z]+ {yyval.var = yytext[0];
+            return ALPHA};
 
 
 %%

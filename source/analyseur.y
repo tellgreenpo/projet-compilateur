@@ -12,19 +12,26 @@ void yyerror(char *s);
        MAIN RETURN PRINTF
 %start Analyseur
 %%
-fun : type name OPEN_PARENT params CLOSE_PARENT body ;
+/*fun : type name OPEN_PARENT params CLOSE_PARENT body ;*/
 
-main_structure : MAIN OPEN_PARENT params CLOSE_PARENT ;
+main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body;
 
-params : type value COMMA params | type value;
+args : value COMMA args | value; 
+params : type name COMMA params | type name;  
 body : OPEN_BRACE insts CLOSE_BRACE ;
 insts : inst insts | ;
 inst : declaration 
       | affectation
-      | PRINTF
-      | RETURN ;
-declaration : type name SEMICOLON | CONST type name SEMICOLON ;
-affectation : type name EQUAL value | name EQUAL value;
+      | print
+      | RETURN value SEMICOLON
+      | RETURN name SEMICOLON;
+declaration : type name SEMICOLON 
+              | CONST type name SEMICOLON ;
+affectation : type name EQUAL value SEMICOLON 
+              | name EQUAL value SEMICOLON
+              | name EQUAL operation SEMICOLON;
+print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
+        | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
 
 signs : PLUS | MINUS | MULTIPLY | DIVIDE;
 operation: operation signs operation | value;
@@ -33,7 +40,7 @@ value : NUMBER ;
 type : INT ;
 
 name : ALPHA end_name ;
-end_name : ALPHA | NUMBER ;
+end_name : ALPHA | NUMBER | ;
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(void) {
