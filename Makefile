@@ -1,5 +1,5 @@
-GRM=./source/analyseur.y
-LEX=./source/analyseur.l
+GRM=source/analyseur.y
+LEX=source/analyseur.l
 BIN=analyseur
 
 CC=gcc
@@ -23,3 +23,4 @@ $(BIN): $(OBJ)
 
 clean:
 	rm $(OBJ) y.tab.c y.tab.h lex.yy.c
+
