@@ -4,7 +4,7 @@
 //int var[26];
 void yyerror(char *s);
 %}
-/* %union { int nb; const char var; } */
+%union { int nb; const char *str; }
 %token PLUS MINUS MULTIPLY DIVIDE EQUAL NUMBER ALPHA INT
        CONST EOL DOT COMMA SEMICOLON OPEN_BRACE CLOSE_BRACE
        OPEN_BRACKET CLOSE_BRACKET OPEN_PARENT CLOSE_PARENT

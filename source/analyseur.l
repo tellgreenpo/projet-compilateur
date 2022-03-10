@@ -1,6 +1,7 @@
 %{
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "y.tab.h"
 %}
 
@@ -30,7 +31,7 @@
 "printf" {return PRINTF;}
 [0-9]+ {//yyval.nb = atoi(yytext);
         return NUMBER;}
-[A-Za-z]+ {//yyval.var = yytext[0];
+[A-Za-z]+ {yylval.str = strdup(yytext);
             return ALPHA;}
 
 
