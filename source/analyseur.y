@@ -13,17 +13,21 @@ void yyerror(char *s);
 %%
 /*fun : type name OPEN_PARENT params CLOSE_PARENT body ;*/
 
-main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body;
+main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body ;
 
-args : value COMMA args | value | ;
-params : type name COMMA params | type name;
 body : OPEN_BRACE insts CLOSE_BRACE ;
+
 insts : inst insts | ;
 inst : declaration
       | affectation
       | print
       | RETURN value SEMICOLON
       | RETURN name SEMICOLON;
+
+args : value COMMA args | value | ;
+params : type name COMMA params | type name | ;
+
+
 declaration : type names SEMICOLON
               | CONST type names SEMICOLON ;
 affectation : type name EQUAL value SEMICOLON
