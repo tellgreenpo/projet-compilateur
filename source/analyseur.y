@@ -1,33 +1,32 @@
  %{
 #include <stdlib.h>
 #include <stdio.h>
-int var[26];
+//int var[26];
 void yyerror(char *s);
 %}
-
-%union { int nb; const var; }
+/* %union { int nb; const char var; } */
 %token PLUS MINUS MULTIPLY DIVIDE EQUAL NUMBER ALPHA INT
        CONST EOL DOT COMMA SEMICOLON OPEN_BRACE CLOSE_BRACE
-       OPEN_BRACKET CLOSE_BRACKET OPEN_PARENT CLOSE_PARENT 
+       OPEN_BRACKET CLOSE_BRACKET OPEN_PARENT CLOSE_PARENT
        MAIN RETURN PRINTF
-%start Analyseur
+%start main_structure
 %%
 /*fun : type name OPEN_PARENT params CLOSE_PARENT body ;*/
 
 main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body;
 
-args : value COMMA args | value; 
-params : type name COMMA params | type name;  
+args : value COMMA args | value;
+params : type name COMMA params | type name;
 body : OPEN_BRACE insts CLOSE_BRACE ;
 insts : inst insts | ;
-inst : declaration 
+inst : declaration
       | affectation
       | print
       | RETURN value SEMICOLON
       | RETURN name SEMICOLON;
-declaration : type names SEMICOLON 
+declaration : type names SEMICOLON
               | CONST type names SEMICOLON ;
-affectation : type name EQUAL value SEMICOLON 
+affectation : type name EQUAL value SEMICOLON
               | name EQUAL value SEMICOLON
               | name EQUAL operation SEMICOLON;
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
