@@ -15,7 +15,7 @@ void yyerror(char *s);
 
 main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body;
 
-args : value COMMA args | value;
+args : value COMMA args | value | ;
 params : type name COMMA params | type name;
 body : OPEN_BRACE insts CLOSE_BRACE ;
 insts : inst insts | ;
@@ -36,7 +36,7 @@ signs : PLUS | MINUS | MULTIPLY | DIVIDE;
 operation: operation signs operation | value;
 
 value : NUMBER ;
-type : INT ;
+type : INT | ;
 
 name : ALPHA end_name ;
 end_name : ALPHA | NUMBER | ;
