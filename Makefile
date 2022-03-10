@@ -5,7 +5,7 @@ BIN=analyseur
 CC=gcc
 CFLAGS=-Wall -g
 
-OBJ=y.tab.o lex.yy.o main.o
+OBJ=y.tab.o lex.yy.o 
 
 all: $(BIN)
 
@@ -24,3 +24,5 @@ $(BIN): $(OBJ)
 clean:
 	rm -rf $(OBJ) y.tab.c y.tab.h lex.yy.c
 
+test: all
+	./analyseur < main.c

@@ -13,15 +13,15 @@ Terminaux inutilisés dans la grammaire
 
 Règles inutiles dans la grammaire
 
-   35 args: value COMMA args
-   36     | value
-   37     | %empty
+   32 args: value COMMA args
+   33     | value
+   34     | %empty
 
 
 État 12 conflits: 1 décalage/réduction
-État 22 conflits: 1 décalage/réduction
-État 49 conflits: 1 décalage/réduction
-État 65 conflits: 4 décalage/réduction
+État 19 conflits: 1 décalage/réduction
+État 46 conflits: 1 décalage/réduction
+État 62 conflits: 4 décalage/réduction
 
 
 Grammaire
@@ -68,14 +68,10 @@ Grammaire
    27 type: INT
    28     | %empty
 
-   29 name: ALPHA end_name
+   29 name: ALPHA
 
-   30 end_name: ALPHA
-   31         | NUMBER
-   32         | %empty
-
-   33 names: name COMMA names
-   34      | name
+   30 names: name COMMA names
+   31      | name
 
 
 Terminaux, suivis des règles où ils apparaissent
@@ -87,23 +83,23 @@ Terminaux, suivis des règles où ils apparaissent
     MULTIPLY (260) 22
     DIVIDE (261) 23
     EQUAL (262) 15 16 17
-    NUMBER (263) 26 31
-    ALPHA (264) 29 30
-    INT (265) 27
-    CONST (266) 14
-    EOL (267)
-    DOT (268)
-    COMMA (269) 10 33
-    SEMICOLON (270) 8 9 13 14 15 16 17 18 19
-    OPEN_BRACE (271) 2
-    CLOSE_BRACE (272) 2
-    OPEN_BRACKET (273)
-    CLOSE_BRACKET (274)
-    OPEN_PARENT (275) 1 18 19
-    CLOSE_PARENT (276) 1 18 19
-    MAIN (277) 1
-    RETURN (278) 8 9
-    PRINTF (279) 18 19
+    INT (263) 27
+    MAIN (264) 1
+    RETURN (265) 8 9
+    PRINTF (266) 18 19
+    CONST (267) 14
+    EOL (268)
+    DOT (269)
+    COMMA (270) 10 30
+    SEMICOLON (271) 8 9 13 14 15 16 17 18 19
+    OPEN_BRACE (272) 2
+    CLOSE_BRACE (273) 2
+    OPEN_BRACKET (274)
+    CLOSE_BRACKET (275)
+    OPEN_PARENT (276) 1 18 19
+    CLOSE_PARENT (277) 1 18 19
+    NUMBER <nb> (278) 26
+    ALPHA <str> (279) 29
 
 
 Non-terminaux, suivis des règles où ils apparaissent
@@ -140,21 +136,18 @@ Non-terminaux, suivis des règles où ils apparaissent
     operation (35)
         à gauche: 24 25
         à droite: 17 24
-    value (36)
+    value <nb> (36)
         à gauche: 26
         à droite: 8 15 16 18 25
     type (37)
         à gauche: 27 28
         à droite: 1 10 11 13 14 15
-    name (38)
+    name <str> (38)
         à gauche: 29
-        à droite: 9 10 11 15 16 17 19 33 34
-    end_name (39)
-        à gauche: 30 31 32
-        à droite: 29
-    names (40)
-        à gauche: 33 34
-        à droite: 13 14 33
+        à droite: 9 10 11 15 16 17 19 30 31
+    names (39)
+        à gauche: 30 31
+        à droite: 13 14 30
 
 
 État 0
@@ -245,14 +238,9 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 10
 
-   29 name: ALPHA . end_name
+   29 name: ALPHA .
 
-    NUMBER  décalage et aller à l'état 14
-    ALPHA   décalage et aller à l'état 15
-
-    $défaut  réduction par utilisation de la règle 32 (end_name)
-
-    end_name  aller à l'état 16
+    $défaut  réduction par utilisation de la règle 29 (name)
 
 
 État 11
@@ -260,7 +248,7 @@ Non-terminaux, suivis des règles où ils apparaissent
    10 params: type name . COMMA params
    11       | type name .
 
-    COMMA  décalage et aller à l'état 17
+    COMMA  décalage et aller à l'état 14
 
     $défaut  réduction par utilisation de la règle 11 (params)
 
@@ -269,22 +257,22 @@ Non-terminaux, suivis des règles où ils apparaissent
 
     2 body: OPEN_BRACE . insts CLOSE_BRACE
 
-    ALPHA   décalage et aller à l'état 10
     INT     décalage et aller à l'état 1
-    CONST   décalage et aller à l'état 18
-    RETURN  décalage et aller à l'état 19
-    PRINTF  décalage et aller à l'état 20
+    RETURN  décalage et aller à l'état 15
+    PRINTF  décalage et aller à l'état 16
+    CONST   décalage et aller à l'état 17
+    ALPHA   décalage et aller à l'état 10
 
     ALPHA     [réduction par utilisation de la règle 28 (type)]
     $défaut  réduction par utilisation de la règle 4 (insts)
 
-    insts        aller à l'état 21
-    inst         aller à l'état 22
-    declaration  aller à l'état 23
-    affectation  aller à l'état 24
-    print        aller à l'état 25
-    type         aller à l'état 26
-    name         aller à l'état 27
+    insts        aller à l'état 18
+    inst         aller à l'état 19
+    declaration  aller à l'état 20
+    affectation  aller à l'état 21
+    print        aller à l'état 22
+    type         aller à l'état 23
+    name         aller à l'état 24
 
 
 État 13
@@ -296,27 +284,6 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 14
 
-   31 end_name: NUMBER .
-
-    $défaut  réduction par utilisation de la règle 31 (end_name)
-
-
-État 15
-
-   30 end_name: ALPHA .
-
-    $défaut  réduction par utilisation de la règle 30 (end_name)
-
-
-État 16
-
-   29 name: ALPHA end_name .
-
-    $défaut  réduction par utilisation de la règle 29 (name)
-
-
-État 17
-
    10 params: type name COMMA . params
 
     INT  décalage et aller à l'état 1
@@ -324,11 +291,31 @@ Non-terminaux, suivis des règles où ils apparaissent
     ALPHA     réduction par utilisation de la règle 28 (type)
     $défaut  réduction par utilisation de la règle 12 (params)
 
-    params  aller à l'état 28
+    params  aller à l'état 25
     type    aller à l'état 8
 
 
-État 18
+État 15
+
+    8 inst: RETURN . value SEMICOLON
+    9     | RETURN . name SEMICOLON
+
+    NUMBER  décalage et aller à l'état 26
+    ALPHA   décalage et aller à l'état 10
+
+    value  aller à l'état 27
+    name   aller à l'état 28
+
+
+État 16
+
+   18 print: PRINTF . OPEN_PARENT value CLOSE_PARENT SEMICOLON
+   19      | PRINTF . OPEN_PARENT name CLOSE_PARENT SEMICOLON
+
+    OPEN_PARENT  décalage et aller à l'état 29
+
+
+État 17
 
    14 declaration: CONST . type names SEMICOLON
 
@@ -336,405 +323,385 @@ Non-terminaux, suivis des règles où ils apparaissent
 
     $défaut  réduction par utilisation de la règle 28 (type)
 
-    type  aller à l'état 29
+    type  aller à l'état 30
+
+
+État 18
+
+    2 body: OPEN_BRACE insts . CLOSE_BRACE
+
+    CLOSE_BRACE  décalage et aller à l'état 31
 
 
 État 19
 
-    8 inst: RETURN . value SEMICOLON
-    9     | RETURN . name SEMICOLON
-
-    NUMBER  décalage et aller à l'état 30
-    ALPHA   décalage et aller à l'état 10
-
-    value  aller à l'état 31
-    name   aller à l'état 32
-
-
-État 20
-
-   18 print: PRINTF . OPEN_PARENT value CLOSE_PARENT SEMICOLON
-   19      | PRINTF . OPEN_PARENT name CLOSE_PARENT SEMICOLON
-
-    OPEN_PARENT  décalage et aller à l'état 33
-
-
-État 21
-
-    2 body: OPEN_BRACE insts . CLOSE_BRACE
-
-    CLOSE_BRACE  décalage et aller à l'état 34
-
-
-État 22
-
     3 insts: inst . insts
 
-    ALPHA   décalage et aller à l'état 10
     INT     décalage et aller à l'état 1
-    CONST   décalage et aller à l'état 18
-    RETURN  décalage et aller à l'état 19
-    PRINTF  décalage et aller à l'état 20
+    RETURN  décalage et aller à l'état 15
+    PRINTF  décalage et aller à l'état 16
+    CONST   décalage et aller à l'état 17
+    ALPHA   décalage et aller à l'état 10
 
     ALPHA     [réduction par utilisation de la règle 28 (type)]
     $défaut  réduction par utilisation de la règle 4 (insts)
 
-    insts        aller à l'état 35
-    inst         aller à l'état 22
-    declaration  aller à l'état 23
-    affectation  aller à l'état 24
-    print        aller à l'état 25
-    type         aller à l'état 26
-    name         aller à l'état 27
+    insts        aller à l'état 32
+    inst         aller à l'état 19
+    declaration  aller à l'état 20
+    affectation  aller à l'état 21
+    print        aller à l'état 22
+    type         aller à l'état 23
+    name         aller à l'état 24
 
 
-État 23
+État 20
 
     5 inst: declaration .
 
     $défaut  réduction par utilisation de la règle 5 (inst)
 
 
-État 24
+État 21
 
     6 inst: affectation .
 
     $défaut  réduction par utilisation de la règle 6 (inst)
 
 
-État 25
+État 22
 
     7 inst: print .
 
     $défaut  réduction par utilisation de la règle 7 (inst)
 
 
-État 26
+État 23
 
    13 declaration: type . names SEMICOLON
    15 affectation: type . name EQUAL value SEMICOLON
 
     ALPHA  décalage et aller à l'état 10
 
-    name   aller à l'état 36
-    names  aller à l'état 37
+    name   aller à l'état 33
+    names  aller à l'état 34
 
 
-État 27
+État 24
 
    16 affectation: name . EQUAL value SEMICOLON
    17            | name . EQUAL operation SEMICOLON
 
-    EQUAL  décalage et aller à l'état 38
+    EQUAL  décalage et aller à l'état 35
 
 
-État 28
+État 25
 
    10 params: type name COMMA params .
 
     $défaut  réduction par utilisation de la règle 10 (params)
 
 
-État 29
-
-   14 declaration: CONST type . names SEMICOLON
-
-    ALPHA  décalage et aller à l'état 10
-
-    name   aller à l'état 39
-    names  aller à l'état 40
-
-
-État 30
+État 26
 
    26 value: NUMBER .
 
     $défaut  réduction par utilisation de la règle 26 (value)
 
 
-État 31
+État 27
 
     8 inst: RETURN value . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 41
+    SEMICOLON  décalage et aller à l'état 36
 
 
-État 32
+État 28
 
     9 inst: RETURN name . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 42
+    SEMICOLON  décalage et aller à l'état 37
 
 
-État 33
+État 29
 
    18 print: PRINTF OPEN_PARENT . value CLOSE_PARENT SEMICOLON
    19      | PRINTF OPEN_PARENT . name CLOSE_PARENT SEMICOLON
 
-    NUMBER  décalage et aller à l'état 30
+    NUMBER  décalage et aller à l'état 26
     ALPHA   décalage et aller à l'état 10
 
-    value  aller à l'état 43
-    name   aller à l'état 44
+    value  aller à l'état 38
+    name   aller à l'état 39
 
 
-État 34
+État 30
+
+   14 declaration: CONST type . names SEMICOLON
+
+    ALPHA  décalage et aller à l'état 10
+
+    name   aller à l'état 40
+    names  aller à l'état 41
+
+
+État 31
 
     2 body: OPEN_BRACE insts CLOSE_BRACE .
 
     $défaut  réduction par utilisation de la règle 2 (body)
 
 
-État 35
+État 32
 
     3 insts: inst insts .
 
     $défaut  réduction par utilisation de la règle 3 (insts)
 
 
-État 36
+État 33
 
    15 affectation: type name . EQUAL value SEMICOLON
-   33 names: name . COMMA names
-   34      | name .
+   30 names: name . COMMA names
+   31      | name .
 
-    EQUAL  décalage et aller à l'état 45
-    COMMA  décalage et aller à l'état 46
+    EQUAL  décalage et aller à l'état 42
+    COMMA  décalage et aller à l'état 43
 
-    $défaut  réduction par utilisation de la règle 34 (names)
+    $défaut  réduction par utilisation de la règle 31 (names)
 
 
-État 37
+État 34
 
    13 declaration: type names . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 47
+    SEMICOLON  décalage et aller à l'état 44
 
 
-État 38
+État 35
 
    16 affectation: name EQUAL . value SEMICOLON
    17            | name EQUAL . operation SEMICOLON
 
-    NUMBER  décalage et aller à l'état 30
+    NUMBER  décalage et aller à l'état 26
 
-    operation  aller à l'état 48
-    value      aller à l'état 49
-
-
-État 39
-
-   33 names: name . COMMA names
-   34      | name .
-
-    COMMA  décalage et aller à l'état 46
-
-    $défaut  réduction par utilisation de la règle 34 (names)
+    operation  aller à l'état 45
+    value      aller à l'état 46
 
 
-État 40
-
-   14 declaration: CONST type names . SEMICOLON
-
-    SEMICOLON  décalage et aller à l'état 50
-
-
-État 41
+État 36
 
     8 inst: RETURN value SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 8 (inst)
 
 
-État 42
+État 37
 
     9 inst: RETURN name SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 9 (inst)
 
 
-État 43
+État 38
 
    18 print: PRINTF OPEN_PARENT value . CLOSE_PARENT SEMICOLON
 
-    CLOSE_PARENT  décalage et aller à l'état 51
+    CLOSE_PARENT  décalage et aller à l'état 47
 
 
-État 44
+État 39
 
    19 print: PRINTF OPEN_PARENT name . CLOSE_PARENT SEMICOLON
 
-    CLOSE_PARENT  décalage et aller à l'état 52
+    CLOSE_PARENT  décalage et aller à l'état 48
 
 
-État 45
+État 40
+
+   30 names: name . COMMA names
+   31      | name .
+
+    COMMA  décalage et aller à l'état 43
+
+    $défaut  réduction par utilisation de la règle 31 (names)
+
+
+État 41
+
+   14 declaration: CONST type names . SEMICOLON
+
+    SEMICOLON  décalage et aller à l'état 49
+
+
+État 42
 
    15 affectation: type name EQUAL . value SEMICOLON
 
-    NUMBER  décalage et aller à l'état 30
+    NUMBER  décalage et aller à l'état 26
 
-    value  aller à l'état 53
+    value  aller à l'état 50
 
 
-État 46
+État 43
 
-   33 names: name COMMA . names
+   30 names: name COMMA . names
 
     ALPHA  décalage et aller à l'état 10
 
-    name   aller à l'état 39
-    names  aller à l'état 54
+    name   aller à l'état 40
+    names  aller à l'état 51
 
 
-État 47
+État 44
 
    13 declaration: type names SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 13 (declaration)
 
 
-État 48
+État 45
 
    17 affectation: name EQUAL operation . SEMICOLON
    24 operation: operation . signs operation
 
-    PLUS       décalage et aller à l'état 55
-    MINUS      décalage et aller à l'état 56
-    MULTIPLY   décalage et aller à l'état 57
-    DIVIDE     décalage et aller à l'état 58
-    SEMICOLON  décalage et aller à l'état 59
+    PLUS       décalage et aller à l'état 52
+    MINUS      décalage et aller à l'état 53
+    MULTIPLY   décalage et aller à l'état 54
+    DIVIDE     décalage et aller à l'état 55
+    SEMICOLON  décalage et aller à l'état 56
 
-    signs  aller à l'état 60
+    signs  aller à l'état 57
 
 
-État 49
+État 46
 
    16 affectation: name EQUAL value . SEMICOLON
    25 operation: value .
 
-    SEMICOLON  décalage et aller à l'état 61
+    SEMICOLON  décalage et aller à l'état 58
 
     SEMICOLON  [réduction par utilisation de la règle 25 (operation)]
     $défaut   réduction par utilisation de la règle 25 (operation)
 
 
-État 50
+État 47
+
+   18 print: PRINTF OPEN_PARENT value CLOSE_PARENT . SEMICOLON
+
+    SEMICOLON  décalage et aller à l'état 59
+
+
+État 48
+
+   19 print: PRINTF OPEN_PARENT name CLOSE_PARENT . SEMICOLON
+
+    SEMICOLON  décalage et aller à l'état 60
+
+
+État 49
 
    14 declaration: CONST type names SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 14 (declaration)
 
 
-État 51
-
-   18 print: PRINTF OPEN_PARENT value CLOSE_PARENT . SEMICOLON
-
-    SEMICOLON  décalage et aller à l'état 62
-
-
-État 52
-
-   19 print: PRINTF OPEN_PARENT name CLOSE_PARENT . SEMICOLON
-
-    SEMICOLON  décalage et aller à l'état 63
-
-
-État 53
+État 50
 
    15 affectation: type name EQUAL value . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 64
+    SEMICOLON  décalage et aller à l'état 61
 
 
-État 54
+État 51
 
-   33 names: name COMMA names .
+   30 names: name COMMA names .
 
-    $défaut  réduction par utilisation de la règle 33 (names)
+    $défaut  réduction par utilisation de la règle 30 (names)
 
 
-État 55
+État 52
 
    20 signs: PLUS .
 
     $défaut  réduction par utilisation de la règle 20 (signs)
 
 
-État 56
+État 53
 
    21 signs: MINUS .
 
     $défaut  réduction par utilisation de la règle 21 (signs)
 
 
-État 57
+État 54
 
    22 signs: MULTIPLY .
 
     $défaut  réduction par utilisation de la règle 22 (signs)
 
 
-État 58
+État 55
 
    23 signs: DIVIDE .
 
     $défaut  réduction par utilisation de la règle 23 (signs)
 
 
-État 59
+État 56
 
    17 affectation: name EQUAL operation SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 17 (affectation)
 
 
-État 60
+État 57
 
    24 operation: operation signs . operation
 
-    NUMBER  décalage et aller à l'état 30
+    NUMBER  décalage et aller à l'état 26
 
-    operation  aller à l'état 65
-    value      aller à l'état 66
+    operation  aller à l'état 62
+    value      aller à l'état 63
 
 
-État 61
+État 58
 
    16 affectation: name EQUAL value SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 16 (affectation)
 
 
-État 62
+État 59
 
    18 print: PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 18 (print)
 
 
-État 63
+État 60
 
    19 print: PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 19 (print)
 
 
-État 64
+État 61
 
    15 affectation: type name EQUAL value SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 15 (affectation)
 
 
-État 65
+État 62
 
    24 operation: operation . signs operation
    24          | operation signs operation .
 
-    PLUS      décalage et aller à l'état 55
-    MINUS     décalage et aller à l'état 56
-    MULTIPLY  décalage et aller à l'état 57
-    DIVIDE    décalage et aller à l'état 58
+    PLUS      décalage et aller à l'état 52
+    MINUS     décalage et aller à l'état 53
+    MULTIPLY  décalage et aller à l'état 54
+    DIVIDE    décalage et aller à l'état 55
 
     PLUS      [réduction par utilisation de la règle 24 (operation)]
     MINUS     [réduction par utilisation de la règle 24 (operation)]
@@ -742,10 +709,10 @@ Non-terminaux, suivis des règles où ils apparaissent
     DIVIDE    [réduction par utilisation de la règle 24 (operation)]
     $défaut  réduction par utilisation de la règle 24 (operation)
 
-    signs  aller à l'état 60
+    signs  aller à l'état 57
 
 
-État 66
+État 63
 
    25 operation: value .
 

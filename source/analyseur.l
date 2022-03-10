@@ -29,7 +29,7 @@
 "return" {return RETURN;}
 "main" {return MAIN;}
 "printf" {return PRINTF;}
-[0-9]+ {//yyval.nb = atoi(yytext);
+[0-9]+ {yylval.nb = atoi(yytext);
         return NUMBER;}
 [A-Za-z]+ {yylval.str = strdup(yytext);
             return ALPHA;}

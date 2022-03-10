@@ -1,14 +1,17 @@
  %{
 #include <stdlib.h>
 #include <stdio.h>
-//int var[26];
+//int str[26];
 void yyerror(char *s);
 %}
-%union { int nb; const char *str; }
-%token PLUS MINUS MULTIPLY DIVIDE EQUAL NUMBER ALPHA INT
+%union { int nb; char *str; }
+%token PLUS MINUS MULTIPLY DIVIDE EQUAL INT MAIN RETURN PRINTF
        CONST EOL DOT COMMA SEMICOLON OPEN_BRACE CLOSE_BRACE
        OPEN_BRACKET CLOSE_BRACKET OPEN_PARENT CLOSE_PARENT
-       MAIN RETURN PRINTF
+%token <nb> NUMBER
+%token <str> ALPHA
+%type <nb> value
+%type <str> name
 %start main_structure
 %%
 /*fun : type name OPEN_PARENT params CLOSE_PARENT body ;*/
@@ -39,11 +42,10 @@ print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
 signs : PLUS | MINUS | MULTIPLY | DIVIDE;
 operation: operation signs operation | value;
 
-value : NUMBER ;
+value : NUMBER { $$ = $1;};
 type : INT | ;
 
-name : ALPHA end_name ;
-end_name : ALPHA | NUMBER | ;
+name : ALPHA { $$ = $1; }; 
 names : name COMMA names | name;
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
