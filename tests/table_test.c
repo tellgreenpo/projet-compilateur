@@ -1,21 +1,27 @@
 #include <stdio.h>
 #include "../include/ts.h"
 
-void print(table *pTable)
+
+// display the list
+void printList()
 {
-    for (int i = 0; i < MAX_LENGTH_LIST; i++)
+    Node *ptr = head;
+    printf("\n[ ");
+
+    // start from the beginning
+    while (ptr != NULL)
     {
-        //printf("Name : %s\n", pTable->list[pTable->current]->name);
-        printf("Adress : %i\n", pTable->list[pTable->current]->address);
-        printf("depth : %i\n", pTable->list[pTable->current]->depth);
-        printf("\n");
+        printf("(%s,%d) ", ptr->name, ptr->address);
+        ptr = ptr->next;
     }
+
+    printf(" ]\n");
 }
+
 int main(int argc, char *argv[])
 {
-    table *p;
-    printf("Checking add function\n");
-    add(p, "a\0", INT);
-    print(p);
+    printf("Testing adding...\n");
+    insertFirst("a", size, INT, 0);
+    printList();
     return 0;
 }

@@ -1,28 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #define MAX_LENGTH_NAME 20
 #define MAX_LENGTH_LIST 10
+
+int size = 0;
+
 enum t_type
 {
     INT,
     VOID
 };
 
-typedef struct Cell
+typedef struct Node
 {
     char name[MAX_LENGTH_NAME];
     int address;
     enum t_type type;
     int depth;
-} Cell;
+    struct Node *next;
+} Node;
 
-typedef struct table
-{
-    Cell *list[MAX_LENGTH_LIST];
-    int current;
-} table;
+Node *head = NULL;
+Node *current = NULL;
 
-void add(table *pTable, char *newName, enum t_type type);
-// Returns 0 if the variable doesn't exist
-// Return the address if it does
-int getAddress(table *pTable, char *toGet);
-// Returns -1 if it doesn't exist, 1 if it does
-int exists(table *pTable, char *toGet);
+// Inserts node
+void insertFirst(char newName[MAX_LENGTH_NAME], int newAddress, enum t_type newType, int newDepth);
+// returns a boolean if the variable is found
+bool exists(char toGet[MAX_LENGTH_NAME]);
+// Deletes and returns a node, returns NULL if it does not exist
+Node *delete (char toGet[MAX_LENGTH_NAME]);
+// Returns the address of a variable, returns NULL if it does not exist
+// Argument : The name
+int getAddress(char toGet[MAX_LENGTH_NAME]);
+// Returns the depth of a variable, returns NULL if it does not exist
+// Argument : The name
+int getDepth(char toGet[MAX_LENGTH_NAME]);
