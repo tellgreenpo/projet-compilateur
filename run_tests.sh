@@ -1,5 +1,2 @@
 #!/bin/bash
-for i in tests_ok/*; do
-	cat $1 | ./analyseur
-	echo "$? -O"
-done
+gcc ./table_test/table_test.c ./source/tsc.c -o test -Wall
