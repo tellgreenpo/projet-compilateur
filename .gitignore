@@ -1,5 +1,6 @@
 *.o
 y.tab.h
-lex.yy.c
 y.tab.c
-analyseur.output
+lex.yy.c
+compilator
+lexer
