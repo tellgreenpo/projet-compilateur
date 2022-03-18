@@ -25,7 +25,7 @@ void insertFirst(char newName[MAX_LENGTH_NAME], int newAddress, enum t_type newT
     size++;
 }
 
-bool exists(char toGet[MAX_LENGTH_NAME])
+int exists(char toGet[MAX_LENGTH_NAME])
 {
 
     // start from the first link
@@ -35,18 +35,27 @@ bool exists(char toGet[MAX_LENGTH_NAME])
     // if list is empty
     if (head == NULL)
     {
-        return NULL;
+        return -1;
     }
-    bool found = false;
+
     // navigate through list
-    while ((current->next != NULL) && (!found))
+    while (strcmp(current->name,toGet) != 0)
     {
-        if (strcmp(current->name,toGet) != 0)
+
+        // if it is last node
+        if (current->next == NULL)
         {
-            found = true;
+            return -1;
+        }
+        else
+        {
+            // move to next link
+            current = current->next;
         }
     }
-    return found;
+
+    //found match
+    return 1;
 }
 
 int getAddress(char toGet[MAX_LENGTH_NAME])
@@ -54,24 +63,31 @@ int getAddress(char toGet[MAX_LENGTH_NAME])
     // start from the first link
     Node *current = head;
     Node *previous = NULL;
-    int toReturn = 0;
 
     // if list is empty
     if (head == NULL)
     {
-        return NULL;
+        return -1;
     }
-    bool found = false;
+
     // navigate through list
-    while ((current->next != NULL) && (!found))
+    while (strcmp(current->name,toGet) != 0)
     {
-        if (strcmp(current->name,toGet) != 0)
+
+        // if it is last node
+        if (current->next == NULL)
         {
-            toReturn = current->address;
-            found = true;
+            return -1;
+        }
+        else
+        {
+            // move to next link
+            current = current->next;
         }
     }
-    return toReturn;
+
+    //found match
+    return current->address;
 }
 
 int getDepth(char toGet[MAX_LENGTH_NAME])
@@ -79,24 +95,31 @@ int getDepth(char toGet[MAX_LENGTH_NAME])
     // start from the first link
     Node *current = head;
     Node *previous = NULL;
-    int toReturn = 0;
 
     // if list is empty
     if (head == NULL)
     {
-        return NULL;
+        return -1;
     }
-    bool found = false;
+
     // navigate through list
-    while ((current->next != NULL) && (!found))
+    while (strcmp(current->name,toGet) != 0)
     {
-        if (strcmp(current->name,toGet) != 0)
+
+        // if it is last node
+        if (current->next == NULL)
         {
-            toReturn = current->depth;
-            found = true;
+            return -1;
+        }
+        else
+        {
+            // move to next link
+            current = current->next;
         }
     }
-    return toReturn;
+
+    //found match
+    return current->depth;
 }
 
 Node *delete (char toGet[MAX_LENGTH_NAME])

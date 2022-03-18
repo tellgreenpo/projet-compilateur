@@ -24,14 +24,14 @@ typedef struct Node
 
 // Inserts node
 void insertFirst(char newName[MAX_LENGTH_NAME], int newAddress, enum t_type newType, int newDepth);
-// returns a boolean if the variable is found
-bool exists(char toGet[MAX_LENGTH_NAME]);
+// returns -1 if not found, 1 if the variable is found
+int exists(char toGet[MAX_LENGTH_NAME]);
 // Deletes and returns a node, returns NULL if it does not exist
 Node *delete (char toGet[MAX_LENGTH_NAME]);
-// Returns the address of a variable, returns NULL if it does not exist
+// Returns the address of a variable, returns -1 if it does not exist
 // Argument : The name
 int getAddress(char toGet[MAX_LENGTH_NAME]);
-// Returns the depth of a variable, returns NULL if it does not exist
+// Returns the depth of a variable, returns -1 if it does not exist
 // Argument : The name
 int getDepth(char toGet[MAX_LENGTH_NAME]);
 #endif

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../include/ts.h"
 
-extern size;
+extern int size;
 extern Node *head;
 extern Node *current;
 
@@ -31,13 +31,14 @@ int main(int argc, char *argv[])
     printf("Testing deleting a...\n");
     delete("a");
     printList();
-    printf("Testing getAdress b...\n");
-    printf("%i\n",getAddress("b"));
-    printf("Testing getDepth b...\n");
-    printf("%i\n",getDepth("b"));
-    printf("Testing exists a...\n");
-    printf("%i\n",exists("b"));
-    printf("%i\n",size);
+    printf("Testing getAdress for b...\n");
+    printf("B address: %i\n",getAddress("b"));
+    printf("Testing getDepth for b...\n");
+    printf("B depth: %i\n",getDepth("b"));
+    printf("Testing exists for b...\n");
+    printf("B : %i\n",exists("b"));
+    printf("Testing exists for a...\n");
+    printf("A : %i\n",exists("a"));
 
     return 0;
 
