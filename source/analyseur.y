@@ -1,10 +1,13 @@
  %{
 #include <stdlib.h>
 #include <stdio.h>
-#include "ts.h"
+#include "include/ts.h"
 //int str[26];
+extern int size; 
+extern Node *head;
+extern Node *current;
 void yyerror(char *s);
-enum TYPE { T_INT, T_CONST_INT } ;
+//enum TYPE { T_INT, T_CONST_INT } ;
 %}
 %union { int nb; char *str; }
 %token PLUS MINUS MULTIPLY DIVIDE EQUAL MAIN RETURN PRINTF
@@ -37,8 +40,8 @@ params : type name COMMA params | type name | ;
 
 declaration : type ids SEMICOLON {//getType = $1; printf("type : %s", $1);
 printf("ici");};
-affectation : type id EQUAL value SEMICOLON {if ($1 == T_INT) {insertFirst($2, size, t_type.INTEGER, 0)} 
-                                            else if ($1 == T_CONST_INT) {printf("false\n");}}
+affectation : type id EQUAL value SEMICOLON {if ($1 == INTEGER) {insertFirst($2, size, INTEGER, 0);} 
+                                            else if ($1 == CONSTINT) {printf("false\n");}}
               | id EQUAL value SEMICOLON
               | id EQUAL expr SEMICOLON;
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
@@ -52,7 +55,7 @@ divMul :	  divMul MULTIPLY value { $$ = $1 * $3; }
 		| value { $$ = $1; } ; 
 
 value : NUMBER;
-type : INT { $$ = T_INT ; } | CONST INT { $$ = T_CONST_INT; } ;
+type : INT { $$ = INTEGER ; } | CONST INT { $$ = CONSTINT; } ;
 
 name : ALPHA ; 
 names : name COMMA names | name;
