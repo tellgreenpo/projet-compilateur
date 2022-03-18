@@ -10,7 +10,7 @@ void yyerror(char *s);
        OPEN_BRACKET CLOSE_BRACKET OPEN_PARENT CLOSE_PARENT
 %token <nb> NUMBER
 %token <str> ALPHA
-%type <nb> value
+%type <nb> value expr divMul
 %type <str> name
 %start main_structure
 %%
@@ -35,12 +35,16 @@ declaration : type names SEMICOLON
               | CONST type names SEMICOLON ;
 affectation : type name EQUAL value SEMICOLON
               | name EQUAL value SEMICOLON
-              | name EQUAL operation SEMICOLON;
+              | name EQUAL expr SEMICOLON;
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
         | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
 
-signs : PLUS | MINUS | MULTIPLY | DIVIDE;
-operation: operation signs operation | value;
+expr : expr PLUS divMul { $$ = $1 + $3; }
+		| expr MINUS divMul { $$ = $1 - $3; }
+		| divMul { $$ = $1; } ;
+divMul :	  divMul MULTIPLY value { $$ = $1 * $3; }
+		| divMul DIVIDE value { $$ = $1 / $3; }
+		| value { $$ = $1; } ; 
 
 value : NUMBER { $$ = $1;};
 type : INT | ;
