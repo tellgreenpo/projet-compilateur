@@ -28,6 +28,9 @@ void insertFirst(char newName[MAX_LENGTH_NAME], int newAddress, enum t_type newT
 int exists(char toGet[MAX_LENGTH_NAME]);
 // Deletes and returns a node, returns NULL if it does not exist
 Node *delete (char toGet[MAX_LENGTH_NAME]);
+// Deletes variables from a given scope
+// Argument : Scope to delete
+void deleteScope(int scopeToDelete);
 // Returns the address of a variable, returns -1 if it does not exist
 // Argument : The name
 int getAddress(char toGet[MAX_LENGTH_NAME]);

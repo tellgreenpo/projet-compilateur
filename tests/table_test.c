@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "../include/ts.h"
 
+extern int scope;
 extern int size;
 extern Node *head;
 extern Node *current;
@@ -39,7 +40,16 @@ int main(int argc, char *argv[])
     printf("B : %i\n",exists("b"));
     printf("Testing exists for a...\n");
     printf("A : %i\n",exists("a"));
-
+    printf("Testing deleteScope...\n");
+    insertFirst("c", size, INTEGER, 1);
+    insertFirst("d", size, INTEGER, 3);
+    insertFirst("e", size, INTEGER, 3);
+    insertFirst("f", size, INTEGER, 3);
+    insertFirst("g", size, INTEGER, 3);
+    insertFirst("h", size, INTEGER, 3);
+    printList();
+    deleteScope(3);
+    printList();
     return 0;
 
 }

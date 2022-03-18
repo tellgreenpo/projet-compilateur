@@ -3,6 +3,7 @@
 #include <string.h>
 
 int size = 0;
+int scope = 0;
 Node *head = NULL;
 Node *current = NULL;
 
@@ -39,7 +40,7 @@ int exists(char toGet[MAX_LENGTH_NAME])
     }
 
     // navigate through list
-    while (strcmp(current->name,toGet) != 0)
+    while (strcmp(current->name, toGet) != 0)
     {
 
         // if it is last node
@@ -54,7 +55,7 @@ int exists(char toGet[MAX_LENGTH_NAME])
         }
     }
 
-    //found match
+    // found match
     return 1;
 }
 
@@ -71,7 +72,7 @@ int getAddress(char toGet[MAX_LENGTH_NAME])
     }
 
     // navigate through list
-    while (strcmp(current->name,toGet) != 0)
+    while (strcmp(current->name, toGet) != 0)
     {
 
         // if it is last node
@@ -86,7 +87,7 @@ int getAddress(char toGet[MAX_LENGTH_NAME])
         }
     }
 
-    //found match
+    // found match
     return current->address;
 }
 
@@ -103,7 +104,7 @@ int getDepth(char toGet[MAX_LENGTH_NAME])
     }
 
     // navigate through list
-    while (strcmp(current->name,toGet) != 0)
+    while (strcmp(current->name, toGet) != 0)
     {
 
         // if it is last node
@@ -118,7 +119,7 @@ int getDepth(char toGet[MAX_LENGTH_NAME])
         }
     }
 
-    //found match
+    // found match
     return current->depth;
 }
 
@@ -136,7 +137,7 @@ Node *delete (char toGet[MAX_LENGTH_NAME])
     }
 
     // navigate through list
-    while (strcmp(current->name,toGet) != 0)
+    while (strcmp(current->name, toGet) != 0)
     {
 
         // if it is last node
@@ -166,4 +167,55 @@ Node *delete (char toGet[MAX_LENGTH_NAME])
     }
     size--;
     return current;
+}
+
+void deleteScope(int scopeToDelete)
+{
+    // start from the first link
+    Node *current = head;
+    Node *previous = NULL;
+
+    // if list is empty
+    printf("Entering Delete scope\n");
+    if (head != NULL)
+    {
+        printf("debug 1\n");
+        // navigate through list
+        while (current != NULL)
+        {
+            printf("debug 2\n");
+
+            // Finding a node with the desired scope
+            printf("current name: %s\n",current->name);
+            printf("current depth: %i\n",current->depth);
+            while (current->depth != scopeToDelete)
+            {
+                printf("debug 3\n");
+
+                // store reference to current link
+                previous = current;
+                // move to next link
+                current = current->next;
+            }
+            printf("debug 4\n");
+
+            // found a node with the desired scope
+            if (current == head)
+            {
+                printf("debug 5\n");
+
+                // change first to point to next link
+                head = head->next;
+            }
+            else
+            {
+                printf("debug 6\n");
+
+                // bypass the current link
+                previous->next = current->next;
+                printf("debug 7\n");
+            }
+            size--;
+        }
+    }
 }
