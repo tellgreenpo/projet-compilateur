@@ -10,6 +10,7 @@
 enum t_type
 {
     INTEGER,
+    CONSTINT,
     VOID
 };
 

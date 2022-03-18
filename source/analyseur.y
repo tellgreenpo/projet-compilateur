@@ -1,17 +1,21 @@
  %{
 #include <stdlib.h>
 #include <stdio.h>
+#include "ts.h"
 //int str[26];
 void yyerror(char *s);
+enum TYPE { T_INT, T_CONST_INT } ;
 %}
 %union { int nb; char *str; }
-%token PLUS MINUS MULTIPLY DIVIDE EQUAL INT MAIN RETURN PRINTF
+%token PLUS MINUS MULTIPLY DIVIDE EQUAL MAIN RETURN PRINTF
        CONST EOL DOT COMMA SEMICOLON OPEN_BRACE CLOSE_BRACE
        OPEN_BRACKET CLOSE_BRACKET OPEN_PARENT CLOSE_PARENT
 %token <nb> NUMBER
 %token <str> ALPHA
+%token <str> INT
 %type <nb> value expr divMul
-%type <str> name
+%type <str> name id
+%type <nb> type 
 %start main_structure
 %%
 /*fun : type name OPEN_PARENT params CLOSE_PARENT body ;*/
@@ -31,11 +35,12 @@ args : value COMMA args | value | ;
 params : type name COMMA params | type name | ;
 
 
-declaration : type names SEMICOLON
-              | CONST type names SEMICOLON ;
-affectation : type name EQUAL value SEMICOLON
-              | name EQUAL value SEMICOLON
-              | name EQUAL expr SEMICOLON;
+declaration : type ids SEMICOLON {//getType = $1; printf("type : %s", $1);
+printf("ici");};
+affectation : type id EQUAL value SEMICOLON {if ($1 == T_INT) {insertFirst($2, size, t_type.INTEGER, 0)} 
+                                            else if ($1 == T_CONST_INT) {printf("false\n");}}
+              | id EQUAL value SEMICOLON
+              | id EQUAL expr SEMICOLON;
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
         | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
 
@@ -46,11 +51,14 @@ divMul :	  divMul MULTIPLY value { $$ = $1 * $3; }
 		| divMul DIVIDE value { $$ = $1 / $3; }
 		| value { $$ = $1; } ; 
 
-value : NUMBER { $$ = $1;};
-type : INT | ;
+value : NUMBER;
+type : INT { $$ = T_INT ; } | CONST INT { $$ = T_CONST_INT; } ;
 
-name : ALPHA { $$ = $1; }; 
+name : ALPHA ; 
 names : name COMMA names | name;
+
+id : ALPHA ; 
+ids : id COMMA ids | id; 
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(void) {
