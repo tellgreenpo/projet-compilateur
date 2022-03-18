@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "../include/ts.h"
 
+extern size;
+extern Node *head;
+extern Node *current;
 
 // display the list
 void printList()
@@ -21,7 +24,21 @@ void printList()
 int main(int argc, char *argv[])
 {
     printf("Testing adding...\n");
-    insertFirst("a", size, INT, 0);
+    insertFirst("a", size, INTEGER, 0);
     printList();
+    insertFirst("b", size, INTEGER, 2);
+    printList();
+    printf("Testing deleting a...\n");
+    delete("a");
+    printList();
+    printf("Testing getAdress b...\n");
+    printf("%i\n",getAddress("b"));
+    printf("Testing getDepth b...\n");
+    printf("%i\n",getDepth("b"));
+    printf("Testing exists a...\n");
+    printf("%i\n",exists("b"));
+    printf("%i\n",size);
+
     return 0;
+
 }

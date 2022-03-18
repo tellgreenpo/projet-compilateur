@@ -2,14 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#ifndef TS_H
+#define TS_H
 #define MAX_LENGTH_NAME 20
 #define MAX_LENGTH_LIST 10
 
-int size = 0;
-
 enum t_type
 {
-    INT,
+    INTEGER,
     VOID
 };
 
@@ -21,9 +21,6 @@ typedef struct Node
     int depth;
     struct Node *next;
 } Node;
-
-Node *head = NULL;
-Node *current = NULL;
 
 // Inserts node
 void insertFirst(char newName[MAX_LENGTH_NAME], int newAddress, enum t_type newType, int newDepth);
@@ -37,3 +34,4 @@ int getAddress(char toGet[MAX_LENGTH_NAME]);
 // Returns the depth of a variable, returns NULL if it does not exist
 // Argument : The name
 int getDepth(char toGet[MAX_LENGTH_NAME]);
+#endif
