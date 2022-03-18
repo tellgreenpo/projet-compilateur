@@ -169,6 +169,8 @@ Node *delete (char toGet[MAX_LENGTH_NAME])
     return current;
 }
 
+// TODO - FIX THE DELETESCOPE
+// FIXME - ADVANCE IN THE NODES => MAYBE THE PROBLEMIS THERE
 void deleteScope(int scopeToDelete)
 {
     // start from the first link
