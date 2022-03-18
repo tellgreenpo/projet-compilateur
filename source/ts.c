@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 
+int size = 0;
+Node *head = NULL;
+Node *current = NULL;
+
 void insertFirst(char newName[MAX_LENGTH_NAME], int newAddress, enum t_type newType, int newDepth)
 {
     // create a link
@@ -37,7 +41,7 @@ bool exists(char toGet[MAX_LENGTH_NAME])
     // navigate through list
     while ((current->next != NULL) && (!found))
     {
-        if (current->name == toGet)
+        if (strcmp(current->name,toGet) != 0)
         {
             found = true;
         }
@@ -50,7 +54,7 @@ int getAddress(char toGet[MAX_LENGTH_NAME])
     // start from the first link
     Node *current = head;
     Node *previous = NULL;
-    int toReturn;
+    int toReturn = 0;
 
     // if list is empty
     if (head == NULL)
@@ -61,7 +65,7 @@ int getAddress(char toGet[MAX_LENGTH_NAME])
     // navigate through list
     while ((current->next != NULL) && (!found))
     {
-        if (current->name == toGet)
+        if (strcmp(current->name,toGet) != 0)
         {
             toReturn = current->address;
             found = true;
@@ -75,7 +79,7 @@ int getDepth(char toGet[MAX_LENGTH_NAME])
     // start from the first link
     Node *current = head;
     Node *previous = NULL;
-    int toReturn;
+    int toReturn = 0;
 
     // if list is empty
     if (head == NULL)
@@ -86,7 +90,7 @@ int getDepth(char toGet[MAX_LENGTH_NAME])
     // navigate through list
     while ((current->next != NULL) && (!found))
     {
-        if (current->name == toGet)
+        if (strcmp(current->name,toGet) != 0)
         {
             toReturn = current->depth;
             found = true;
@@ -109,7 +113,7 @@ Node *delete (char toGet[MAX_LENGTH_NAME])
     }
 
     // navigate through list
-    while (current->name != toGet)
+    while (strcmp(current->name,toGet) != 0)
     {
 
         // if it is last node
