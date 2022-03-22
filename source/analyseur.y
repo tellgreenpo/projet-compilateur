@@ -4,6 +4,7 @@
 #include "include/ts.h"
 //int str[26];
 extern int size; 
+int current_depth = 0;
 enum t_type current_type; 
 /*extern Node *head;
 extern Node *current;*/ 
@@ -30,7 +31,13 @@ void yyerror(char *s);
 
 main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body ;
 
-body : OPEN_BRACE insts CLOSE_BRACE ;
+body : OPEN_BRACE insts CLOSE_BRACE {if (current_depth > 0) {
+                                      deleteScope(current_depth);
+                                      current_depth--;
+                                    } else {
+                                      deleteScope(current_depth);
+                                      current_depth = 0;
+                                    }};
 
 insts : inst insts | ;
 inst : declaration
@@ -89,8 +96,8 @@ names : name COMMA names | name;
 
 valueOrVar : value | name;
 
-id : ALPHA {if (current_type == INTEGER) {insertFirst($1, size, INTEGER, 0);} 
-            else if (current_type == CONSTINT) {insertFirst($1, size, CONSTINT, 0);}} ; 
+id : ALPHA {if (current_type == INTEGER) {insertFirst($1, size, INTEGER, current_depth);} 
+            else if (current_type == CONSTINT) {insertFirst($1, size, CONSTINT, current_depth);}} ; 
 ids : id COMMA ids | id ; 
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }

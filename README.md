@@ -8,3 +8,5 @@
 
 ### TODO
 - Ajouter le code assembleur pour affectation
+- Accolade ouvrante => augmenter le scope 
+- Accolade fermante => diminuer le scope

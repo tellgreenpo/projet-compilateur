@@ -179,6 +179,8 @@ void deleteScope(int scopeToDelete)
     Node *current = head;
     Node *previous = NULL;
 
+    printf("Deleting scope... \n");
+
     // navigate through list
     while (current->next!=NULL)
     {
@@ -203,6 +205,6 @@ void deleteScope(int scopeToDelete)
                 size--;
             }
         }
-
     }
+    printf("Scope deleted \n");
 }
