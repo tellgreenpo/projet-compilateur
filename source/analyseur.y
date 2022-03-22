@@ -4,6 +4,7 @@
 #include "include/ts.h"
 //int str[26];
 extern int size; 
+int nb_args = 0; 
 /*extern Node *head;
 extern Node *current;*/ 
 void yyerror(char *s);
@@ -38,12 +39,12 @@ args : value COMMA args | value | ;
 params : type name COMMA params | type name | ;
 
 
-declaration : type ids SEMICOLON {//getType = $1; printf("type : %s", $1);
-printf("ici");};
-affectation : type id EQUAL value SEMICOLON {if ($1 == INTEGER) {insertFirst($2, size, INTEGER, 0);} 
-                                            else if ($1 == CONSTINT) {printf("false\n");}}
-              | id EQUAL value SEMICOLON
-              | id EQUAL expr SEMICOLON;
+declaration : type ids SEMICOLON {if ($1 == INTEGER) {insertFirst($2, size, INTEGER, 0);} 
+                                  else if ($1 == CONSTINT) {insertFirst($2, size, CONSTINT, 0);}
+                                  nb_args ++;};
+affectation : type id EQUAL value SEMICOLON 
+              | name EQUAL value SEMICOLON
+              | name EQUAL expr SEMICOLON;
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
         | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
 
@@ -60,8 +61,8 @@ type : INT { $$ = INTEGER ; } | CONST INT { $$ = CONSTINT; } ;
 name : ALPHA ; 
 names : name COMMA names | name;
 
-id : ALPHA ; 
-ids : id COMMA ids | id; 
+id : ALPHA { $$ = nb_args++; } ; 
+ids : id COMMA ids | id ; 
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(void) {
