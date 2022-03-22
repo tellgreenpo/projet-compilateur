@@ -4,7 +4,7 @@
 #include "include/ts.h"
 //int str[26];
 extern int size; 
-int nb_args = 0; 
+enum t_type current_type; 
 /*extern Node *head;
 extern Node *current;*/ 
 void yyerror(char *s);
@@ -39,29 +39,29 @@ args : value COMMA args | value | ;
 params : type name COMMA params | type name | ;
 
 
-declaration : type ids SEMICOLON {if ($1 == INTEGER) {insertFirst($2, size, INTEGER, 0);} 
-                                  else if ($1 == CONSTINT) {insertFirst($2, size, CONSTINT, 0);}
-                                  nb_args ++;};
+declaration : type ids SEMICOLON ;
 affectation : type id EQUAL value SEMICOLON 
-              | name EQUAL value SEMICOLON
-              | name EQUAL expr SEMICOLON;
+              | name EQUAL value SEMICOLON ;
+              //| name EQUAL expr SEMICOLON ;
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
         | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
 
-expr : expr PLUS divMul { $$ = $1 + $3; }
+/*expr : expr PLUS divMul { printf("res = %i \n", $3); $$ = $1 + $3; }
 		| expr MINUS divMul { $$ = $1 - $3; }
 		| divMul { $$ = $1; } ;
-divMul :	  divMul MULTIPLY value { $$ = $1 * $3; }
+divMul : divMul MULTIPLY value { $$ = $1 * $3; }
 		| divMul DIVIDE value { $$ = $1 / $3; }
-		| value { $$ = $1; } ; 
+		| value ; */
 
-value : NUMBER;
-type : INT { $$ = INTEGER ; } | CONST INT { $$ = CONSTINT; } ;
+value : NUMBER {$$ = $1;};
+type : INT { current_type = INTEGER; $$ = current_type ; } 
+    | CONST INT { current_type = CONSTINT; $$ = current_type ;} ;
 
 name : ALPHA ; 
 names : name COMMA names | name;
 
-id : ALPHA { $$ = nb_args++; } ; 
+id : ALPHA {if (current_type == INTEGER) {insertFirst($1, size, INTEGER, 0);} 
+            else if (current_type == CONSTINT) {insertFirst($1, size, CONSTINT, 0);}} ; 
 ids : id COMMA ids | id ; 
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
