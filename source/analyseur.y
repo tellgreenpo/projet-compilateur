@@ -4,8 +4,8 @@
 #include "include/ts.h"
 //int str[26];
 extern int size; 
-extern Node *head;
-extern Node *current;
+/*extern Node *head;
+extern Node *current;*/ 
 void yyerror(char *s);
 //enum TYPE { T_INT, T_CONST_INT } ;
 %}

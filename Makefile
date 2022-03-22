@@ -5,11 +5,14 @@ BIN=analyseur
 CC=gcc
 CFLAGS=-Wall -g
 
-OBJ=y.tab.o lex.yy.o 
+OBJ=y.tab.o lex.yy.o ts.o
 
 all: $(BIN)
 
 %.o: %.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+ts.o: source/ts.c
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 y.tab.c: $(GRM)
