@@ -154,7 +154,11 @@ Node *delete (char toGet[MAX_LENGTH_NAME])
         }
     }
 
-    // found a match, update the link
+    // found a match, update the link    // if list is empty
+    if (head == NULL)
+    {
+        return NULL;
+    }
     if (current == head)
     {
         // change first to point to next link
@@ -175,47 +179,30 @@ void deleteScope(int scopeToDelete)
     Node *current = head;
     Node *previous = NULL;
 
-    // if list is empty
-    printf("Entering Delete scope\n");
-    if (head != NULL)
+    // navigate through list
+    while (current->next!=NULL)
     {
-        printf("debug 1\n");
-        // navigate through list
-        while (current != NULL)
+
+        // store reference to current link
+        previous = current;
+        // move to next link
+        current = current->next;
+        if(previous->depth == scopeToDelete)
         {
-            printf("debug 2\n");
-
-            // Finding a node with the desired scope
-            printf("current name: %s\n",current->name);
-            printf("current depth: %i\n",current->depth);
-            while (current->depth != scopeToDelete)
+            // found a match, update the link
+            if (previous == head)
             {
-                printf("debug 3\n");
-
-                // store reference to current link
-                previous = current;
-                // move to next link
-                current = current->next;
-            }
-            printf("debug 4\n");
-
-            // found a node with the desired scope
-            if (current == head)
-            {
-                printf("debug 5\n");
-
                 // change first to point to next link
                 head = head->next;
+                size--;
             }
             else
             {
-                printf("debug 6\n");
-
                 // bypass the current link
                 previous->next = current->next;
-                printf("debug 7\n");
+                size--;
             }
-            size--;
         }
+
     }
 }
