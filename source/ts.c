@@ -180,14 +180,14 @@ void deleteScope(int scopeToDelete)
     Node *previous = NULL;
 
     // navigate through list
-    while (current->next!=NULL)
+    while (current->next != NULL)
     {
 
         // store reference to current link
         previous = current;
         // move to next link
         current = current->next;
-        if(previous->depth == scopeToDelete)
+        if (previous->depth == scopeToDelete)
         {
             // found a match, update the link
             if (previous == head)
@@ -203,6 +203,5 @@ void deleteScope(int scopeToDelete)
                 size--;
             }
         }
-
     }
 }
