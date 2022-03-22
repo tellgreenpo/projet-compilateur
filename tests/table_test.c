@@ -15,7 +15,7 @@ void printList()
     // start from the beginning
     while (ptr != NULL)
     {
-        printf("(%s,%d) ", ptr->name, ptr->address);
+        printf("(%s,%d) ", ptr->name, ptr->depth);
         ptr = ptr->next;
     }
 
