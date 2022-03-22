@@ -2,6 +2,9 @@
 ## Sujet: Creation compilateur
 
 
-AVANT TP2 : 
-  - rajouter nom de variables dans le LEX
-  - regarder quelques règles
+### Derniere modifications
+- Ajout de fonctions pour la table de symboles
+- Utilisation des variables definies dans le fichier ts.c dans le fichier yacc
+
+### TODO
+- Ajouter le code assembleur pour affectation
