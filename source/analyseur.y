@@ -46,12 +46,12 @@ affectation : type id EQUAL value SEMICOLON
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
         | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
 
-/*expr : expr PLUS divMul { printf("res = %i \n", $3); $$ = $1 + $3; }
+expr : expr PLUS divMul { printf("res = %i \n", $3); $$ = $1 + $3; }
 		| expr MINUS divMul { $$ = $1 - $3; }
 		| divMul { $$ = $1; } ;
 divMul : divMul MULTIPLY value { $$ = $1 * $3; }
 		| divMul DIVIDE value { $$ = $1 / $3; }
-		| value ; */
+		| value ; 
 
 value : NUMBER {$$ = $1;};
 type : INT { current_type = INTEGER; $$ = current_type ; } 
