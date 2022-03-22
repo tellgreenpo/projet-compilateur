@@ -13,7 +13,8 @@ void yyerror(char *s);
 %union { int nb; char *str; }
 %token MAIN RETURN PRINTF CONST EOL DOT COMMA SEMICOLON 
        OPEN_BRACE CLOSE_BRACE OPEN_BRACKET CLOSE_BRACKET 
-       OPEN_PARENT CLOSE_PARENT
+       OPEN_PARENT CLOSE_PARENT IF ELSE WHILE
+       EXCLAM EQUALITY DIFF LESS MORE LESS_EQ MORE_EQ
 %token <nb> NUMBER
 %token <str> ALPHA
 %token <str> INT
@@ -35,6 +36,8 @@ insts : inst insts | ;
 inst : declaration
       | affectation
       | print
+      | ifBlock
+      | whileBlock
       | RETURN value SEMICOLON
       | RETURN name SEMICOLON;
 
@@ -45,8 +48,22 @@ declaration : type ids SEMICOLON ;
 affectation : type id EQUAL value SEMICOLON 
               | name EQUAL value SEMICOLON ;
               //| name EQUAL expr SEMICOLON ;
+
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
         | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
+
+ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body 
+        | ELSE IF OPEN_PARENT condition CLOSE_PARENT body 
+        | ELSE body;
+
+whileBlock : WHILE OPEN_PARENT condition CLOSE_PARENT body;
+
+condition : valueOrVar
+          | unaryOperand valueOrVar
+          | valueOrVar binaryOperand valueOrVar;
+
+binaryOperand : LESS | LESS_EQ | MORE | MORE_EQ | EQUALITY | DIFF;
+unaryOperand: EXCLAM;
 
 /*expr : expr PLUS divMul { printf("res = %i \n", $3); $$ = $1 + $3; }
 		| expr MINUS divMul { $$ = $1 - $3; }
@@ -69,6 +86,8 @@ type : INT { current_type = INTEGER; $$ = current_type ; }
 
 name : ALPHA ; 
 names : name COMMA names | name;
+
+valueOrVar : value | name;
 
 id : ALPHA {if (current_type == INTEGER) {insertFirst($1, size, INTEGER, 0);} 
             else if (current_type == CONSTINT) {insertFirst($1, size, CONSTINT, 0);}} ; 

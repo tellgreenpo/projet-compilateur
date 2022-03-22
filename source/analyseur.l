@@ -26,6 +26,16 @@
 "}" {return CLOSE_BRACE;}
 "[" {return OPEN_BRACKET;}
 "]" {return CLOSE_BRACKET;}
+"==" {return EQUALITY;}
+"!=" {return DIFF;}
+"<" {return LESS;}
+">" {return MORE;}
+"<=" {return LESS_EQ;}
+">=" {return MORE_EQ;}
+"!" {return EXCLAM;}
+"if" {return IF;}
+"else" {return ELSE;}
+"while" {return WHILE;}
 "return" {return RETURN;}
 "main" {return MAIN;}
 "printf" {return PRINTF;}
