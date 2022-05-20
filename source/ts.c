@@ -182,14 +182,14 @@ void deleteScope(int scopeToDelete)
     printf("Deleting scope... \n");
 
     // navigate through list
-    while (current->next!=NULL)
+    while (current->next != NULL)
     {
 
         // store reference to current link
         previous = current;
         // move to next link
         current = current->next;
-        if(previous->depth == scopeToDelete)
+        if (previous->depth == scopeToDelete)
         {
             // found a match, update the link
             if (previous == head)
