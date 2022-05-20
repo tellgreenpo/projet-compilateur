@@ -2,11 +2,13 @@
 ## Sujet: Creation compilateur
 
 
-### Derniere modifications
-- Ajout de fonctions pour la table de symboles
-- Utilisation des variables definies dans le fichier ts.c dans le fichier yacc
+### Compilation process:
+- lex -> lex.yy.c
+- yacc -> y.tab.c
+- gcc y.tab.c  lex.yy.c -ll -o name_exec
 
-### TODO
-- Ajouter le code assembleur pour affectation
-- Accolade ouvrante => augmenter le scope 
-- Accolade fermante => diminuer le scope
+### Process
+- Parse
+- Call  C functions
+- Generate interpretable and binary files
+- execute binary file

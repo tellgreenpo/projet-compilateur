@@ -17,7 +17,7 @@ enum ASM_CODES{
 };
 
 // Adds ASM readable instruction to output file
-int add_ASM_file(int code,int result,int operand1, int operand2);
+int add_ASM_file(enum ASM_CODES code,int result,int operand1, int operand2);
 
 // Addition operation and calls add_ASM_file
 void add(int result,int operand1,int operand2);
@@ -32,16 +32,16 @@ void multiply(int result,int operand1,int operand2);
 void divide(int result,int operand1,int operand2);
 
 // Copy operation and calls add_ASM_file
-void copy(int result,int operand1, int operand2);
+void copy(int result,int operand);
 
 // Affectation operation and calls add_ASM_file
-void affectation(int result,int operand1, int operand2);
+void affectation(int result,int value);
 
 // Jump if true operation and calls add_ASM_file
-void jump(int result,int operand1, int operand2);
+void jump(int instructionNumber);
 
 // Jump if false operation and calls add_ASM_file
-void jump_false(int result,int operand1, int operand2);
+void jump_false(int instructionNumber);
 
 // Inferior comparison  operation and calls add_ASM_file
 void inferior(int result,int operand1, int operand2);
@@ -53,7 +53,7 @@ void superior(int result,int operand1, int operand2);
 void is_equal(int result,int operand1, int operand2);
 
 // print operation and calls add_ASM_file
-void print(int result,int operand1, int operand2);
+void print(int result);
 
 
 
