@@ -1,6 +1,6 @@
 *.o
-y.tab.h
-y.tab.c
+*.tab.h
+*.tab.c
 lex.yy.c
 compilator
 lexer

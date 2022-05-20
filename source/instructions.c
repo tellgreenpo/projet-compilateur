@@ -16,7 +16,6 @@ int add_ASM_file(enum ASM_CODES code,int result,int operand1, int operand2)
     fclose(codeFile);
 }
 
-// TODO - Modify the functions to add them
 void add(int result,int operand1,int operand2)
 {
     add_ASM_file(ADD,result,operand1,operand2);
