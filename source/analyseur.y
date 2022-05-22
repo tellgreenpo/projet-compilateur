@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "include/ts.h"
+#include "include/instructions.c"
 //int str[26];
 extern int size; 
 int current_depth = 0;
@@ -17,6 +18,7 @@ void yyerror(char *s);
        OPEN_PARENT CLOSE_PARENT IF ELSE WHILE
        EXCLAM EQUALITY DIFF LESS MORE LESS_EQ MORE_EQ
 %token <nb> NUMBER
+%token <nb> EXPON
 %token <str> ALPHA
 %token <str> INT
 %type <nb> value expr divMul
@@ -31,7 +33,7 @@ void yyerror(char *s);
 
 main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body ;
 
-body : OPEN_BRACE insts CLOSE_BRACE {if (current_depth > 0) {
+body : OPEN_BRACE declarations insts CLOSE_BRACE {if (current_depth > 0) {
                                       deleteScope(current_depth);
                                       current_depth--;
                                     } else {
@@ -40,30 +42,33 @@ body : OPEN_BRACE insts CLOSE_BRACE {if (current_depth > 0) {
                                     }};
 
 insts : inst insts | ;
-inst : declaration
-      | affectation
+inst : affectation
       | print
       | ifBlock
       | whileBlock
-      | RETURN value SEMICOLON
+      | RETURN value SEMICOLON {affectation(0,$2);}
       | RETURN name SEMICOLON;
 
 args : value COMMA args | value | ;
 params : type name COMMA params | type name | ;
 
-declaration : type ids SEMICOLON ;
-affectation : type id EQUAL value SEMICOLON 
-              | name EQUAL value SEMICOLON ;
+declaration : type ids SEMICOLON | type id EQUAL value SEMICOLON ;
+declarations : declaration declarations | declaration;
+affectation : name EQUAL value SEMICOLON ;
               //| name EQUAL expr SEMICOLON ;
 
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
         | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
 
-ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body 
-        | ELSE IF OPEN_PARENT condition CLOSE_PARENT body 
-        | ELSE body;
+ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body {// augmenter scope 
+          }
+        | ELSE IF OPEN_PARENT condition CLOSE_PARENT body {// current scope 
+          }
+        | ELSE body {// current scope 
+          };
 
-whileBlock : WHILE OPEN_PARENT condition CLOSE_PARENT body;
+whileBlock : WHILE OPEN_PARENT condition CLOSE_PARENT body {// augmenter scope 
+          };
 
 condition : valueOrVar
           | unaryOperand valueOrVar
@@ -87,7 +92,7 @@ expr : expr EQUAL expr
 | name
 | value;
 
-value : NUMBER {$$ = $1;};
+value : NUMBER {$$ = $1;} | EXPON {$$ = $1};
 type : INT { current_type = INTEGER; $$ = current_type ; } 
     | CONST INT { current_type = CONSTINT; $$ = current_type ;} ;
 
