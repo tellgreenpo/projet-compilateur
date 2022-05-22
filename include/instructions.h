@@ -13,7 +13,9 @@ enum ASM_CODES{
     INF = '9',
     SUP = 'A',
     EQU = 'B',
-    PRI = 'C'
+    PRI = 'C',
+    LOA = 'D',
+    STR = 'E'
 };
 
 // Adds ASM readable instruction to output file
@@ -36,6 +38,12 @@ void copy(int result,int operand);
 
 // Affectation operation and calls add_ASM_file
 void affectation(int result,int value);
+
+// Load operation and calls add_ASM_file
+void load(int result,int value);
+
+// Store operation and calls add_ASM_file
+void store(int result,int value);
 
 // Jump if true operation and calls add_ASM_file
 void jump(int instructionNumber);
