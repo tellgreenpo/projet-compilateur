@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "include/ts.h"
-#include "include/instructions.c"
+#include "include/instructions.h"
 //int str[26];
 extern int size; 
 int current_depth = 0;
@@ -31,7 +31,7 @@ void yyerror(char *s);
 %%
 /*fun : type name OPEN_PARENT params CLOSE_PARENT body ;*/
 
-main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body ;
+main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body ; // TODO - automatiser suppression *.txt
 
 body : OPEN_BRACE declarations insts CLOSE_BRACE {if (current_depth > 0) {
                                       deleteScope(current_depth);
@@ -47,7 +47,14 @@ inst : affectation
       | ifBlock
       | whileBlock
       | RETURN value SEMICOLON {affectation(0,$2);}
-      | RETURN name SEMICOLON;
+      | RETURN name SEMICOLON {
+        int e = exists($2);
+        if (e) {
+          int add = getAddress($2);
+          load(0,add);
+        } 
+        // else erreur
+      };
 
 args : value COMMA args | value | ;
 params : type name COMMA params | type name | ;
@@ -60,7 +67,13 @@ affectation : name EQUAL value SEMICOLON ;
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
         | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
 
-ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body {// augmenter scope 
+ifBlock :
+/*expr : expr PLUS divMul { printf("res = %i \n", $3); $$ = $1 + $3; }
+		| expr MINUS divMul { $$ = $1 - $3; }
+		| divMul { $$ = $1; } ;
+divMul : divMul MULTIPLY value { $$ = $1 * $3; }
+		| divMul DIVIDE value { $$ = $1 / $3; }
+		| value ; */ IF OPEN_PARENT condition CLOSE_PARENT body {// augmenter scope 
           }
         | ELSE IF OPEN_PARENT condition CLOSE_PARENT body {// current scope 
           }
@@ -77,13 +90,6 @@ condition : valueOrVar
 binaryOperand : LESS | LESS_EQ | MORE | MORE_EQ | EQUALITY | DIFF;
 unaryOperand: EXCLAM;
 
-/*expr : expr PLUS divMul { printf("res = %i \n", $3); $$ = $1 + $3; }
-		| expr MINUS divMul { $$ = $1 - $3; }
-		| divMul { $$ = $1; } ;
-divMul : divMul MULTIPLY value { $$ = $1 * $3; }
-		| divMul DIVIDE value { $$ = $1 / $3; }
-		| value ; */
-
 expr : expr EQUAL expr
 | expr PLUS expr
 | expr MINUS expr
@@ -92,7 +98,7 @@ expr : expr EQUAL expr
 | name
 | value;
 
-value : NUMBER {$$ = $1;} | EXPON {$$ = $1};
+value : NUMBER {$$ = $1;} | EXPON {$$ = $1;};
 type : INT { current_type = INTEGER; $$ = current_type ; } 
     | CONST INT { current_type = CONSTINT; $$ = current_type ;} ;
 

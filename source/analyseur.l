@@ -40,7 +40,7 @@
 "main" {return MAIN;}
 "printf" {return PRINTF;}
 "10e"[-?0-9]+ {yylval.nb = atoi(yytext);
-        return EXPON}
+        return EXPON;}
 [0-9]+ {yylval.nb = atoi(yytext);
         return NUMBER;}
 [A-Za-z]+ {yylval.str = strdup(yytext);
