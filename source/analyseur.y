@@ -75,15 +75,13 @@ print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON { affectation(15, value)
                                                           print(15); 
                                                         };
 
-ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body {// augmenter scope 
-          }
-        | ELSE IF OPEN_PARENT condition CLOSE_PARENT body {// current scope 
-          }
-        | ELSE body {// current scope 
-          };
 
-whileBlock : WHILE OPEN_PARENT condition CLOSE_PARENT body {// augmenter scope 
-          };
+// TODO - Mateo fait l'asm
+ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body
+        | ELSE IF OPEN_PARENT condition CLOSE_PARENT body
+        | ELSE body;
+
+whileBlock : WHILE OPEN_PARENT condition CLOSE_PARENT body;
 
 condition : valueOrVar
           | unaryOperand valueOrVar
