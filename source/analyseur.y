@@ -6,6 +6,7 @@
 //int str[26];
 extern int size; 
 int current_depth = 0;
+bool calcul = 0; 
 enum t_type current_type; 
 /*extern Node *head;
 extern Node *current;*/ 
@@ -29,7 +30,11 @@ void yyerror(char *s);
 %left MULTIPLY DIVIDE
 %start main_structure
 %%
-/*fun : type name OPEN_PARENT params CLOSE_PARENT body ;*/
+
+// 0 : return
+// 11-13 : opérations (13 resultat op, 11 premier terme, 12 deuxieme terme)
+// 14 : affectations
+// 15 : print
 
 main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body ; // TODO - automatiser suppression *.txt
 
@@ -90,20 +95,55 @@ condition : valueOrVar
 binaryOperand : LESS | LESS_EQ | MORE | MORE_EQ | EQUALITY | DIFF;
 unaryOperand: EXCLAM;
 
-expr : expr EQUAL expr
-| expr PLUS expr
-| expr MINUS expr
-| expr MULTIPLY expr
-| expr DIVIDE expr
-| name
-| value;
+resultat :  name EQUAL expr {
+                        int e = exists($1);
+                        if (e) {
+                          int add = getAddress($1);
+                          affectation(13,$3);
+                          store(add, 13);
+                        } 
+                        // else erreur, la variable n'existe pas 
+                        } ;
+expr : expr PLUS expr {
+  plus(13, 11, 12);
+}
+| expr MINUS expr {
+  minus(13, 11, 12);
+}
+| expr MULTIPLY expr {
+  multiply(13, 11, 12);
+}
+| expr DIVIDE expr {
+  divide(13, 11, 12);
+}
+| name { 
+      int e = exists($1);
+      if (e) {
+        int add = getAddress($1);
+        if (calcul == 0 ) {
+          calcul = 1; 
+          load(11,add); 
+        } else {
+          calcul = 0;
+          load(12,add);
+        }
+      } 
+      // else erreur, la variable n'existe pas 
+}
+| value {
+  if (calcul == 0 ) {
+    calcul = 1; 
+    affectation(11,$1);
+  } else {
+    calcul = 0;
+    affectation(12,$1);
+  }};
 
 value : NUMBER {$$ = $1;} | EXPON {$$ = $1;};
 type : INT { current_type = INTEGER; $$ = current_type ; } 
     | CONST INT { current_type = CONSTINT; $$ = current_type ;} ;
 
 name : ALPHA ; 
-names : name COMMA names | name;
 
 valueOrVar : value | name;
 
