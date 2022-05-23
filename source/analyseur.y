@@ -33,7 +33,7 @@ void yyerror(char *s);
 
 main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body ; // TODO - automatiser suppression *.txt
 
-body : OPEN_BRACE declarations insts CLOSE_BRACE {if (current_depth > 0) {
+body : OPEN_BRACE {current_depth++;} declarations insts CLOSE_BRACE {if (current_depth > 0) {
                                       deleteScope(current_depth);
                                       current_depth--;
                                     } else {
@@ -53,27 +53,29 @@ inst : affectation
           int add = getAddress($2);
           load(0,add);
         } 
-        // else erreur
+        // else erreur, la variable n'existe pas 
       };
 
-args : value COMMA args | value | ;
+args : value COMMA args | value | ; // TODO - comment on gere les arguments dans la table des symboles ??
 params : type name COMMA params | type name | ;
 
 declaration : type ids SEMICOLON | type id EQUAL value SEMICOLON ;
 declarations : declaration declarations | declaration;
-affectation : name EQUAL value SEMICOLON ;
-              //| name EQUAL expr SEMICOLON ;
+affectation : name EQUAL value SEMICOLON {
+                                          int e = exists($2);
+                                          if (e) {
+                                            int add = getAddress($1);
+                                            affectation(14,$3);
+                                            store(add, 14);
+                                          } 
+                                          // else erreur, la variable n'existe pas 
+                                         } ;
 
-print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
-        | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON;
+print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON { affectation(15, value);
+                                                          print(15); 
+                                                        };
 
-ifBlock :
-/*expr : expr PLUS divMul { printf("res = %i \n", $3); $$ = $1 + $3; }
-		| expr MINUS divMul { $$ = $1 - $3; }
-		| divMul { $$ = $1; } ;
-divMul : divMul MULTIPLY value { $$ = $1 * $3; }
-		| divMul DIVIDE value { $$ = $1 / $3; }
-		| value ; */ IF OPEN_PARENT condition CLOSE_PARENT body {// augmenter scope 
+ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body {// augmenter scope 
           }
         | ELSE IF OPEN_PARENT condition CLOSE_PARENT body {// current scope 
           }
