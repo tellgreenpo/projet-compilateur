@@ -33,23 +33,28 @@ void add_JMF(int lineNumber)
     jumpStack = link;
 }
 
+
 int pop_while()
 {
-    if (whileStack = NULL)
+    Node * aux = malloc(sizeof(Node));
+    aux = whileStack;
+
+    if (whileStack == NULL)
     {
         printf("Poping nothing in while stack bruv!\n");
         return -1;
     };
-    int line = whileStack->lineNumber;
-    Node *aux = whileStack;
-    whileStack = whileStack->next;
+
+
+    int alpha = aux->lineNumber;
+    whileStack = aux->next;
     free(aux);
-    return line;
+
 }
 
 int pop_JMF()
 {
-    if (jumpStack = NULL)
+    if (jumpStack == NULL)
     {
         printf("Poping nothing in jump stack bruv!\n");
         return -1;

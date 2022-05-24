@@ -1,10 +1,10 @@
-Non-terminaux inutiles dans la grammaire
+Nonterminals useless in grammar
 
     args
     term
 
 
-Règles inutiles dans la grammaire
+Rules useless in grammar
 
    89 args: value COMMA args
    90     | value
@@ -14,41 +14,41 @@ Règles inutiles dans la grammaire
    93     | name
 
 
-Règles inutiles dans l'analyseur à cause de conflits
+Rules useless in parser due to conflicts
 
    78 divMul: OPEN_PARENT arithmExpr CLOSE_PARENT
 
 
-État 66 conflits: 4 décalage/réduction
-État 67 conflits: 4 décalage/réduction
-État 108 conflits: 6 réduction/réduction
-État 110 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 111 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 113 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 114 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 116 conflits: 6 réduction/réduction
-État 117 conflits: 6 réduction/réduction
-État 119 conflits: 6 réduction/réduction
-État 120 conflits: 6 réduction/réduction
-État 122 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 123 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 125 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 126 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 128 conflits: 6 réduction/réduction
-État 129 conflits: 6 réduction/réduction
-État 131 conflits: 6 réduction/réduction
-État 132 conflits: 6 réduction/réduction
-État 134 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 135 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 137 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 138 conflits: 2 décalage/réduction, 4 réduction/réduction
-État 140 conflits: 6 réduction/réduction
-État 141 conflits: 6 réduction/réduction
-État 143 conflits: 6 réduction/réduction
-État 144 conflits: 6 réduction/réduction
+State 66 conflicts: 4 shift/reduce
+State 67 conflicts: 4 shift/reduce
+State 108 conflicts: 6 reduce/reduce
+State 110 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 111 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 113 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 114 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 116 conflicts: 6 reduce/reduce
+State 117 conflicts: 6 reduce/reduce
+State 119 conflicts: 6 reduce/reduce
+State 120 conflicts: 6 reduce/reduce
+State 122 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 123 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 125 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 126 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 128 conflicts: 6 reduce/reduce
+State 129 conflicts: 6 reduce/reduce
+State 131 conflicts: 6 reduce/reduce
+State 132 conflicts: 6 reduce/reduce
+State 134 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 135 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 137 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 138 conflicts: 2 shift/reduce, 4 reduce/reduce
+State 140 conflicts: 6 reduce/reduce
+State 141 conflicts: 6 reduce/reduce
+State 143 conflicts: 6 reduce/reduce
+State 144 conflicts: 6 reduce/reduce
 
 
-Grammaire
+Grammar
 
     0 $accept: main_structure $end
 
@@ -163,7 +163,7 @@ Grammaire
    88    | id
 
 
-Terminaux, suivis des règles où ils apparaissent
+Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
@@ -198,693 +198,693 @@ Terminaux, suivis des règles où ils apparaissent
     DIVIDE (286) 69 70 71 72 73 74 75 76 77
 
 
-Non-terminaux, suivis des règles où ils apparaissent
+Nonterminals, with rules where they appear
 
     $accept (32)
-        à gauche: 0
+        on left: 0
     main_structure (33)
-        à gauche: 1
-        à droite: 0
+        on left: 1
+        on right: 0
     body (34)
-        à gauche: 3
-        à droite: 1 21 22 23 24
+        on left: 3
+        on right: 1 21 22 23 24
     $@1 (35)
-        à gauche: 2
-        à droite: 3
+        on left: 2
+        on right: 3
     insts (36)
-        à gauche: 4 5
-        à droite: 3 4
+        on left: 4 5
+        on right: 3 4
     inst (37)
-        à gauche: 6 7 8 9 10 11
-        à droite: 4
+        on left: 6 7 8 9 10 11
+        on right: 4
     params (38)
-        à gauche: 12 13 14
-        à droite: 1 12
+        on left: 12 13 14
+        on right: 1 12
     declaration (39)
-        à gauche: 15 16
-        à droite: 17 18
+        on left: 15 16
+        on right: 17 18
     declarations (40)
-        à gauche: 17 18
-        à droite: 3 17
+        on left: 17 18
+        on right: 3 17
     affectation (41)
-        à gauche: 19
-        à droite: 6
+        on left: 19
+        on right: 6
     print (42)
-        à gauche: 20
-        à droite: 7
+        on left: 20
+        on right: 7
     ifBlock (43)
-        à gauche: 21 22 23
-        à droite: 8
+        on left: 21 22 23
+        on right: 8
     whileBlock (44)
-        à gauche: 24
-        à droite: 9
+        on left: 24
+        on right: 9
     condition (45)
-        à gauche: 25 26 27 28 29 30 31 32
-        à droite: 21 22 24
+        on left: 25 26 27 28 29 30 31 32
+        on right: 21 22 24
     binaryOperand (46)
-        à gauche: 33 34 35 36 37 38
-        à droite: 29 30 31 32
+        on left: 33 34 35 36 37 38
+        on right: 29 30 31 32
     unaryOperand (47)
-        à gauche: 39
-        à droite: 27 28
+        on left: 39
+        on right: 27 28
     arithmExpr <nb> (48)
-        à gauche: 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
-        à droite: 19 44 45 46 47 48 53 54 55 56 57 58 64 65 66 67 68 73 74 75 76 77 78
+        on left: 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
+        on right: 19 44 45 46 47 48 53 54 55 56 57 58 64 65 66 67 68 73 74 75 76 77 78
     divMul <nb> (49)
-        à gauche: 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
-        à droite: 59
+        on left: 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+        on right: 59
     value <nb> (50)
-        à gauche: 81 82
-        à droite: 10 16 20 25 27 29 30 31 40 41 42 44 46 49 50 51 53 55 60 61 62 64 66 69 70 71 73 75 79
+        on left: 81 82
+        on right: 10 16 20 25 27 29 30 31 40 41 42 44 46 49 50 51 53 55 60 61 62 64 66 69 70 71 73 75 79
     type <nb> (51)
-        à gauche: 83 84
-        à droite: 1 12 13 15 16
+        on left: 83 84
+        on right: 1 12 13 15 16
     name <str> (52)
-        à gauche: 85
-        à droite: 11 12 13 19 26 28 30 31 32 41 42 43 45 47 50 51 52 54 56 61 62 63 65 67 70 71 72 74 76 80
+        on left: 85
+        on right: 11 12 13 19 26 28 30 31 32 41 42 43 45 47 50 51 52 54 56 61 62 63 65 67 70 71 72 74 76 80
     id <str> (53)
-        à gauche: 86
-        à droite: 16 87 88
+        on left: 86
+        on right: 16 87 88
     ids (54)
-        à gauche: 87 88
-        à droite: 15 87
+        on left: 87 88
+        on right: 15 87
 
 
-État 0
+State 0
 
     0 $accept: . main_structure $end
 
-    CONST  décalage et aller à l'état 1
-    INT    décalage et aller à l'état 2
+    CONST  shift, and go to state 1
+    INT    shift, and go to state 2
 
-    main_structure  aller à l'état 3
-    type            aller à l'état 4
+    main_structure  go to state 3
+    type            go to state 4
 
 
-État 1
+State 1
 
    84 type: CONST . INT
 
-    INT  décalage et aller à l'état 5
+    INT  shift, and go to state 5
 
 
-État 2
+State 2
 
    83 type: INT .
 
-    $défaut  réduction par utilisation de la règle 83 (type)
+    $default  reduce using rule 83 (type)
 
 
-État 3
+State 3
 
     0 $accept: main_structure . $end
 
-    $end  décalage et aller à l'état 6
+    $end  shift, and go to state 6
 
 
-État 4
+State 4
 
     1 main_structure: type . MAIN OPEN_PARENT params CLOSE_PARENT body
 
-    MAIN  décalage et aller à l'état 7
+    MAIN  shift, and go to state 7
 
 
-État 5
+State 5
 
    84 type: CONST INT .
 
-    $défaut  réduction par utilisation de la règle 84 (type)
+    $default  reduce using rule 84 (type)
 
 
-État 6
+State 6
 
     0 $accept: main_structure $end .
 
-    $défaut  accepter
+    $default  accept
 
 
-État 7
+State 7
 
     1 main_structure: type MAIN . OPEN_PARENT params CLOSE_PARENT body
 
-    OPEN_PARENT  décalage et aller à l'état 8
+    OPEN_PARENT  shift, and go to state 8
 
 
-État 8
+State 8
 
     1 main_structure: type MAIN OPEN_PARENT . params CLOSE_PARENT body
 
-    CONST  décalage et aller à l'état 1
-    INT    décalage et aller à l'état 2
+    CONST  shift, and go to state 1
+    INT    shift, and go to state 2
 
-    $défaut  réduction par utilisation de la règle 14 (params)
+    $default  reduce using rule 14 (params)
 
-    params  aller à l'état 9
-    type    aller à l'état 10
+    params  go to state 9
+    type    go to state 10
 
 
-État 9
+State 9
 
     1 main_structure: type MAIN OPEN_PARENT params . CLOSE_PARENT body
 
-    CLOSE_PARENT  décalage et aller à l'état 11
+    CLOSE_PARENT  shift, and go to state 11
 
 
-État 10
+State 10
 
    12 params: type . name COMMA params
    13       | type . name
 
-    ALPHA  décalage et aller à l'état 12
+    ALPHA  shift, and go to state 12
 
-    name  aller à l'état 13
+    name  go to state 13
 
 
-État 11
+State 11
 
     1 main_structure: type MAIN OPEN_PARENT params CLOSE_PARENT . body
 
-    OPEN_BRACE  décalage et aller à l'état 14
+    OPEN_BRACE  shift, and go to state 14
 
-    body  aller à l'état 15
+    body  go to state 15
 
 
-État 12
+State 12
 
    85 name: ALPHA .
 
-    $défaut  réduction par utilisation de la règle 85 (name)
+    $default  reduce using rule 85 (name)
 
 
-État 13
+State 13
 
    12 params: type name . COMMA params
    13       | type name .
 
-    COMMA  décalage et aller à l'état 16
+    COMMA  shift, and go to state 16
 
-    $défaut  réduction par utilisation de la règle 13 (params)
+    $default  reduce using rule 13 (params)
 
 
-État 14
+State 14
 
     3 body: OPEN_BRACE . $@1 declarations insts CLOSE_BRACE
 
-    $défaut  réduction par utilisation de la règle 2 ($@1)
+    $default  reduce using rule 2 ($@1)
 
-    $@1  aller à l'état 17
+    $@1  go to state 17
 
 
-État 15
+State 15
 
     1 main_structure: type MAIN OPEN_PARENT params CLOSE_PARENT body .
 
-    $défaut  réduction par utilisation de la règle 1 (main_structure)
+    $default  reduce using rule 1 (main_structure)
 
 
-État 16
+State 16
 
    12 params: type name COMMA . params
 
-    CONST  décalage et aller à l'état 1
-    INT    décalage et aller à l'état 2
+    CONST  shift, and go to state 1
+    INT    shift, and go to state 2
 
-    $défaut  réduction par utilisation de la règle 14 (params)
+    $default  reduce using rule 14 (params)
 
-    params  aller à l'état 18
-    type    aller à l'état 10
+    params  go to state 18
+    type    go to state 10
 
 
-État 17
+State 17
 
     3 body: OPEN_BRACE $@1 . declarations insts CLOSE_BRACE
 
-    CONST  décalage et aller à l'état 1
-    INT    décalage et aller à l'état 2
+    CONST  shift, and go to state 1
+    INT    shift, and go to state 2
 
-    declaration   aller à l'état 19
-    declarations  aller à l'état 20
-    type          aller à l'état 21
+    declaration   go to state 19
+    declarations  go to state 20
+    type          go to state 21
 
 
-État 18
+State 18
 
    12 params: type name COMMA params .
 
-    $défaut  réduction par utilisation de la règle 12 (params)
+    $default  reduce using rule 12 (params)
 
 
-État 19
+State 19
 
    17 declarations: declaration . declarations
    18             | declaration .
 
-    CONST  décalage et aller à l'état 1
-    INT    décalage et aller à l'état 2
+    CONST  shift, and go to state 1
+    INT    shift, and go to state 2
 
-    $défaut  réduction par utilisation de la règle 18 (declarations)
+    $default  reduce using rule 18 (declarations)
 
-    declaration   aller à l'état 19
-    declarations  aller à l'état 22
-    type          aller à l'état 21
+    declaration   go to state 19
+    declarations  go to state 22
+    type          go to state 21
 
 
-État 20
+State 20
 
     3 body: OPEN_BRACE $@1 declarations . insts CLOSE_BRACE
 
-    RETURN  décalage et aller à l'état 23
-    PRINTF  décalage et aller à l'état 24
-    IF      décalage et aller à l'état 25
-    ELSE    décalage et aller à l'état 26
-    WHILE   décalage et aller à l'état 27
-    ALPHA   décalage et aller à l'état 12
+    RETURN  shift, and go to state 23
+    PRINTF  shift, and go to state 24
+    IF      shift, and go to state 25
+    ELSE    shift, and go to state 26
+    WHILE   shift, and go to state 27
+    ALPHA   shift, and go to state 12
 
-    $défaut  réduction par utilisation de la règle 5 (insts)
+    $default  reduce using rule 5 (insts)
 
-    insts        aller à l'état 28
-    inst         aller à l'état 29
-    affectation  aller à l'état 30
-    print        aller à l'état 31
-    ifBlock      aller à l'état 32
-    whileBlock   aller à l'état 33
-    name         aller à l'état 34
+    insts        go to state 28
+    inst         go to state 29
+    affectation  go to state 30
+    print        go to state 31
+    ifBlock      go to state 32
+    whileBlock   go to state 33
+    name         go to state 34
 
 
-État 21
+State 21
 
    15 declaration: type . ids SEMICOLON
    16            | type . id EQUAL value SEMICOLON
 
-    ALPHA  décalage et aller à l'état 35
+    ALPHA  shift, and go to state 35
 
-    id   aller à l'état 36
-    ids  aller à l'état 37
+    id   go to state 36
+    ids  go to state 37
 
 
-État 22
+State 22
 
    17 declarations: declaration declarations .
 
-    $défaut  réduction par utilisation de la règle 17 (declarations)
+    $default  reduce using rule 17 (declarations)
 
 
-État 23
+State 23
 
    10 inst: RETURN . value SEMICOLON
    11     | RETURN . name SEMICOLON
 
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
-    ALPHA   décalage et aller à l'état 12
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
+    ALPHA   shift, and go to state 12
 
-    value  aller à l'état 40
-    name   aller à l'état 41
+    value  go to state 40
+    name   go to state 41
 
 
-État 24
+State 24
 
    20 print: PRINTF . OPEN_PARENT value CLOSE_PARENT SEMICOLON
 
-    OPEN_PARENT  décalage et aller à l'état 42
+    OPEN_PARENT  shift, and go to state 42
 
 
-État 25
+State 25
 
    21 ifBlock: IF . OPEN_PARENT condition CLOSE_PARENT body
 
-    OPEN_PARENT  décalage et aller à l'état 43
+    OPEN_PARENT  shift, and go to state 43
 
 
-État 26
+State 26
 
    22 ifBlock: ELSE . IF OPEN_PARENT condition CLOSE_PARENT body
    23        | ELSE . body
 
-    OPEN_BRACE  décalage et aller à l'état 14
-    IF          décalage et aller à l'état 44
+    OPEN_BRACE  shift, and go to state 14
+    IF          shift, and go to state 44
 
-    body  aller à l'état 45
+    body  go to state 45
 
 
-État 27
+State 27
 
    24 whileBlock: WHILE . OPEN_PARENT condition CLOSE_PARENT body
 
-    OPEN_PARENT  décalage et aller à l'état 46
+    OPEN_PARENT  shift, and go to state 46
 
 
-État 28
+State 28
 
     3 body: OPEN_BRACE $@1 declarations insts . CLOSE_BRACE
 
-    CLOSE_BRACE  décalage et aller à l'état 47
+    CLOSE_BRACE  shift, and go to state 47
 
 
-État 29
+State 29
 
     4 insts: inst . insts
 
-    RETURN  décalage et aller à l'état 23
-    PRINTF  décalage et aller à l'état 24
-    IF      décalage et aller à l'état 25
-    ELSE    décalage et aller à l'état 26
-    WHILE   décalage et aller à l'état 27
-    ALPHA   décalage et aller à l'état 12
+    RETURN  shift, and go to state 23
+    PRINTF  shift, and go to state 24
+    IF      shift, and go to state 25
+    ELSE    shift, and go to state 26
+    WHILE   shift, and go to state 27
+    ALPHA   shift, and go to state 12
 
-    $défaut  réduction par utilisation de la règle 5 (insts)
+    $default  reduce using rule 5 (insts)
 
-    insts        aller à l'état 48
-    inst         aller à l'état 29
-    affectation  aller à l'état 30
-    print        aller à l'état 31
-    ifBlock      aller à l'état 32
-    whileBlock   aller à l'état 33
-    name         aller à l'état 34
+    insts        go to state 48
+    inst         go to state 29
+    affectation  go to state 30
+    print        go to state 31
+    ifBlock      go to state 32
+    whileBlock   go to state 33
+    name         go to state 34
 
 
-État 30
+State 30
 
     6 inst: affectation .
 
-    $défaut  réduction par utilisation de la règle 6 (inst)
+    $default  reduce using rule 6 (inst)
 
 
-État 31
+State 31
 
     7 inst: print .
 
-    $défaut  réduction par utilisation de la règle 7 (inst)
+    $default  reduce using rule 7 (inst)
 
 
-État 32
+State 32
 
     8 inst: ifBlock .
 
-    $défaut  réduction par utilisation de la règle 8 (inst)
+    $default  reduce using rule 8 (inst)
 
 
-État 33
+State 33
 
     9 inst: whileBlock .
 
-    $défaut  réduction par utilisation de la règle 9 (inst)
+    $default  reduce using rule 9 (inst)
 
 
-État 34
+State 34
 
    19 affectation: name . EQUAL arithmExpr SEMICOLON
 
-    EQUAL  décalage et aller à l'état 49
+    EQUAL  shift, and go to state 49
 
 
-État 35
+State 35
 
    86 id: ALPHA .
 
-    $défaut  réduction par utilisation de la règle 86 (id)
+    $default  reduce using rule 86 (id)
 
 
-État 36
+State 36
 
    16 declaration: type id . EQUAL value SEMICOLON
    87 ids: id . COMMA ids
    88    | id .
 
-    COMMA  décalage et aller à l'état 50
-    EQUAL  décalage et aller à l'état 51
+    COMMA  shift, and go to state 50
+    EQUAL  shift, and go to state 51
 
-    $défaut  réduction par utilisation de la règle 88 (ids)
+    $default  reduce using rule 88 (ids)
 
 
-État 37
+State 37
 
    15 declaration: type ids . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 52
+    SEMICOLON  shift, and go to state 52
 
 
-État 38
+State 38
 
    81 value: NUMBER .
 
-    $défaut  réduction par utilisation de la règle 81 (value)
+    $default  reduce using rule 81 (value)
 
 
-État 39
+State 39
 
    82 value: EXPON .
 
-    $défaut  réduction par utilisation de la règle 82 (value)
+    $default  reduce using rule 82 (value)
 
 
-État 40
+State 40
 
    10 inst: RETURN value . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 53
+    SEMICOLON  shift, and go to state 53
 
 
-État 41
+State 41
 
    11 inst: RETURN name . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 54
+    SEMICOLON  shift, and go to state 54
 
 
-État 42
+State 42
 
    20 print: PRINTF OPEN_PARENT . value CLOSE_PARENT SEMICOLON
 
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
 
-    value  aller à l'état 55
+    value  go to state 55
 
 
-État 43
+State 43
 
    21 ifBlock: IF OPEN_PARENT . condition CLOSE_PARENT body
 
-    EXCLAM  décalage et aller à l'état 56
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
-    ALPHA   décalage et aller à l'état 12
+    EXCLAM  shift, and go to state 56
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
+    ALPHA   shift, and go to state 12
 
-    condition     aller à l'état 57
-    unaryOperand  aller à l'état 58
-    value         aller à l'état 59
-    name          aller à l'état 60
+    condition     go to state 57
+    unaryOperand  go to state 58
+    value         go to state 59
+    name          go to state 60
 
 
-État 44
+State 44
 
    22 ifBlock: ELSE IF . OPEN_PARENT condition CLOSE_PARENT body
 
-    OPEN_PARENT  décalage et aller à l'état 61
+    OPEN_PARENT  shift, and go to state 61
 
 
-État 45
+State 45
 
    23 ifBlock: ELSE body .
 
-    $défaut  réduction par utilisation de la règle 23 (ifBlock)
+    $default  reduce using rule 23 (ifBlock)
 
 
-État 46
+State 46
 
    24 whileBlock: WHILE OPEN_PARENT . condition CLOSE_PARENT body
 
-    EXCLAM  décalage et aller à l'état 56
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
-    ALPHA   décalage et aller à l'état 12
+    EXCLAM  shift, and go to state 56
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
+    ALPHA   shift, and go to state 12
 
-    condition     aller à l'état 62
-    unaryOperand  aller à l'état 58
-    value         aller à l'état 59
-    name          aller à l'état 60
+    condition     go to state 62
+    unaryOperand  go to state 58
+    value         go to state 59
+    name          go to state 60
 
 
-État 47
+State 47
 
     3 body: OPEN_BRACE $@1 declarations insts CLOSE_BRACE .
 
-    $défaut  réduction par utilisation de la règle 3 (body)
+    $default  reduce using rule 3 (body)
 
 
-État 48
+State 48
 
     4 insts: inst insts .
 
-    $défaut  réduction par utilisation de la règle 4 (insts)
+    $default  reduce using rule 4 (insts)
 
 
-État 49
+State 49
 
    19 affectation: name EQUAL . arithmExpr SEMICOLON
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 64
-    divMul      aller à l'état 65
-    value       aller à l'état 66
-    name        aller à l'état 67
+    arithmExpr  go to state 64
+    divMul      go to state 65
+    value       go to state 66
+    name        go to state 67
 
 
-État 50
+State 50
 
    87 ids: id COMMA . ids
 
-    ALPHA  décalage et aller à l'état 35
+    ALPHA  shift, and go to state 35
 
-    id   aller à l'état 68
-    ids  aller à l'état 69
+    id   go to state 68
+    ids  go to state 69
 
 
-État 51
+State 51
 
    16 declaration: type id EQUAL . value SEMICOLON
 
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
 
-    value  aller à l'état 70
+    value  go to state 70
 
 
-État 52
+State 52
 
    15 declaration: type ids SEMICOLON .
 
-    $défaut  réduction par utilisation de la règle 15 (declaration)
+    $default  reduce using rule 15 (declaration)
 
 
-État 53
+State 53
 
    10 inst: RETURN value SEMICOLON .
 
-    $défaut  réduction par utilisation de la règle 10 (inst)
+    $default  reduce using rule 10 (inst)
 
 
-État 54
+State 54
 
    11 inst: RETURN name SEMICOLON .
 
-    $défaut  réduction par utilisation de la règle 11 (inst)
+    $default  reduce using rule 11 (inst)
 
 
-État 55
+State 55
 
    20 print: PRINTF OPEN_PARENT value . CLOSE_PARENT SEMICOLON
 
-    CLOSE_PARENT  décalage et aller à l'état 71
+    CLOSE_PARENT  shift, and go to state 71
 
 
-État 56
+State 56
 
    39 unaryOperand: EXCLAM .
 
-    $défaut  réduction par utilisation de la règle 39 (unaryOperand)
+    $default  reduce using rule 39 (unaryOperand)
 
 
-État 57
+State 57
 
    21 ifBlock: IF OPEN_PARENT condition . CLOSE_PARENT body
 
-    CLOSE_PARENT  décalage et aller à l'état 72
+    CLOSE_PARENT  shift, and go to state 72
 
 
-État 58
+State 58
 
    27 condition: unaryOperand . value
    28          | unaryOperand . name
 
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
-    ALPHA   décalage et aller à l'état 12
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
+    ALPHA   shift, and go to state 12
 
-    value  aller à l'état 73
-    name   aller à l'état 74
+    value  go to state 73
+    name   go to state 74
 
 
-État 59
+State 59
 
    25 condition: value .
    29          | value . binaryOperand value
    30          | value . binaryOperand name
 
-    EQUALITY  décalage et aller à l'état 75
-    DIFF      décalage et aller à l'état 76
-    LESS      décalage et aller à l'état 77
-    MORE      décalage et aller à l'état 78
-    LESS_EQ   décalage et aller à l'état 79
-    MORE_EQ   décalage et aller à l'état 80
+    EQUALITY  shift, and go to state 75
+    DIFF      shift, and go to state 76
+    LESS      shift, and go to state 77
+    MORE      shift, and go to state 78
+    LESS_EQ   shift, and go to state 79
+    MORE_EQ   shift, and go to state 80
 
-    $défaut  réduction par utilisation de la règle 25 (condition)
+    $default  reduce using rule 25 (condition)
 
-    binaryOperand  aller à l'état 81
+    binaryOperand  go to state 81
 
 
-État 60
+State 60
 
    26 condition: name .
    31          | name . binaryOperand value
    32          | name . binaryOperand name
 
-    EQUALITY  décalage et aller à l'état 75
-    DIFF      décalage et aller à l'état 76
-    LESS      décalage et aller à l'état 77
-    MORE      décalage et aller à l'état 78
-    LESS_EQ   décalage et aller à l'état 79
-    MORE_EQ   décalage et aller à l'état 80
+    EQUALITY  shift, and go to state 75
+    DIFF      shift, and go to state 76
+    LESS      shift, and go to state 77
+    MORE      shift, and go to state 78
+    LESS_EQ   shift, and go to state 79
+    MORE_EQ   shift, and go to state 80
 
-    $défaut  réduction par utilisation de la règle 26 (condition)
+    $default  reduce using rule 26 (condition)
 
-    binaryOperand  aller à l'état 82
+    binaryOperand  go to state 82
 
 
-État 61
+State 61
 
    22 ifBlock: ELSE IF OPEN_PARENT . condition CLOSE_PARENT body
 
-    EXCLAM  décalage et aller à l'état 56
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
-    ALPHA   décalage et aller à l'état 12
+    EXCLAM  shift, and go to state 56
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
+    ALPHA   shift, and go to state 12
 
-    condition     aller à l'état 83
-    unaryOperand  aller à l'état 58
-    value         aller à l'état 59
-    name          aller à l'état 60
+    condition     go to state 83
+    unaryOperand  go to state 58
+    value         go to state 59
+    name          go to state 60
 
 
-État 62
+State 62
 
    24 whileBlock: WHILE OPEN_PARENT condition . CLOSE_PARENT body
 
-    CLOSE_PARENT  décalage et aller à l'état 84
+    CLOSE_PARENT  shift, and go to state 84
 
 
-État 63
+State 63
 
    58 arithmExpr: OPEN_PARENT . arithmExpr CLOSE_PARENT
    78 divMul: OPEN_PARENT . arithmExpr CLOSE_PARENT
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 85
-    divMul      aller à l'état 65
-    value       aller à l'état 66
-    name        aller à l'état 67
+    arithmExpr  go to state 85
+    divMul      go to state 65
+    value       go to state 66
+    name        go to state 67
 
 
-État 64
+State 64
 
    19 affectation: name EQUAL arithmExpr . SEMICOLON
    46 arithmExpr: arithmExpr . PLUS value
@@ -900,21 +900,21 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    SEMICOLON  décalage et aller à l'état 86
-    PLUS       décalage et aller à l'état 87
-    MINUS      décalage et aller à l'état 88
-    MULTIPLY   décalage et aller à l'état 89
-    DIVIDE     décalage et aller à l'état 90
+    SEMICOLON  shift, and go to state 86
+    PLUS       shift, and go to state 87
+    MINUS      shift, and go to state 88
+    MULTIPLY   shift, and go to state 89
+    DIVIDE     shift, and go to state 90
 
 
-État 65
+State 65
 
    59 arithmExpr: divMul .
 
-    $défaut  réduction par utilisation de la règle 59 (arithmExpr)
+    $default  reduce using rule 59 (arithmExpr)
 
 
-État 66
+State 66
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -930,19 +930,19 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    PLUS      décalage et aller à l'état 91
-    MINUS     décalage et aller à l'état 92
-    MULTIPLY  décalage et aller à l'état 93
-    DIVIDE    décalage et aller à l'état 94
+    PLUS      shift, and go to state 91
+    MINUS     shift, and go to state 92
+    MULTIPLY  shift, and go to state 93
+    DIVIDE    shift, and go to state 94
 
-    PLUS      [réduction par utilisation de la règle 79 (divMul)]
-    MINUS     [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY  [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE    [réduction par utilisation de la règle 79 (divMul)]
-    $défaut  réduction par utilisation de la règle 79 (divMul)
+    PLUS      [reduce using rule 79 (divMul)]
+    MINUS     [reduce using rule 79 (divMul)]
+    MULTIPLY  [reduce using rule 79 (divMul)]
+    DIVIDE    [reduce using rule 79 (divMul)]
+    $default  reduce using rule 79 (divMul)
 
 
-État 67
+State 67
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -958,157 +958,157 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    PLUS      décalage et aller à l'état 95
-    MINUS     décalage et aller à l'état 96
-    MULTIPLY  décalage et aller à l'état 97
-    DIVIDE    décalage et aller à l'état 98
+    PLUS      shift, and go to state 95
+    MINUS     shift, and go to state 96
+    MULTIPLY  shift, and go to state 97
+    DIVIDE    shift, and go to state 98
 
-    PLUS      [réduction par utilisation de la règle 80 (divMul)]
-    MINUS     [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY  [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE    [réduction par utilisation de la règle 80 (divMul)]
-    $défaut  réduction par utilisation de la règle 80 (divMul)
+    PLUS      [reduce using rule 80 (divMul)]
+    MINUS     [reduce using rule 80 (divMul)]
+    MULTIPLY  [reduce using rule 80 (divMul)]
+    DIVIDE    [reduce using rule 80 (divMul)]
+    $default  reduce using rule 80 (divMul)
 
 
-État 68
+State 68
 
    87 ids: id . COMMA ids
    88    | id .
 
-    COMMA  décalage et aller à l'état 50
+    COMMA  shift, and go to state 50
 
-    $défaut  réduction par utilisation de la règle 88 (ids)
+    $default  reduce using rule 88 (ids)
 
 
-État 69
+State 69
 
    87 ids: id COMMA ids .
 
-    $défaut  réduction par utilisation de la règle 87 (ids)
+    $default  reduce using rule 87 (ids)
 
 
-État 70
+State 70
 
    16 declaration: type id EQUAL value . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 99
+    SEMICOLON  shift, and go to state 99
 
 
-État 71
+State 71
 
    20 print: PRINTF OPEN_PARENT value CLOSE_PARENT . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 100
+    SEMICOLON  shift, and go to state 100
 
 
-État 72
+State 72
 
    21 ifBlock: IF OPEN_PARENT condition CLOSE_PARENT . body
 
-    OPEN_BRACE  décalage et aller à l'état 14
+    OPEN_BRACE  shift, and go to state 14
 
-    body  aller à l'état 101
+    body  go to state 101
 
 
-État 73
+State 73
 
    27 condition: unaryOperand value .
 
-    $défaut  réduction par utilisation de la règle 27 (condition)
+    $default  reduce using rule 27 (condition)
 
 
-État 74
+State 74
 
    28 condition: unaryOperand name .
 
-    $défaut  réduction par utilisation de la règle 28 (condition)
+    $default  reduce using rule 28 (condition)
 
 
-État 75
+State 75
 
    37 binaryOperand: EQUALITY .
 
-    $défaut  réduction par utilisation de la règle 37 (binaryOperand)
+    $default  reduce using rule 37 (binaryOperand)
 
 
-État 76
+State 76
 
    38 binaryOperand: DIFF .
 
-    $défaut  réduction par utilisation de la règle 38 (binaryOperand)
+    $default  reduce using rule 38 (binaryOperand)
 
 
-État 77
+State 77
 
    33 binaryOperand: LESS .
 
-    $défaut  réduction par utilisation de la règle 33 (binaryOperand)
+    $default  reduce using rule 33 (binaryOperand)
 
 
-État 78
+State 78
 
    35 binaryOperand: MORE .
 
-    $défaut  réduction par utilisation de la règle 35 (binaryOperand)
+    $default  reduce using rule 35 (binaryOperand)
 
 
-État 79
+State 79
 
    34 binaryOperand: LESS_EQ .
 
-    $défaut  réduction par utilisation de la règle 34 (binaryOperand)
+    $default  reduce using rule 34 (binaryOperand)
 
 
-État 80
+State 80
 
    36 binaryOperand: MORE_EQ .
 
-    $défaut  réduction par utilisation de la règle 36 (binaryOperand)
+    $default  reduce using rule 36 (binaryOperand)
 
 
-État 81
+State 81
 
    29 condition: value binaryOperand . value
    30          | value binaryOperand . name
 
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
-    ALPHA   décalage et aller à l'état 12
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
+    ALPHA   shift, and go to state 12
 
-    value  aller à l'état 102
-    name   aller à l'état 103
+    value  go to state 102
+    name   go to state 103
 
 
-État 82
+State 82
 
    31 condition: name binaryOperand . value
    32          | name binaryOperand . name
 
-    NUMBER  décalage et aller à l'état 38
-    EXPON   décalage et aller à l'état 39
-    ALPHA   décalage et aller à l'état 12
+    NUMBER  shift, and go to state 38
+    EXPON   shift, and go to state 39
+    ALPHA   shift, and go to state 12
 
-    value  aller à l'état 104
-    name   aller à l'état 105
+    value  go to state 104
+    name   go to state 105
 
 
-État 83
+State 83
 
    22 ifBlock: ELSE IF OPEN_PARENT condition . CLOSE_PARENT body
 
-    CLOSE_PARENT  décalage et aller à l'état 106
+    CLOSE_PARENT  shift, and go to state 106
 
 
-État 84
+State 84
 
    24 whileBlock: WHILE OPEN_PARENT condition CLOSE_PARENT . body
 
-    OPEN_BRACE  décalage et aller à l'état 14
+    OPEN_BRACE  shift, and go to state 14
 
-    body  aller à l'état 107
+    body  go to state 107
 
 
-État 85
+State 85
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -1125,310 +1125,310 @@ Non-terminaux, suivis des règles où ils apparaissent
    77       | arithmExpr . DIVIDE arithmExpr
    78       | OPEN_PARENT arithmExpr . CLOSE_PARENT
 
-    CLOSE_PARENT  décalage et aller à l'état 108
-    PLUS          décalage et aller à l'état 87
-    MINUS         décalage et aller à l'état 88
-    MULTIPLY      décalage et aller à l'état 89
-    DIVIDE        décalage et aller à l'état 90
+    CLOSE_PARENT  shift, and go to state 108
+    PLUS          shift, and go to state 87
+    MINUS         shift, and go to state 88
+    MULTIPLY      shift, and go to state 89
+    DIVIDE        shift, and go to state 90
 
 
-État 86
+State 86
 
    19 affectation: name EQUAL arithmExpr SEMICOLON .
 
-    $défaut  réduction par utilisation de la règle 19 (affectation)
+    $default  reduce using rule 19 (affectation)
 
 
-État 87
+State 87
 
    46 arithmExpr: arithmExpr PLUS . value
    47           | arithmExpr PLUS . name
    48           | arithmExpr PLUS . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 109
-    divMul      aller à l'état 65
-    value       aller à l'état 110
-    name        aller à l'état 111
+    arithmExpr  go to state 109
+    divMul      go to state 65
+    value       go to state 110
+    name        go to state 111
 
 
-État 88
+State 88
 
    55 arithmExpr: arithmExpr MINUS . value
    56           | arithmExpr MINUS . name
    57           | arithmExpr MINUS . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 112
-    divMul      aller à l'état 65
-    value       aller à l'état 113
-    name        aller à l'état 114
+    arithmExpr  go to state 112
+    divMul      go to state 65
+    value       go to state 113
+    name        go to state 114
 
 
-État 89
+State 89
 
    66 divMul: arithmExpr MULTIPLY . value
    67       | arithmExpr MULTIPLY . name
    68       | arithmExpr MULTIPLY . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 115
-    divMul      aller à l'état 65
-    value       aller à l'état 116
-    name        aller à l'état 117
+    arithmExpr  go to state 115
+    divMul      go to state 65
+    value       go to state 116
+    name        go to state 117
 
 
-État 90
+State 90
 
    75 divMul: arithmExpr DIVIDE . value
    76       | arithmExpr DIVIDE . name
    77       | arithmExpr DIVIDE . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 118
-    divMul      aller à l'état 65
-    value       aller à l'état 119
-    name        aller à l'état 120
+    arithmExpr  go to state 118
+    divMul      go to state 65
+    value       go to state 119
+    name        go to state 120
 
 
-État 91
+State 91
 
    40 arithmExpr: value PLUS . value
    41           | value PLUS . name
    44           | value PLUS . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 121
-    divMul      aller à l'état 65
-    value       aller à l'état 122
-    name        aller à l'état 123
+    arithmExpr  go to state 121
+    divMul      go to state 65
+    value       go to state 122
+    name        go to state 123
 
 
-État 92
+State 92
 
    49 arithmExpr: value MINUS . value
    50           | value MINUS . name
    53           | value MINUS . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 124
-    divMul      aller à l'état 65
-    value       aller à l'état 125
-    name        aller à l'état 126
+    arithmExpr  go to state 124
+    divMul      go to state 65
+    value       go to state 125
+    name        go to state 126
 
 
-État 93
+State 93
 
    60 divMul: value MULTIPLY . value
    61       | value MULTIPLY . name
    64       | value MULTIPLY . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 127
-    divMul      aller à l'état 65
-    value       aller à l'état 128
-    name        aller à l'état 129
+    arithmExpr  go to state 127
+    divMul      go to state 65
+    value       go to state 128
+    name        go to state 129
 
 
-État 94
+State 94
 
    69 divMul: value DIVIDE . value
    70       | value DIVIDE . name
    73       | value DIVIDE . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 130
-    divMul      aller à l'état 65
-    value       aller à l'état 131
-    name        aller à l'état 132
+    arithmExpr  go to state 130
+    divMul      go to state 65
+    value       go to state 131
+    name        go to state 132
 
 
-État 95
+State 95
 
    42 arithmExpr: name PLUS . value
    43           | name PLUS . name
    45           | name PLUS . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 133
-    divMul      aller à l'état 65
-    value       aller à l'état 134
-    name        aller à l'état 135
+    arithmExpr  go to state 133
+    divMul      go to state 65
+    value       go to state 134
+    name        go to state 135
 
 
-État 96
+State 96
 
    51 arithmExpr: name MINUS . value
    52           | name MINUS . name
    54           | name MINUS . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 136
-    divMul      aller à l'état 65
-    value       aller à l'état 137
-    name        aller à l'état 138
+    arithmExpr  go to state 136
+    divMul      go to state 65
+    value       go to state 137
+    name        go to state 138
 
 
-État 97
+State 97
 
    62 divMul: name MULTIPLY . value
    63       | name MULTIPLY . name
    65       | name MULTIPLY . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 139
-    divMul      aller à l'état 65
-    value       aller à l'état 140
-    name        aller à l'état 141
+    arithmExpr  go to state 139
+    divMul      go to state 65
+    value       go to state 140
+    name        go to state 141
 
 
-État 98
+State 98
 
    71 divMul: name DIVIDE . value
    72       | name DIVIDE . name
    74       | name DIVIDE . arithmExpr
 
-    OPEN_PARENT  décalage et aller à l'état 63
-    NUMBER       décalage et aller à l'état 38
-    EXPON        décalage et aller à l'état 39
-    ALPHA        décalage et aller à l'état 12
+    OPEN_PARENT  shift, and go to state 63
+    NUMBER       shift, and go to state 38
+    EXPON        shift, and go to state 39
+    ALPHA        shift, and go to state 12
 
-    arithmExpr  aller à l'état 142
-    divMul      aller à l'état 65
-    value       aller à l'état 143
-    name        aller à l'état 144
+    arithmExpr  go to state 142
+    divMul      go to state 65
+    value       go to state 143
+    name        go to state 144
 
 
-État 99
+State 99
 
    16 declaration: type id EQUAL value SEMICOLON .
 
-    $défaut  réduction par utilisation de la règle 16 (declaration)
+    $default  reduce using rule 16 (declaration)
 
 
-État 100
+State 100
 
    20 print: PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON .
 
-    $défaut  réduction par utilisation de la règle 20 (print)
+    $default  reduce using rule 20 (print)
 
 
-État 101
+State 101
 
    21 ifBlock: IF OPEN_PARENT condition CLOSE_PARENT body .
 
-    $défaut  réduction par utilisation de la règle 21 (ifBlock)
+    $default  reduce using rule 21 (ifBlock)
 
 
-État 102
+State 102
 
    29 condition: value binaryOperand value .
 
-    $défaut  réduction par utilisation de la règle 29 (condition)
+    $default  reduce using rule 29 (condition)
 
 
-État 103
+State 103
 
    30 condition: value binaryOperand name .
 
-    $défaut  réduction par utilisation de la règle 30 (condition)
+    $default  reduce using rule 30 (condition)
 
 
-État 104
+State 104
 
    31 condition: name binaryOperand value .
 
-    $défaut  réduction par utilisation de la règle 31 (condition)
+    $default  reduce using rule 31 (condition)
 
 
-État 105
+State 105
 
    32 condition: name binaryOperand name .
 
-    $défaut  réduction par utilisation de la règle 32 (condition)
+    $default  reduce using rule 32 (condition)
 
 
-État 106
+State 106
 
    22 ifBlock: ELSE IF OPEN_PARENT condition CLOSE_PARENT . body
 
-    OPEN_BRACE  décalage et aller à l'état 14
+    OPEN_BRACE  shift, and go to state 14
 
-    body  aller à l'état 145
+    body  go to state 145
 
 
-État 107
+State 107
 
    24 whileBlock: WHILE OPEN_PARENT condition CLOSE_PARENT body .
 
-    $défaut  réduction par utilisation de la règle 24 (whileBlock)
+    $default  reduce using rule 24 (whileBlock)
 
 
-État 108
+State 108
 
    58 arithmExpr: OPEN_PARENT arithmExpr CLOSE_PARENT .
    78 divMul: OPEN_PARENT arithmExpr CLOSE_PARENT .
 
-    SEMICOLON     réduction par utilisation de la règle 58 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 78 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 58 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 78 (divMul)]
-    PLUS          réduction par utilisation de la règle 58 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 78 (divMul)]
-    MINUS         réduction par utilisation de la règle 58 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 78 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 58 (arithmExpr)
-    MULTIPLY      [réduction par utilisation de la règle 78 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 58 (arithmExpr)
-    DIVIDE        [réduction par utilisation de la règle 78 (divMul)]
-    $défaut      réduction par utilisation de la règle 58 (arithmExpr)
+    SEMICOLON     reduce using rule 58 (arithmExpr)
+    SEMICOLON     [reduce using rule 78 (divMul)]
+    CLOSE_PARENT  reduce using rule 58 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 78 (divMul)]
+    PLUS          reduce using rule 58 (arithmExpr)
+    PLUS          [reduce using rule 78 (divMul)]
+    MINUS         reduce using rule 58 (arithmExpr)
+    MINUS         [reduce using rule 78 (divMul)]
+    MULTIPLY      reduce using rule 58 (arithmExpr)
+    MULTIPLY      [reduce using rule 78 (divMul)]
+    DIVIDE        reduce using rule 58 (arithmExpr)
+    DIVIDE        [reduce using rule 78 (divMul)]
+    $default      reduce using rule 58 (arithmExpr)
 
 
-État 109
+State 109
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -1444,13 +1444,13 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    MULTIPLY  décalage et aller à l'état 89
-    DIVIDE    décalage et aller à l'état 90
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
 
-    $défaut  réduction par utilisation de la règle 48 (arithmExpr)
+    $default  reduce using rule 48 (arithmExpr)
 
 
-État 110
+State 110
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -1467,23 +1467,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    MULTIPLY  décalage et aller à l'état 93
-    DIVIDE    décalage et aller à l'état 94
+    MULTIPLY  shift, and go to state 93
+    DIVIDE    shift, and go to state 94
 
-    SEMICOLON     réduction par utilisation de la règle 46 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 46 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 46 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 46 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 46 (arithmExpr)
+    SEMICOLON     reduce using rule 46 (arithmExpr)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 46 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 46 (arithmExpr)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 46 (arithmExpr)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 46 (arithmExpr)
 
 
-État 111
+State 111
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -1500,23 +1500,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    MULTIPLY  décalage et aller à l'état 97
-    DIVIDE    décalage et aller à l'état 98
+    MULTIPLY  shift, and go to state 97
+    DIVIDE    shift, and go to state 98
 
-    SEMICOLON     réduction par utilisation de la règle 47 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 47 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 47 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 47 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 47 (arithmExpr)
+    SEMICOLON     reduce using rule 47 (arithmExpr)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 47 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 47 (arithmExpr)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 47 (arithmExpr)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 47 (arithmExpr)
 
 
-État 112
+State 112
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -1532,13 +1532,13 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    MULTIPLY  décalage et aller à l'état 89
-    DIVIDE    décalage et aller à l'état 90
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
 
-    $défaut  réduction par utilisation de la règle 57 (arithmExpr)
+    $default  reduce using rule 57 (arithmExpr)
 
 
-État 113
+State 113
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -1555,23 +1555,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    MULTIPLY  décalage et aller à l'état 93
-    DIVIDE    décalage et aller à l'état 94
+    MULTIPLY  shift, and go to state 93
+    DIVIDE    shift, and go to state 94
 
-    SEMICOLON     réduction par utilisation de la règle 55 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 55 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 55 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 55 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 55 (arithmExpr)
+    SEMICOLON     reduce using rule 55 (arithmExpr)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 55 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 55 (arithmExpr)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 55 (arithmExpr)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 55 (arithmExpr)
 
 
-État 114
+State 114
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -1588,23 +1588,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    MULTIPLY  décalage et aller à l'état 97
-    DIVIDE    décalage et aller à l'état 98
+    MULTIPLY  shift, and go to state 97
+    DIVIDE    shift, and go to state 98
 
-    SEMICOLON     réduction par utilisation de la règle 56 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 56 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 56 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 56 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 56 (arithmExpr)
+    SEMICOLON     reduce using rule 56 (arithmExpr)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 56 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 56 (arithmExpr)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 56 (arithmExpr)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 56 (arithmExpr)
 
 
-État 115
+State 115
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -1620,10 +1620,10 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    $défaut  réduction par utilisation de la règle 68 (divMul)
+    $default  reduce using rule 68 (divMul)
 
 
-État 116
+State 116
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -1640,22 +1640,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    SEMICOLON     réduction par utilisation de la règle 66 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 66 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 66 (divMul)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 66 (divMul)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 66 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 66 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 66 (divMul)
+    SEMICOLON     reduce using rule 66 (divMul)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 66 (divMul)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 66 (divMul)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 66 (divMul)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      reduce using rule 66 (divMul)
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        reduce using rule 66 (divMul)
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 66 (divMul)
 
 
-État 117
+State 117
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -1672,22 +1672,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    SEMICOLON     réduction par utilisation de la règle 67 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 67 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 67 (divMul)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 67 (divMul)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 67 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 67 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 67 (divMul)
+    SEMICOLON     reduce using rule 67 (divMul)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 67 (divMul)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 67 (divMul)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 67 (divMul)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      reduce using rule 67 (divMul)
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        reduce using rule 67 (divMul)
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 67 (divMul)
 
 
-État 118
+State 118
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -1703,10 +1703,10 @@ Non-terminaux, suivis des règles où ils apparaissent
    77       | arithmExpr . DIVIDE arithmExpr
    77       | arithmExpr DIVIDE arithmExpr .
 
-    $défaut  réduction par utilisation de la règle 77 (divMul)
+    $default  reduce using rule 77 (divMul)
 
 
-État 119
+State 119
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -1723,22 +1723,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    75       | arithmExpr DIVIDE value .
    79       | value .
 
-    SEMICOLON     réduction par utilisation de la règle 75 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 75 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 75 (divMul)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 75 (divMul)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 75 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 75 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 75 (divMul)
+    SEMICOLON     reduce using rule 75 (divMul)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 75 (divMul)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 75 (divMul)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 75 (divMul)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      reduce using rule 75 (divMul)
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        reduce using rule 75 (divMul)
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 75 (divMul)
 
 
-État 120
+State 120
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -1755,22 +1755,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr DIVIDE name .
    80       | name .
 
-    SEMICOLON     réduction par utilisation de la règle 76 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 76 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 76 (divMul)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 76 (divMul)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 76 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 76 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 76 (divMul)
+    SEMICOLON     reduce using rule 76 (divMul)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 76 (divMul)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 76 (divMul)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 76 (divMul)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      reduce using rule 76 (divMul)
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        reduce using rule 76 (divMul)
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 76 (divMul)
 
 
-État 121
+State 121
 
    44 arithmExpr: value PLUS arithmExpr .
    46           | arithmExpr . PLUS value
@@ -1786,13 +1786,13 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    MULTIPLY  décalage et aller à l'état 89
-    DIVIDE    décalage et aller à l'état 90
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
 
-    $défaut  réduction par utilisation de la règle 44 (arithmExpr)
+    $default  reduce using rule 44 (arithmExpr)
 
 
-État 122
+State 122
 
    40 arithmExpr: value . PLUS value
    40           | value PLUS value .
@@ -1809,23 +1809,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    MULTIPLY  décalage et aller à l'état 93
-    DIVIDE    décalage et aller à l'état 94
+    MULTIPLY  shift, and go to state 93
+    DIVIDE    shift, and go to state 94
 
-    SEMICOLON     réduction par utilisation de la règle 40 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 40 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 40 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 40 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 40 (arithmExpr)
+    SEMICOLON     reduce using rule 40 (arithmExpr)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 40 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 40 (arithmExpr)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 40 (arithmExpr)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 40 (arithmExpr)
 
 
-État 123
+State 123
 
    41 arithmExpr: value PLUS name .
    42           | name . PLUS value
@@ -1842,23 +1842,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    MULTIPLY  décalage et aller à l'état 97
-    DIVIDE    décalage et aller à l'état 98
+    MULTIPLY  shift, and go to state 97
+    DIVIDE    shift, and go to state 98
 
-    SEMICOLON     réduction par utilisation de la règle 41 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 41 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 41 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 41 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 41 (arithmExpr)
+    SEMICOLON     reduce using rule 41 (arithmExpr)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 41 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 41 (arithmExpr)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 41 (arithmExpr)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 41 (arithmExpr)
 
 
-État 124
+State 124
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -1874,13 +1874,13 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    MULTIPLY  décalage et aller à l'état 89
-    DIVIDE    décalage et aller à l'état 90
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
 
-    $défaut  réduction par utilisation de la règle 53 (arithmExpr)
+    $default  reduce using rule 53 (arithmExpr)
 
 
-État 125
+State 125
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -1897,23 +1897,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    MULTIPLY  décalage et aller à l'état 93
-    DIVIDE    décalage et aller à l'état 94
+    MULTIPLY  shift, and go to state 93
+    DIVIDE    shift, and go to state 94
 
-    SEMICOLON     réduction par utilisation de la règle 49 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 49 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 49 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 49 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 49 (arithmExpr)
+    SEMICOLON     reduce using rule 49 (arithmExpr)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 49 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 49 (arithmExpr)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 49 (arithmExpr)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 49 (arithmExpr)
 
 
-État 126
+State 126
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -1930,23 +1930,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    MULTIPLY  décalage et aller à l'état 97
-    DIVIDE    décalage et aller à l'état 98
+    MULTIPLY  shift, and go to state 97
+    DIVIDE    shift, and go to state 98
 
-    SEMICOLON     réduction par utilisation de la règle 50 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 50 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 50 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 50 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 50 (arithmExpr)
+    SEMICOLON     reduce using rule 50 (arithmExpr)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 50 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 50 (arithmExpr)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 50 (arithmExpr)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 50 (arithmExpr)
 
 
-État 127
+State 127
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -1962,10 +1962,10 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    $défaut  réduction par utilisation de la règle 64 (divMul)
+    $default  reduce using rule 64 (divMul)
 
 
-État 128
+State 128
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -1982,22 +1982,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    SEMICOLON     réduction par utilisation de la règle 60 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 60 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 60 (divMul)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 60 (divMul)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 60 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 60 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 60 (divMul)
+    SEMICOLON     reduce using rule 60 (divMul)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 60 (divMul)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 60 (divMul)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 60 (divMul)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      reduce using rule 60 (divMul)
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        reduce using rule 60 (divMul)
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 60 (divMul)
 
 
-État 129
+State 129
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -2014,22 +2014,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    SEMICOLON     réduction par utilisation de la règle 61 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 61 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 61 (divMul)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 61 (divMul)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 61 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 61 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 61 (divMul)
+    SEMICOLON     reduce using rule 61 (divMul)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 61 (divMul)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 61 (divMul)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 61 (divMul)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      reduce using rule 61 (divMul)
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        reduce using rule 61 (divMul)
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 61 (divMul)
 
 
-État 130
+State 130
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -2045,10 +2045,10 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    $défaut  réduction par utilisation de la règle 73 (divMul)
+    $default  reduce using rule 73 (divMul)
 
 
-État 131
+State 131
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -2065,22 +2065,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    SEMICOLON     réduction par utilisation de la règle 69 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 69 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 69 (divMul)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 69 (divMul)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 69 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 69 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 69 (divMul)
+    SEMICOLON     reduce using rule 69 (divMul)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 69 (divMul)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 69 (divMul)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 69 (divMul)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      reduce using rule 69 (divMul)
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        reduce using rule 69 (divMul)
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 69 (divMul)
 
 
-État 132
+State 132
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -2097,22 +2097,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    SEMICOLON     réduction par utilisation de la règle 70 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 70 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 70 (divMul)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 70 (divMul)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 70 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 70 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 70 (divMul)
+    SEMICOLON     reduce using rule 70 (divMul)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 70 (divMul)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 70 (divMul)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 70 (divMul)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      reduce using rule 70 (divMul)
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        reduce using rule 70 (divMul)
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 70 (divMul)
 
 
-État 133
+State 133
 
    45 arithmExpr: name PLUS arithmExpr .
    46           | arithmExpr . PLUS value
@@ -2128,13 +2128,13 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    MULTIPLY  décalage et aller à l'état 89
-    DIVIDE    décalage et aller à l'état 90
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
 
-    $défaut  réduction par utilisation de la règle 45 (arithmExpr)
+    $default  reduce using rule 45 (arithmExpr)
 
 
-État 134
+State 134
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -2151,23 +2151,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    MULTIPLY  décalage et aller à l'état 93
-    DIVIDE    décalage et aller à l'état 94
+    MULTIPLY  shift, and go to state 93
+    DIVIDE    shift, and go to state 94
 
-    SEMICOLON     réduction par utilisation de la règle 42 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 42 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 42 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 42 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 42 (arithmExpr)
+    SEMICOLON     reduce using rule 42 (arithmExpr)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 42 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 42 (arithmExpr)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 42 (arithmExpr)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 42 (arithmExpr)
 
 
-État 135
+State 135
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -2184,23 +2184,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    MULTIPLY  décalage et aller à l'état 97
-    DIVIDE    décalage et aller à l'état 98
+    MULTIPLY  shift, and go to state 97
+    DIVIDE    shift, and go to state 98
 
-    SEMICOLON     réduction par utilisation de la règle 43 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 43 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 43 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 43 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 43 (arithmExpr)
+    SEMICOLON     reduce using rule 43 (arithmExpr)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 43 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 43 (arithmExpr)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 43 (arithmExpr)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 43 (arithmExpr)
 
 
-État 136
+State 136
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -2216,13 +2216,13 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    MULTIPLY  décalage et aller à l'état 89
-    DIVIDE    décalage et aller à l'état 90
+    MULTIPLY  shift, and go to state 89
+    DIVIDE    shift, and go to state 90
 
-    $défaut  réduction par utilisation de la règle 54 (arithmExpr)
+    $default  reduce using rule 54 (arithmExpr)
 
 
-État 137
+State 137
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -2239,23 +2239,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    MULTIPLY  décalage et aller à l'état 93
-    DIVIDE    décalage et aller à l'état 94
+    MULTIPLY  shift, and go to state 93
+    DIVIDE    shift, and go to state 94
 
-    SEMICOLON     réduction par utilisation de la règle 51 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 51 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 51 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 51 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 51 (arithmExpr)
+    SEMICOLON     reduce using rule 51 (arithmExpr)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 51 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 51 (arithmExpr)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 51 (arithmExpr)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 51 (arithmExpr)
 
 
-État 138
+State 138
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -2272,23 +2272,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    MULTIPLY  décalage et aller à l'état 97
-    DIVIDE    décalage et aller à l'état 98
+    MULTIPLY  shift, and go to state 97
+    DIVIDE    shift, and go to state 98
 
-    SEMICOLON     réduction par utilisation de la règle 52 (arithmExpr)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 52 (arithmExpr)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 52 (arithmExpr)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 52 (arithmExpr)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 52 (arithmExpr)
+    SEMICOLON     reduce using rule 52 (arithmExpr)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 52 (arithmExpr)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 52 (arithmExpr)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 52 (arithmExpr)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 52 (arithmExpr)
 
 
-État 139
+State 139
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -2304,10 +2304,10 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    $défaut  réduction par utilisation de la règle 65 (divMul)
+    $default  reduce using rule 65 (divMul)
 
 
-État 140
+State 140
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -2324,22 +2324,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    SEMICOLON     réduction par utilisation de la règle 62 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 62 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 62 (divMul)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 62 (divMul)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 62 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 62 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 62 (divMul)
+    SEMICOLON     reduce using rule 62 (divMul)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 62 (divMul)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 62 (divMul)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 62 (divMul)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      reduce using rule 62 (divMul)
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        reduce using rule 62 (divMul)
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 62 (divMul)
 
 
-État 141
+State 141
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -2356,22 +2356,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    SEMICOLON     réduction par utilisation de la règle 63 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 63 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 63 (divMul)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 63 (divMul)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 63 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 63 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 63 (divMul)
+    SEMICOLON     reduce using rule 63 (divMul)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 63 (divMul)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 63 (divMul)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 63 (divMul)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      reduce using rule 63 (divMul)
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        reduce using rule 63 (divMul)
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 63 (divMul)
 
 
-État 142
+State 142
 
    46 arithmExpr: arithmExpr . PLUS value
    47           | arithmExpr . PLUS name
@@ -2387,10 +2387,10 @@ Non-terminaux, suivis des règles où ils apparaissent
    76       | arithmExpr . DIVIDE name
    77       | arithmExpr . DIVIDE arithmExpr
 
-    $défaut  réduction par utilisation de la règle 74 (divMul)
+    $default  reduce using rule 74 (divMul)
 
 
-État 143
+State 143
 
    40 arithmExpr: value . PLUS value
    41           | value . PLUS name
@@ -2407,22 +2407,22 @@ Non-terminaux, suivis des règles où ils apparaissent
    73       | value . DIVIDE arithmExpr
    79       | value .
 
-    SEMICOLON     réduction par utilisation de la règle 71 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 79 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 71 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 79 (divMul)]
-    PLUS          réduction par utilisation de la règle 71 (divMul)
-    PLUS          [réduction par utilisation de la règle 79 (divMul)]
-    MINUS         réduction par utilisation de la règle 71 (divMul)
-    MINUS         [réduction par utilisation de la règle 79 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 71 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 79 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 71 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 79 (divMul)]
-    $défaut      réduction par utilisation de la règle 71 (divMul)
+    SEMICOLON     reduce using rule 71 (divMul)
+    SEMICOLON     [reduce using rule 79 (divMul)]
+    CLOSE_PARENT  reduce using rule 71 (divMul)
+    CLOSE_PARENT  [reduce using rule 79 (divMul)]
+    PLUS          reduce using rule 71 (divMul)
+    PLUS          [reduce using rule 79 (divMul)]
+    MINUS         reduce using rule 71 (divMul)
+    MINUS         [reduce using rule 79 (divMul)]
+    MULTIPLY      reduce using rule 71 (divMul)
+    MULTIPLY      [reduce using rule 79 (divMul)]
+    DIVIDE        reduce using rule 71 (divMul)
+    DIVIDE        [reduce using rule 79 (divMul)]
+    $default      reduce using rule 71 (divMul)
 
 
-État 144
+State 144
 
    42 arithmExpr: name . PLUS value
    43           | name . PLUS name
@@ -2439,23 +2439,23 @@ Non-terminaux, suivis des règles où ils apparaissent
    74       | name . DIVIDE arithmExpr
    80       | name .
 
-    SEMICOLON     réduction par utilisation de la règle 72 (divMul)
-    SEMICOLON     [réduction par utilisation de la règle 80 (divMul)]
-    CLOSE_PARENT  réduction par utilisation de la règle 72 (divMul)
-    CLOSE_PARENT  [réduction par utilisation de la règle 80 (divMul)]
-    PLUS          réduction par utilisation de la règle 72 (divMul)
-    PLUS          [réduction par utilisation de la règle 80 (divMul)]
-    MINUS         réduction par utilisation de la règle 72 (divMul)
-    MINUS         [réduction par utilisation de la règle 80 (divMul)]
-    MULTIPLY      réduction par utilisation de la règle 72 (divMul)
-    MULTIPLY      [réduction par utilisation de la règle 80 (divMul)]
-    DIVIDE        réduction par utilisation de la règle 72 (divMul)
-    DIVIDE        [réduction par utilisation de la règle 80 (divMul)]
-    $défaut      réduction par utilisation de la règle 72 (divMul)
+    SEMICOLON     reduce using rule 72 (divMul)
+    SEMICOLON     [reduce using rule 80 (divMul)]
+    CLOSE_PARENT  reduce using rule 72 (divMul)
+    CLOSE_PARENT  [reduce using rule 80 (divMul)]
+    PLUS          reduce using rule 72 (divMul)
+    PLUS          [reduce using rule 80 (divMul)]
+    MINUS         reduce using rule 72 (divMul)
+    MINUS         [reduce using rule 80 (divMul)]
+    MULTIPLY      reduce using rule 72 (divMul)
+    MULTIPLY      [reduce using rule 80 (divMul)]
+    DIVIDE        reduce using rule 72 (divMul)
+    DIVIDE        [reduce using rule 80 (divMul)]
+    $default      reduce using rule 72 (divMul)
 
 
-État 145
+State 145
 
    22 ifBlock: ELSE IF OPEN_PARENT condition CLOSE_PARENT body .
 
-    $défaut  réduction par utilisation de la règle 22 (ifBlock)
+    $default  reduce using rule 22 (ifBlock)

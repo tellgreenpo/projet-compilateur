@@ -6,6 +6,7 @@
 
 Cell *asm_table = NULL;
 
+// FIXME - No printing on file
 int add_ASM_file()
 {
     system("rm asm_readable.txt");
