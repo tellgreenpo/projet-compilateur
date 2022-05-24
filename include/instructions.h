@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #ifndef INSTRUCTIONS_H
 #define INSTRUCTIONS_H
 #define MAX_SIZE 20
@@ -22,9 +23,10 @@ enum ASM_CODES
 
 typedef struct Cell
 {
-    int lineNumber;
-    char asm[MAX_SIZE];
-    int jumpToLine;
+    enum ASM_CODES code;
+    int result;
+    int operand1;
+    operand2;
     Cell *next;
 } Cell;
 

@@ -5,7 +5,7 @@
 Node * ifStack = NULL;
 Node * whileStack = NULL;
 
-void addWhile(int lineNumber){
+void add_while(int lineNumber){
     // create a link
     Node *link = (Node *)malloc(sizeof(Node));
 
@@ -18,7 +18,7 @@ void addWhile(int lineNumber){
     whileStack = link;
 }
 
-void addIf(int lineNumber){
+void add_JMF(int lineNumber){
     // create a link
     Node *link = (Node *)malloc(sizeof(Node));
 
@@ -31,7 +31,7 @@ void addIf(int lineNumber){
     ifStack = link;
 }
 
-int popWhile(){
+int pop_while(){
     if (whileStack = NULL){
         printf("Poping nothing in while stack bruv!\n");
         return -1;
@@ -43,9 +43,9 @@ int popWhile(){
     return line;
 }
 
-int popIf(){
+int pop_JMF(){
     if (ifStack = NULL){
-        printf("Poping nothing in if stack bruv!\n");
+        printf("Poping nothing in jump stack bruv!\n");
         return -1;
     };
     int line = ifStack->lineNumber;

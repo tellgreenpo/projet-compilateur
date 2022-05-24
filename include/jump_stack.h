@@ -11,10 +11,10 @@ typedef struct Node
     struct Node *next;
 } Node;
 
-void addWhile(int lineNumber);
-void addIf(int lineNumber);
+void add_while(int lineNumber);
+void add_JMF(int lineNumber);
 
-int popWhile();
-int popIf();
+int pop_while();
+int pop_JMF();
 
 #endif
