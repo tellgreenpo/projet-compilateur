@@ -1,7 +1,9 @@
 #ifndef INSTRUCTIONS_H
 #define INSTRUCTIONS_H
+#define MAX_SIZE 20
 
-enum ASM_CODES{
+enum ASM_CODES
+{
     ADD = '1',
     MUL = '2',
     SOU = '3',
@@ -18,32 +20,40 @@ enum ASM_CODES{
     STR = 'E'
 };
 
+typedef struct Cell
+{
+    int lineNumber;
+    char asm[MAX_SIZE];
+    int jumpToLine;
+    Cell *next;
+} Cell;
+
 // Adds ASM readable instruction to output file
-int add_ASM_file(enum ASM_CODES code,int result,int operand1, int operand2);
+int add_ASM_file(enum ASM_CODES code, int result, int operand1, int operand2);
 
 // Addition operation and calls add_ASM_file
-void add(int result,int operand1,int operand2);
+void add(int result, int operand1, int operand2);
 
 // Substraction operation and calls add_ASM_file
-void substract(int result,int operand1,int operand2);
+void substract(int result, int operand1, int operand2);
 
 // Multiplication operation and calls add_ASM_file
-void multiply(int result,int operand1,int operand2);
+void multiply(int result, int operand1, int operand2);
 
 // Division operation and calls add_ASM_file
-void divide(int result,int operand1,int operand2);
+void divide(int result, int operand1, int operand2);
 
 // Copy operation and calls add_ASM_file
-void copy(int result,int operand);
+void copy(int result, int operand);
 
 // Affectation operation and calls add_ASM_file
-void affectation(int result,int value);
+void affectation(int result, int value);
 
 // Load operation and calls add_ASM_file
-void load(int result,int value);
+void load(int result, int value);
 
 // Store operation and calls add_ASM_file
-void store(int result,int value);
+void store(int result, int value);
 
 // Jump if true operation and calls add_ASM_file
 void jump(int instructionNumber);
@@ -52,17 +62,15 @@ void jump(int instructionNumber);
 void jump_false(int instructionNumber);
 
 // Inferior comparison  operation and calls add_ASM_file
-void inferior(int result,int operand1, int operand2);
+void inferior(int result, int operand1, int operand2);
 
 // Superior comparison operation and calls add_ASM_file
-void superior(int result,int operand1, int operand2);
+void superior(int result, int operand1, int operand2);
 
 // Equal comparison operation and calls add_ASM_file
-void is_equal(int result,int operand1, int operand2);
+void is_equal(int result, int operand1, int operand2);
 
 // print operation and calls add_ASM_file
 void print(int result);
-
-
 
 #endif

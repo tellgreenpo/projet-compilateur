@@ -4,6 +4,9 @@
 #define str(x) #x
 #define xstr(x) str(x)
 
+// TODO - Change file to implement asm table
+
+// FIXME - Change to printing asm table
 int add_ASM_file(enum ASM_CODES code, int result, int operand1, int operand2)
 {
     FILE *readableFile = fopen("asm_readable.txt", "a");

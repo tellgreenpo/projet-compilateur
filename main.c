@@ -4,8 +4,3 @@ int main() {
     j=4 ;
     return 0;
 }
-
-
-// TODO - Test variables are kept insided symbole table
-
-// TODO - Test generate interpretable file
