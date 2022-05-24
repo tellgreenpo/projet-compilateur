@@ -28,7 +28,7 @@ typedef struct Cell
     int result;
     int operand1;
     int operand2;
-    Cell *next;
+    struct Cell *next;
 } Cell;
 
 // Adds ASM readable instruction to output file

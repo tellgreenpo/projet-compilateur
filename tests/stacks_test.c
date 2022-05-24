@@ -2,7 +2,7 @@
 #include "../include/jump_stack.h"
 #include "../include/instructions.h"
 
-extern Cell *head;
+extern Cell *asm_table;
 extern Node *jumpStack;
 extern Node *whileStack;
 

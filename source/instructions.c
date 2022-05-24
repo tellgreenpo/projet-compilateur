@@ -4,7 +4,7 @@
 #define str(x) #x
 #define xstr(x) str(x)
 
-Cell *head = NULL;
+Cell *asm_table = NULL;
 
 int add_ASM_file()
 {
@@ -12,7 +12,7 @@ int add_ASM_file()
     system("rm asm_code.txt");
     FILE *readableFile = fopen("asm_readable.txt", "a");
     FILE *codeFile = fopen("asm_code.txt", "a");
-    Cell *aux = head;
+    Cell *aux = asm_table;
 
     while (aux->next != NULL)
     {
@@ -88,8 +88,8 @@ int update_JMF(int jmfLine, int jumpDestination)
 {
     int i = 0;
     bool found = false;
-    Cell *aux = head;
-    while ((head->next != NULL) && found)
+    Cell *aux = asm_table;
+    while ((asm_table->next != NULL) && found)
     {
         if (i == jmfLine)
         {
@@ -111,8 +111,8 @@ void add(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void susbtract(int result, int operand1, int operand2, int lineNumber)
@@ -124,8 +124,8 @@ void susbtract(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void multiply(int result, int operand1, int operand2, int lineNumber)
@@ -137,8 +137,8 @@ void multiply(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void divide(int result, int operand1, int operand2, int lineNumber)
@@ -150,8 +150,8 @@ void divide(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void copy(int result, int operand, int lineNumber)
@@ -163,8 +163,8 @@ void copy(int result, int operand, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void affectation(int result, int value, int lineNumber)
@@ -176,8 +176,8 @@ void affectation(int result, int value, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void load(int result, int value, int lineNumber)
@@ -189,8 +189,8 @@ void load(int result, int value, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void store(int result, int value, int lineNumber)
@@ -202,8 +202,8 @@ void store(int result, int value, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void jump(int instructionLine, int lineNumber)
@@ -215,8 +215,8 @@ void jump(int instructionLine, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void jump_false(int regis, int instructionLine, int lineNumber)
@@ -228,8 +228,8 @@ void jump_false(int regis, int instructionLine, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void inferior(int result, int operand1, int operand2, int lineNumber)
@@ -241,8 +241,8 @@ void inferior(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void superior(int result, int operand1, int operand2, int lineNumber)
@@ -254,8 +254,8 @@ void superior(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void is_equal(int result, int operand1, int operand2, int lineNumber)
@@ -267,8 +267,8 @@ void is_equal(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
 
 void print(int result, int lineNumber)
@@ -280,6 +280,6 @@ void print(int result, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = head;
-    head = new;
+    new->next = asm_table;
+    asm_table = new;
 }
