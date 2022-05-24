@@ -4,63 +4,79 @@
 #define str(x) #x
 #define xstr(x) str(x)
 
-// TODO - Change file to implement asm table
+Cell *head = NULL;
 
-// FIXME - Change to printing asm table
-int add_ASM_file(enum ASM_CODES code, int result, int operand1, int operand2)
+int add_ASM_file()
 {
+    system("rm asm_readable.txt");
+    system("rm asm_code.txt");
     FILE *readableFile = fopen("asm_readable.txt", "a");
     FILE *codeFile = fopen("asm_code.txt", "a");
+    Cell *aux = head;
 
-    fprintf(codeFile, "%c %i %i %i\n", code, result, operand1, operand2);
-
-    switch (code)
+    while (aux->next != NULL)
     {
-    case ADD:
-        fprintf(readableFile, "ADD %i %i %i\n", result, operand1, operand2);
-        break;
-    case MUL:
-        fprintf(readableFile, "MUL %i %i %i\n", result, operand1, operand2);
-        break;
-    case SOU:
-        fprintf(readableFile, "SOU %i %i %i\n", result, operand1, operand2);
-        break;
-    case DIV:
-        fprintf(readableFile, "DIV %i %i %i\n", result, operand1, operand2);
-        break;
-    case COP:
-        fprintf(readableFile, "COP %i %i %i\n", result, operand1, operand2);
-        break;
-    case AFC:
-        fprintf(readableFile, "AFC %i %i %i\n", result, operand1, operand2);
-        break;
-    case JMP:
-        fprintf(readableFile, "JMP %i %i %i\n", result, operand1, operand2);
-        break;
-    case JMF:
-        fprintf(readableFile, "JMF %i %i %i\n", result, operand1, operand2);
-        break;
-    case INF:
-        fprintf(readableFile, "INF %i %i %i\n", result, operand1, operand2);
-        break;
-    case SUP:
-        fprintf(readableFile, "SUP %i %i %i\n", result, operand1, operand2);
-        break;
-    case EQU:
-        fprintf(readableFile, "EQU %i %i %i\n", result, operand1, operand2);
-        break;
-    case PRI:
-        fprintf(readableFile, "PRI %i %i %i\n", result, operand1, operand2);
-        break;
-    case LOA:
-        fprintf(readableFile, "LOA %i %i %i\n", result, operand1, operand2);
-        break;
-    case STR:
-        fprintf(readableFile, "STR %i %i %i\n", result, operand1, operand2);
-        break;
-
-    default:
-        break;
+        switch (aux->code)
+        {
+        case ADD:
+            fprintf(codeFile, "%i %i %i %i\n", ADD, aux->result, aux->operand1, aux->operand2);
+            fprintf(codeFile, "%s %i %i %i\n", "ADD", aux->result, aux->operand1, aux->operand2);
+            break;
+        case SOU:
+            fprintf(codeFile, "%i %i %i %i\n", SOU, aux->result, aux->operand1, aux->operand2);
+            fprintf(codeFile, "%s %i %i %i\n", "SOU", aux->result, aux->operand1, aux->operand2);
+            break;
+        case MUL:
+            fprintf(codeFile, "%i %i %i %i\n", MUL, aux->result, aux->operand1, aux->operand2);
+            fprintf(codeFile, "%s %i %i %i\n", "MUL", aux->result, aux->operand1, aux->operand2);
+            break;
+        case DIV:
+            fprintf(codeFile, "%i %i %i %i\n", DIV, aux->result, aux->operand1, aux->operand2);
+            fprintf(codeFile, "%s %i %i %i\n", "DIV", aux->result, aux->operand1, aux->operand2);
+            break;
+        case COP:
+            fprintf(codeFile, "%i %i %i\n", COP, aux->result, aux->operand1);
+            fprintf(codeFile, "%s %i %i\n", "COP", aux->result, aux->operand1);
+            break;
+        case AFC:
+            fprintf(codeFile, "%i %i %i\n", AFC, aux->result, aux->operand1);
+            fprintf(codeFile, "%s %i %i\n", "AFC", aux->result, aux->operand1);
+            break;
+        case LOA:
+            fprintf(codeFile, "%i %i %i\n", LOA, aux->result, aux->operand1);
+            fprintf(codeFile, "%s %i %i\n", "LOA", aux->result, aux->operand1);
+            break;
+        case STR:
+            fprintf(codeFile, "%i %i %i\n", STR, aux->result, aux->operand1);
+            fprintf(codeFile, "%s %i %i\n", "STR", aux->result, aux->operand1);
+            break;
+        case JMP:
+            fprintf(codeFile, "%i %i\n", JMP, aux->result);
+            fprintf(codeFile, "%s %i\n", "JMP", aux->result);
+            break;
+        case JMF:
+            fprintf(codeFile, "%i %i %i\n", JMF, aux->result, aux->operand1);
+            fprintf(codeFile, "%s %i %i\n", "JMF", aux->result, aux->operand1);
+            break;
+        case INF:
+            fprintf(codeFile, "%i %i %i %i\n", INF, aux->result, aux->operand1, aux->operand2);
+            fprintf(codeFile, "%s %i %i %i\n", "INF", aux->result, aux->operand1, aux->operand2);
+            break;
+        case SUP:
+            fprintf(codeFile, "%i %i %i %i\n", SUP, aux->result, aux->operand1, aux->operand2);
+            fprintf(codeFile, "%s %i %i %i\n", "SUP", aux->result, aux->operand1, aux->operand2);
+            break;
+        case EQU:
+            fprintf(codeFile, "%i %i %i %i\n", EQU, aux->result, aux->operand1, aux->operand2);
+            fprintf(codeFile, "%s %i %i %i\n", "EQU", aux->result, aux->operand1, aux->operand2);
+            break;
+        case PRI:
+            fprintf(codeFile, "%i %i\n", PRI, aux->result);
+            fprintf(codeFile, "%s %i\n", "PRI", aux->result);
+            break;
+        default:
+            break;
+        }
     }
 
     fclose(readableFile);
@@ -68,72 +84,202 @@ int add_ASM_file(enum ASM_CODES code, int result, int operand1, int operand2)
     return 0;
 }
 
-void add(int result, int operand1, int operand2)
+int update_JMF(int jmfLine, int jumpDestination)
 {
-    add_ASM_file(ADD, result, operand1, operand2);
+    int i = 0;
+    bool found = false;
+    Cell *aux = head;
+    while ((head->next != NULL) && found)
+    {
+        if (i == jmfLine)
+        {
+            found = true;
+            aux->operand1 = jumpDestination;
+        }
+        i++;
+        aux = aux->next;
+    }
+    return (int)found;
 }
 
-void susbtract(int result, int operand1, int operand2)
+void add(int result, int operand1, int operand2, int lineNumber)
 {
-    add_ASM_file(SOU, result, operand1, operand2);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = ADD;
+    new->result = result;
+    new->operand1 = operand1;
+    new->operand2 = operand2;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void multiply(int result, int operand1, int operand2)
+void susbtract(int result, int operand1, int operand2, int lineNumber)
 {
-    add_ASM_file(MUL, result, operand1, operand2);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = SOU;
+    new->result = result;
+    new->operand1 = operand1;
+    new->operand2 = operand2;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void divide(int result, int operand1, int operand2)
+void multiply(int result, int operand1, int operand2, int lineNumber)
 {
-    add_ASM_file(DIV, result, operand1, operand2);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = MUL;
+    new->result = result;
+    new->operand1 = operand1;
+    new->operand2 = operand2;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void copy(int result, int operand)
+void divide(int result, int operand1, int operand2, int lineNumber)
 {
-    add_ASM_file(COP, result, operand, 0);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = DIV;
+    new->result = result;
+    new->operand1 = operand1;
+    new->operand2 = operand2;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void affectation(int result, int value)
+void copy(int result, int operand, int lineNumber)
 {
-    add_ASM_file(AFC, result, value, 0);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = COP;
+    new->result = result;
+    new->operand1 = operand;
+    new->operand2 = -1;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void load(int result, int value)
+void affectation(int result, int value, int lineNumber)
 {
-    add_ASM_file(LOA, result, value, 0);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = AFC;
+    new->result = result;
+    new->operand1 = value;
+    new->operand2 = -1;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void store(int result, int value)
+void load(int result, int value, int lineNumber)
 {
-    add_ASM_file(STR, result, value, 0);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = LOA;
+    new->result = result;
+    new->operand1 = value;
+    new->operand2 = -1;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void jump(int instructionNumber)
+void store(int result, int value, int lineNumber)
 {
-    add_ASM_file(JMP, instructionNumber, 0, 0);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = STR;
+    new->result = result;
+    new->operand1 = value;
+    new->operand2 = -1;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void jump_false(int instructionNumber)
+void jump(int instructionLine, int lineNumber)
 {
-    add_ASM_file(JMF, instructionNumber, 0, 0);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = JMP;
+    new->result = instructionLine;
+    new->operand1 = -1;
+    new->operand2 = -1;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void inferior(int result, int operand1, int operand2)
+void jump_false(int regis, int instructionLine, int lineNumber)
 {
-    add_ASM_file(INF, result, operand1, operand2);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = JMF;
+    new->result = regis;
+    new->operand1 = instructionLine;
+    new->operand2 = -1;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void superior(int result, int operand1, int operand2)
+void inferior(int result, int operand1, int operand2, int lineNumber)
 {
-    add_ASM_file(SUP, result, operand1, operand2);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = INF;
+    new->result = result;
+    new->operand1 = operand1;
+    new->operand2 = operand2;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void is_equal(int result, int operand1, int operand2)
+void superior(int result, int operand1, int operand2, int lineNumber)
 {
-    add_ASM_file(EQU, result, operand1, operand2);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = SUP;
+    new->result = result;
+    new->operand1 = operand1;
+    new->operand2 = operand2;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
 
-void print(int result)
+void is_equal(int result, int operand1, int operand2, int lineNumber)
 {
-    add_ASM_file(PRI, result, 0, 0);
+    Cell *new = malloc(sizeof(Cell));
+    new->code = EQU;
+    new->result = result;
+    new->operand1 = operand1;
+    new->operand2 = operand2;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
+}
+
+void print(int result, int lineNumber)
+{
+    Cell *new = malloc(sizeof(Cell));
+    new->code = PRI;
+    new->result = result;
+    new->operand1 = -1;
+    new->operand2 = -1;
+    new->lineNumber = lineNumber;
+
+    new->next = head;
+    head = new;
 }
