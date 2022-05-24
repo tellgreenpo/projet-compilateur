@@ -1,9 +1,6 @@
 Non-terminaux inutiles dans la grammaire
 
     args
-    expr
-    names
-    divMul
 
 
 Terminaux inutilisés dans la grammaire
@@ -12,28 +9,23 @@ Terminaux inutilisés dans la grammaire
     DOT
     OPEN_BRACKET
     CLOSE_BRACKET
-    PLUS
-    MINUS
-    MULTIPLY
-    DIVIDE
 
 
 Règles inutiles dans la grammaire
 
-   45 args: value COMMA args
-   46     | value
-   47     | %empty
+   55 args: value COMMA args
+   56     | value
+   57     | %empty
 
-   48 expr: expr EQUAL expr
-   49     | expr PLUS expr
-   50     | expr MINUS expr
-   51     | expr MULTIPLY expr
-   52     | expr DIVIDE expr
-   53     | name
-   54     | value
 
-   55 names: name COMMA names
-   56      | name
+Règles inutiles dans l'analyseur à cause de conflits
+
+   43 divMul: term DIVIDE divMul
+
+
+État 66 conflits: 3 décalage/réduction
+État 102 conflits: 5 réduction/réduction
+État 103 conflits: 1 décalage/réduction
 
 
 Grammaire
@@ -42,32 +34,33 @@ Grammaire
 
     1 main_structure: type MAIN OPEN_PARENT params CLOSE_PARENT body
 
-    2 body: OPEN_BRACE declarations insts CLOSE_BRACE
+    2 $@1: %empty
 
-    3 insts: inst insts
-    4      | %empty
+    3 body: OPEN_BRACE $@1 declarations insts CLOSE_BRACE
 
-    5 inst: affectation
-    6     | print
-    7     | ifBlock
-    8     | whileBlock
-    9     | RETURN value SEMICOLON
-   10     | RETURN name SEMICOLON
+    4 insts: inst insts
+    5      | %empty
 
-   11 params: type name COMMA params
-   12       | type name
-   13       | %empty
+    6 inst: affectation
+    7     | print
+    8     | ifBlock
+    9     | whileBlock
+   10     | RETURN value SEMICOLON
+   11     | RETURN name SEMICOLON
 
-   14 declaration: type ids SEMICOLON
-   15            | type id EQUAL value SEMICOLON
+   12 params: type name COMMA params
+   13       | type name
+   14       | %empty
 
-   16 declarations: declaration declarations
-   17             | declaration
+   15 declaration: type ids SEMICOLON
+   16            | type id EQUAL value SEMICOLON
 
-   18 affectation: name EQUAL value SEMICOLON
+   17 declarations: declaration declarations
+   18             | declaration
 
-   19 print: PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
-   20      | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON
+   19 affectation: name EQUAL arithmExpr SEMICOLON
+
+   20 print: PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON
 
    21 ifBlock: IF OPEN_PARENT condition CLOSE_PARENT body
    22        | ELSE IF OPEN_PARENT condition CLOSE_PARENT body
@@ -75,9 +68,9 @@ Grammaire
 
    24 whileBlock: WHILE OPEN_PARENT condition CLOSE_PARENT body
 
-   25 condition: valueOrVar
-   26          | unaryOperand valueOrVar
-   27          | valueOrVar binaryOperand valueOrVar
+   25 condition: term
+   26          | unaryOperand term
+   27          | term binaryOperand term
 
    28 binaryOperand: LESS
    29              | LESS_EQ
@@ -88,21 +81,33 @@ Grammaire
 
    34 unaryOperand: EXCLAM
 
-   35 value: NUMBER
-   36      | EXPON
+   35 arithmExpr: arithmExpr PLUS term
+   36           | term PLUS arithmExpr
+   37           | arithmExpr MINUS term
+   38           | term MINUS arithmExpr
+   39           | divMul
 
-   37 type: INT
-   38     | CONST INT
+   40 divMul: divMul MULTIPLY term
+   41       | term DIVIDE divMul
+   42       | divMul DIVIDE term
+   43       | term DIVIDE divMul
+   44       | term
 
-   39 name: ALPHA
+   45 term: value
+   46     | name
 
-   40 valueOrVar: value
-   41           | name
+   47 value: NUMBER
+   48      | EXPON
 
-   42 id: ALPHA
+   49 type: INT
+   50     | CONST INT
 
-   43 ids: id COMMA ids
-   44    | id
+   51 name: ALPHA
+
+   52 id: ALPHA
+
+   53 ids: id COMMA ids
+   54    | id
 
 
 Terminaux, suivis des règles où ils apparaissent
@@ -110,19 +115,19 @@ Terminaux, suivis des règles où ils apparaissent
     $end (0) 0
     error (256)
     MAIN (258) 1
-    RETURN (259) 9 10
-    PRINTF (260) 19 20
-    CONST (261) 38
+    RETURN (259) 10 11
+    PRINTF (260) 20
+    CONST (261) 50
     EOL (262)
     DOT (263)
-    COMMA (264) 11 43
-    SEMICOLON (265) 9 10 14 15 18 19 20
-    OPEN_BRACE (266) 2
-    CLOSE_BRACE (267) 2
+    COMMA (264) 12 53
+    SEMICOLON (265) 10 11 15 16 19 20
+    OPEN_BRACE (266) 3
+    CLOSE_BRACE (267) 3
     OPEN_BRACKET (268)
     CLOSE_BRACKET (269)
-    OPEN_PARENT (270) 1 19 20 21 22 24
-    CLOSE_PARENT (271) 1 19 20 21 22 24
+    OPEN_PARENT (270) 1 20 21 22 24
+    CLOSE_PARENT (271) 1 20 21 22 24
     IF (272) 21 22
     ELSE (273) 22 23
     WHILE (274) 24
@@ -133,15 +138,15 @@ Terminaux, suivis des règles où ils apparaissent
     MORE (279) 30
     LESS_EQ (280) 29
     MORE_EQ (281) 31
-    NUMBER <nb> (282) 35
-    EXPON <nb> (283) 36
-    ALPHA <str> (284) 39 42
-    INT <str> (285) 37 38
-    EQUAL (286) 15 18
-    PLUS (287)
-    MINUS (288)
-    MULTIPLY (289)
-    DIVIDE (290)
+    NUMBER <nb> (282) 47
+    EXPON <nb> (283) 48
+    ALPHA <str> (284) 51 52
+    INT <str> (285) 49 50
+    EQUAL (286) 16 19
+    PLUS (287) 35 36
+    MINUS (288) 37 38
+    MULTIPLY (289) 40
+    DIVIDE (290) 41 42 43
 
 
 Non-terminaux, suivis des règles où ils apparaissent
@@ -152,62 +157,71 @@ Non-terminaux, suivis des règles où ils apparaissent
         à gauche: 1
         à droite: 0
     body (38)
-        à gauche: 2
+        à gauche: 3
         à droite: 1 21 22 23 24
-    insts (39)
-        à gauche: 3 4
-        à droite: 2 3
-    inst (40)
-        à gauche: 5 6 7 8 9 10
+    $@1 (39)
+        à gauche: 2
         à droite: 3
-    params (41)
-        à gauche: 11 12 13
-        à droite: 1 11
-    declaration (42)
-        à gauche: 14 15
-        à droite: 16 17
-    declarations (43)
-        à gauche: 16 17
-        à droite: 2 16
-    affectation (44)
-        à gauche: 18
-        à droite: 5
-    print (45)
-        à gauche: 19 20
+    insts (40)
+        à gauche: 4 5
+        à droite: 3 4
+    inst (41)
+        à gauche: 6 7 8 9 10 11
+        à droite: 4
+    params (42)
+        à gauche: 12 13 14
+        à droite: 1 12
+    declaration (43)
+        à gauche: 15 16
+        à droite: 17 18
+    declarations (44)
+        à gauche: 17 18
+        à droite: 3 17
+    affectation (45)
+        à gauche: 19
         à droite: 6
-    ifBlock (46)
-        à gauche: 21 22 23
+    print (46)
+        à gauche: 20
         à droite: 7
-    whileBlock (47)
-        à gauche: 24
+    ifBlock (47)
+        à gauche: 21 22 23
         à droite: 8
-    condition (48)
+    whileBlock (48)
+        à gauche: 24
+        à droite: 9
+    condition (49)
         à gauche: 25 26 27
         à droite: 21 22 24
-    binaryOperand (49)
+    binaryOperand (50)
         à gauche: 28 29 30 31 32 33
         à droite: 27
-    unaryOperand (50)
+    unaryOperand (51)
         à gauche: 34
         à droite: 26
-    value <nb> (51)
-        à gauche: 35 36
-        à droite: 9 15 18 19 40
-    type <nb> (52)
-        à gauche: 37 38
-        à droite: 1 11 12 14 15
-    name <str> (53)
-        à gauche: 39
-        à droite: 10 11 12 18 20 41
-    valueOrVar (54)
-        à gauche: 40 41
-        à droite: 25 26 27
-    id <str> (55)
-        à gauche: 42
-        à droite: 15 43 44
-    ids (56)
-        à gauche: 43 44
-        à droite: 14 43
+    arithmExpr <nb> (52)
+        à gauche: 35 36 37 38 39
+        à droite: 19 35 36 37 38
+    divMul <nb> (53)
+        à gauche: 40 41 42 43 44
+        à droite: 39 40 41 42 43
+    term <nb> (54)
+        à gauche: 45 46
+        à droite: 25 26 27 35 36 37 38 40 41 42 43 44
+    value <nb> (55)
+        à gauche: 47 48
+        à droite: 10 16 20 45
+    type <nb> (56)
+        à gauche: 49 50
+        à droite: 1 12 13 15 16
+    name <str> (57)
+        à gauche: 51
+        à droite: 11 12 13 19 46
+    id <str> (58)
+        à gauche: 52
+        à droite: 16 53 54
+    ids (59)
+        à gauche: 53 54
+        à droite: 15 53
 
 
 État 0
@@ -223,16 +237,16 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 1
 
-   38 type: CONST . INT
+   50 type: CONST . INT
 
     INT  décalage et aller à l'état 5
 
 
 État 2
 
-   37 type: INT .
+   49 type: INT .
 
-    $défaut  réduction par utilisation de la règle 37 (type)
+    $défaut  réduction par utilisation de la règle 49 (type)
 
 
 État 3
@@ -251,9 +265,9 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 5
 
-   38 type: CONST INT .
+   50 type: CONST INT .
 
-    $défaut  réduction par utilisation de la règle 38 (type)
+    $défaut  réduction par utilisation de la règle 50 (type)
 
 
 État 6
@@ -277,7 +291,7 @@ Non-terminaux, suivis des règles où ils apparaissent
     CONST  décalage et aller à l'état 1
     INT    décalage et aller à l'état 2
 
-    $défaut  réduction par utilisation de la règle 13 (params)
+    $défaut  réduction par utilisation de la règle 14 (params)
 
     params  aller à l'état 9
     type    aller à l'état 10
@@ -292,8 +306,8 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 10
 
-   11 params: type . name COMMA params
-   12       | type . name
+   12 params: type . name COMMA params
+   13       | type . name
 
     ALPHA  décalage et aller à l'état 12
 
@@ -311,31 +325,28 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 12
 
-   39 name: ALPHA .
+   51 name: ALPHA .
 
-    $défaut  réduction par utilisation de la règle 39 (name)
+    $défaut  réduction par utilisation de la règle 51 (name)
 
 
 État 13
 
-   11 params: type name . COMMA params
-   12       | type name .
+   12 params: type name . COMMA params
+   13       | type name .
 
     COMMA  décalage et aller à l'état 16
 
-    $défaut  réduction par utilisation de la règle 12 (params)
+    $défaut  réduction par utilisation de la règle 13 (params)
 
 
 État 14
 
-    2 body: OPEN_BRACE . declarations insts CLOSE_BRACE
+    3 body: OPEN_BRACE . $@1 declarations insts CLOSE_BRACE
 
-    CONST  décalage et aller à l'état 1
-    INT    décalage et aller à l'état 2
+    $défaut  réduction par utilisation de la règle 2 ($@1)
 
-    declaration   aller à l'état 17
-    declarations  aller à l'état 18
-    type          aller à l'état 19
+    $@1  aller à l'état 17
 
 
 État 15
@@ -347,379 +358,385 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 État 16
 
-   11 params: type name COMMA . params
+   12 params: type name COMMA . params
 
     CONST  décalage et aller à l'état 1
     INT    décalage et aller à l'état 2
 
-    $défaut  réduction par utilisation de la règle 13 (params)
+    $défaut  réduction par utilisation de la règle 14 (params)
 
-    params  aller à l'état 20
+    params  aller à l'état 18
     type    aller à l'état 10
 
 
 État 17
 
-   16 declarations: declaration . declarations
-   17             | declaration .
+    3 body: OPEN_BRACE $@1 . declarations insts CLOSE_BRACE
 
     CONST  décalage et aller à l'état 1
     INT    décalage et aller à l'état 2
 
-    $défaut  réduction par utilisation de la règle 17 (declarations)
-
-    declaration   aller à l'état 17
-    declarations  aller à l'état 21
-    type          aller à l'état 19
+    declaration   aller à l'état 19
+    declarations  aller à l'état 20
+    type          aller à l'état 21
 
 
 État 18
 
-    2 body: OPEN_BRACE declarations . insts CLOSE_BRACE
+   12 params: type name COMMA params .
 
-    RETURN  décalage et aller à l'état 22
-    PRINTF  décalage et aller à l'état 23
-    IF      décalage et aller à l'état 24
-    ELSE    décalage et aller à l'état 25
-    WHILE   décalage et aller à l'état 26
-    ALPHA   décalage et aller à l'état 12
-
-    $défaut  réduction par utilisation de la règle 4 (insts)
-
-    insts        aller à l'état 27
-    inst         aller à l'état 28
-    affectation  aller à l'état 29
-    print        aller à l'état 30
-    ifBlock      aller à l'état 31
-    whileBlock   aller à l'état 32
-    name         aller à l'état 33
+    $défaut  réduction par utilisation de la règle 12 (params)
 
 
 État 19
 
-   14 declaration: type . ids SEMICOLON
-   15            | type . id EQUAL value SEMICOLON
+   17 declarations: declaration . declarations
+   18             | declaration .
 
-    ALPHA  décalage et aller à l'état 34
+    CONST  décalage et aller à l'état 1
+    INT    décalage et aller à l'état 2
 
-    id   aller à l'état 35
-    ids  aller à l'état 36
+    $défaut  réduction par utilisation de la règle 18 (declarations)
+
+    declaration   aller à l'état 19
+    declarations  aller à l'état 22
+    type          aller à l'état 21
 
 
 État 20
 
-   11 params: type name COMMA params .
+    3 body: OPEN_BRACE $@1 declarations . insts CLOSE_BRACE
 
-    $défaut  réduction par utilisation de la règle 11 (params)
+    RETURN  décalage et aller à l'état 23
+    PRINTF  décalage et aller à l'état 24
+    IF      décalage et aller à l'état 25
+    ELSE    décalage et aller à l'état 26
+    WHILE   décalage et aller à l'état 27
+    ALPHA   décalage et aller à l'état 12
+
+    $défaut  réduction par utilisation de la règle 5 (insts)
+
+    insts        aller à l'état 28
+    inst         aller à l'état 29
+    affectation  aller à l'état 30
+    print        aller à l'état 31
+    ifBlock      aller à l'état 32
+    whileBlock   aller à l'état 33
+    name         aller à l'état 34
 
 
 État 21
 
-   16 declarations: declaration declarations .
+   15 declaration: type . ids SEMICOLON
+   16            | type . id EQUAL value SEMICOLON
 
-    $défaut  réduction par utilisation de la règle 16 (declarations)
+    ALPHA  décalage et aller à l'état 35
+
+    id   aller à l'état 36
+    ids  aller à l'état 37
 
 
 État 22
 
-    9 inst: RETURN . value SEMICOLON
-   10     | RETURN . name SEMICOLON
+   17 declarations: declaration declarations .
 
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
-    ALPHA   décalage et aller à l'état 12
-
-    value  aller à l'état 39
-    name   aller à l'état 40
+    $défaut  réduction par utilisation de la règle 17 (declarations)
 
 
 État 23
 
-   19 print: PRINTF . OPEN_PARENT value CLOSE_PARENT SEMICOLON
-   20      | PRINTF . OPEN_PARENT name CLOSE_PARENT SEMICOLON
+   10 inst: RETURN . value SEMICOLON
+   11     | RETURN . name SEMICOLON
 
-    OPEN_PARENT  décalage et aller à l'état 41
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    value  aller à l'état 40
+    name   aller à l'état 41
 
 
 État 24
 
-   21 ifBlock: IF . OPEN_PARENT condition CLOSE_PARENT body
+   20 print: PRINTF . OPEN_PARENT value CLOSE_PARENT SEMICOLON
 
     OPEN_PARENT  décalage et aller à l'état 42
 
 
 État 25
 
-   22 ifBlock: ELSE . IF OPEN_PARENT condition CLOSE_PARENT body
-   23        | ELSE . body
+   21 ifBlock: IF . OPEN_PARENT condition CLOSE_PARENT body
 
-    OPEN_BRACE  décalage et aller à l'état 14
-    IF          décalage et aller à l'état 43
-
-    body  aller à l'état 44
+    OPEN_PARENT  décalage et aller à l'état 43
 
 
 État 26
 
-   24 whileBlock: WHILE . OPEN_PARENT condition CLOSE_PARENT body
+   22 ifBlock: ELSE . IF OPEN_PARENT condition CLOSE_PARENT body
+   23        | ELSE . body
 
-    OPEN_PARENT  décalage et aller à l'état 45
+    OPEN_BRACE  décalage et aller à l'état 14
+    IF          décalage et aller à l'état 44
+
+    body  aller à l'état 45
 
 
 État 27
 
-    2 body: OPEN_BRACE declarations insts . CLOSE_BRACE
+   24 whileBlock: WHILE . OPEN_PARENT condition CLOSE_PARENT body
 
-    CLOSE_BRACE  décalage et aller à l'état 46
+    OPEN_PARENT  décalage et aller à l'état 46
 
 
 État 28
 
-    3 insts: inst . insts
+    3 body: OPEN_BRACE $@1 declarations insts . CLOSE_BRACE
 
-    RETURN  décalage et aller à l'état 22
-    PRINTF  décalage et aller à l'état 23
-    IF      décalage et aller à l'état 24
-    ELSE    décalage et aller à l'état 25
-    WHILE   décalage et aller à l'état 26
-    ALPHA   décalage et aller à l'état 12
-
-    $défaut  réduction par utilisation de la règle 4 (insts)
-
-    insts        aller à l'état 47
-    inst         aller à l'état 28
-    affectation  aller à l'état 29
-    print        aller à l'état 30
-    ifBlock      aller à l'état 31
-    whileBlock   aller à l'état 32
-    name         aller à l'état 33
+    CLOSE_BRACE  décalage et aller à l'état 47
 
 
 État 29
 
-    5 inst: affectation .
+    4 insts: inst . insts
 
-    $défaut  réduction par utilisation de la règle 5 (inst)
+    RETURN  décalage et aller à l'état 23
+    PRINTF  décalage et aller à l'état 24
+    IF      décalage et aller à l'état 25
+    ELSE    décalage et aller à l'état 26
+    WHILE   décalage et aller à l'état 27
+    ALPHA   décalage et aller à l'état 12
+
+    $défaut  réduction par utilisation de la règle 5 (insts)
+
+    insts        aller à l'état 48
+    inst         aller à l'état 29
+    affectation  aller à l'état 30
+    print        aller à l'état 31
+    ifBlock      aller à l'état 32
+    whileBlock   aller à l'état 33
+    name         aller à l'état 34
 
 
 État 30
 
-    6 inst: print .
+    6 inst: affectation .
 
     $défaut  réduction par utilisation de la règle 6 (inst)
 
 
 État 31
 
-    7 inst: ifBlock .
+    7 inst: print .
 
     $défaut  réduction par utilisation de la règle 7 (inst)
 
 
 État 32
 
-    8 inst: whileBlock .
+    8 inst: ifBlock .
 
     $défaut  réduction par utilisation de la règle 8 (inst)
 
 
 État 33
 
-   18 affectation: name . EQUAL value SEMICOLON
+    9 inst: whileBlock .
 
-    EQUAL  décalage et aller à l'état 48
+    $défaut  réduction par utilisation de la règle 9 (inst)
 
 
 État 34
 
-   42 id: ALPHA .
+   19 affectation: name . EQUAL arithmExpr SEMICOLON
 
-    $défaut  réduction par utilisation de la règle 42 (id)
+    EQUAL  décalage et aller à l'état 49
 
 
 État 35
 
-   15 declaration: type id . EQUAL value SEMICOLON
-   43 ids: id . COMMA ids
-   44    | id .
+   52 id: ALPHA .
 
-    COMMA  décalage et aller à l'état 49
-    EQUAL  décalage et aller à l'état 50
-
-    $défaut  réduction par utilisation de la règle 44 (ids)
+    $défaut  réduction par utilisation de la règle 52 (id)
 
 
 État 36
 
-   14 declaration: type ids . SEMICOLON
+   16 declaration: type id . EQUAL value SEMICOLON
+   53 ids: id . COMMA ids
+   54    | id .
 
-    SEMICOLON  décalage et aller à l'état 51
+    COMMA  décalage et aller à l'état 50
+    EQUAL  décalage et aller à l'état 51
+
+    $défaut  réduction par utilisation de la règle 54 (ids)
 
 
 État 37
 
-   35 value: NUMBER .
-
-    $défaut  réduction par utilisation de la règle 35 (value)
-
-
-État 38
-
-   36 value: EXPON .
-
-    $défaut  réduction par utilisation de la règle 36 (value)
-
-
-État 39
-
-    9 inst: RETURN value . SEMICOLON
+   15 declaration: type ids . SEMICOLON
 
     SEMICOLON  décalage et aller à l'état 52
 
 
+État 38
+
+   47 value: NUMBER .
+
+    $défaut  réduction par utilisation de la règle 47 (value)
+
+
+État 39
+
+   48 value: EXPON .
+
+    $défaut  réduction par utilisation de la règle 48 (value)
+
+
 État 40
 
-   10 inst: RETURN name . SEMICOLON
+   10 inst: RETURN value . SEMICOLON
 
     SEMICOLON  décalage et aller à l'état 53
 
 
 État 41
 
-   19 print: PRINTF OPEN_PARENT . value CLOSE_PARENT SEMICOLON
-   20      | PRINTF OPEN_PARENT . name CLOSE_PARENT SEMICOLON
+   11 inst: RETURN name . SEMICOLON
 
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
-    ALPHA   décalage et aller à l'état 12
-
-    value  aller à l'état 54
-    name   aller à l'état 55
+    SEMICOLON  décalage et aller à l'état 54
 
 
 État 42
 
+   20 print: PRINTF OPEN_PARENT . value CLOSE_PARENT SEMICOLON
+
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+
+    value  aller à l'état 55
+
+
+État 43
+
    21 ifBlock: IF OPEN_PARENT . condition CLOSE_PARENT body
 
     EXCLAM  décalage et aller à l'état 56
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
     ALPHA   décalage et aller à l'état 12
 
     condition     aller à l'état 57
     unaryOperand  aller à l'état 58
-    value         aller à l'état 59
-    name          aller à l'état 60
-    valueOrVar    aller à l'état 61
+    term          aller à l'état 59
+    value         aller à l'état 60
+    name          aller à l'état 61
 
 
-État 43
+État 44
 
    22 ifBlock: ELSE IF . OPEN_PARENT condition CLOSE_PARENT body
 
     OPEN_PARENT  décalage et aller à l'état 62
 
 
-État 44
+État 45
 
    23 ifBlock: ELSE body .
 
     $défaut  réduction par utilisation de la règle 23 (ifBlock)
 
 
-État 45
+État 46
 
    24 whileBlock: WHILE OPEN_PARENT . condition CLOSE_PARENT body
 
     EXCLAM  décalage et aller à l'état 56
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
     ALPHA   décalage et aller à l'état 12
 
     condition     aller à l'état 63
     unaryOperand  aller à l'état 58
-    value         aller à l'état 59
-    name          aller à l'état 60
-    valueOrVar    aller à l'état 61
-
-
-État 46
-
-    2 body: OPEN_BRACE declarations insts CLOSE_BRACE .
-
-    $défaut  réduction par utilisation de la règle 2 (body)
+    term          aller à l'état 59
+    value         aller à l'état 60
+    name          aller à l'état 61
 
 
 État 47
 
-    3 insts: inst insts .
+    3 body: OPEN_BRACE $@1 declarations insts CLOSE_BRACE .
 
-    $défaut  réduction par utilisation de la règle 3 (insts)
+    $défaut  réduction par utilisation de la règle 3 (body)
 
 
 État 48
 
-   18 affectation: name EQUAL . value SEMICOLON
+    4 insts: inst insts .
 
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
-
-    value  aller à l'état 64
+    $défaut  réduction par utilisation de la règle 4 (insts)
 
 
 État 49
 
-   43 ids: id COMMA . ids
+   19 affectation: name EQUAL . arithmExpr SEMICOLON
 
-    ALPHA  décalage et aller à l'état 34
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
 
-    id   aller à l'état 65
-    ids  aller à l'état 66
+    arithmExpr  aller à l'état 64
+    divMul      aller à l'état 65
+    term        aller à l'état 66
+    value       aller à l'état 60
+    name        aller à l'état 61
 
 
 État 50
 
-   15 declaration: type id EQUAL . value SEMICOLON
+   53 ids: id COMMA . ids
 
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
+    ALPHA  décalage et aller à l'état 35
 
-    value  aller à l'état 67
+    id   aller à l'état 67
+    ids  aller à l'état 68
 
 
 État 51
 
-   14 declaration: type ids SEMICOLON .
+   16 declaration: type id EQUAL . value SEMICOLON
 
-    $défaut  réduction par utilisation de la règle 14 (declaration)
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+
+    value  aller à l'état 69
 
 
 État 52
 
-    9 inst: RETURN value SEMICOLON .
+   15 declaration: type ids SEMICOLON .
 
-    $défaut  réduction par utilisation de la règle 9 (inst)
+    $défaut  réduction par utilisation de la règle 15 (declaration)
 
 
 État 53
 
-   10 inst: RETURN name SEMICOLON .
+   10 inst: RETURN value SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 10 (inst)
 
 
 État 54
 
-   19 print: PRINTF OPEN_PARENT value . CLOSE_PARENT SEMICOLON
+   11 inst: RETURN name SEMICOLON .
 
-    CLOSE_PARENT  décalage et aller à l'état 68
+    $défaut  réduction par utilisation de la règle 11 (inst)
 
 
 État 55
 
-   20 print: PRINTF OPEN_PARENT name . CLOSE_PARENT SEMICOLON
+   20 print: PRINTF OPEN_PARENT value . CLOSE_PARENT SEMICOLON
 
-    CLOSE_PARENT  décalage et aller à l'état 69
+    CLOSE_PARENT  décalage et aller à l'état 70
 
 
 État 56
@@ -733,51 +750,51 @@ Non-terminaux, suivis des règles où ils apparaissent
 
    21 ifBlock: IF OPEN_PARENT condition . CLOSE_PARENT body
 
-    CLOSE_PARENT  décalage et aller à l'état 70
+    CLOSE_PARENT  décalage et aller à l'état 71
 
 
 État 58
 
-   26 condition: unaryOperand . valueOrVar
+   26 condition: unaryOperand . term
 
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
     ALPHA   décalage et aller à l'état 12
 
-    value       aller à l'état 59
-    name        aller à l'état 60
-    valueOrVar  aller à l'état 71
+    term   aller à l'état 72
+    value  aller à l'état 60
+    name   aller à l'état 61
 
 
 État 59
 
-   40 valueOrVar: value .
+   25 condition: term .
+   27          | term . binaryOperand term
 
-    $défaut  réduction par utilisation de la règle 40 (valueOrVar)
+    EQUALITY  décalage et aller à l'état 73
+    DIFF      décalage et aller à l'état 74
+    LESS      décalage et aller à l'état 75
+    MORE      décalage et aller à l'état 76
+    LESS_EQ   décalage et aller à l'état 77
+    MORE_EQ   décalage et aller à l'état 78
+
+    $défaut  réduction par utilisation de la règle 25 (condition)
+
+    binaryOperand  aller à l'état 79
 
 
 État 60
 
-   41 valueOrVar: name .
+   45 term: value .
 
-    $défaut  réduction par utilisation de la règle 41 (valueOrVar)
+    $défaut  réduction par utilisation de la règle 45 (term)
 
 
 État 61
 
-   25 condition: valueOrVar .
-   27          | valueOrVar . binaryOperand valueOrVar
+   46 term: name .
 
-    EQUALITY  décalage et aller à l'état 72
-    DIFF      décalage et aller à l'état 73
-    LESS      décalage et aller à l'état 74
-    MORE      décalage et aller à l'état 75
-    LESS_EQ   décalage et aller à l'état 76
-    MORE_EQ   décalage et aller à l'état 77
-
-    $défaut  réduction par utilisation de la règle 25 (condition)
-
-    binaryOperand  aller à l'état 78
+    $défaut  réduction par utilisation de la règle 46 (term)
 
 
 État 62
@@ -785,215 +802,410 @@ Non-terminaux, suivis des règles où ils apparaissent
    22 ifBlock: ELSE IF OPEN_PARENT . condition CLOSE_PARENT body
 
     EXCLAM  décalage et aller à l'état 56
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
     ALPHA   décalage et aller à l'état 12
 
-    condition     aller à l'état 79
+    condition     aller à l'état 80
     unaryOperand  aller à l'état 58
-    value         aller à l'état 59
-    name          aller à l'état 60
-    valueOrVar    aller à l'état 61
+    term          aller à l'état 59
+    value         aller à l'état 60
+    name          aller à l'état 61
 
 
 État 63
 
    24 whileBlock: WHILE OPEN_PARENT condition . CLOSE_PARENT body
 
-    CLOSE_PARENT  décalage et aller à l'état 80
+    CLOSE_PARENT  décalage et aller à l'état 81
 
 
 État 64
 
-   18 affectation: name EQUAL value . SEMICOLON
+   19 affectation: name EQUAL arithmExpr . SEMICOLON
+   35 arithmExpr: arithmExpr . PLUS term
+   37           | arithmExpr . MINUS term
 
-    SEMICOLON  décalage et aller à l'état 81
+    SEMICOLON  décalage et aller à l'état 82
+    PLUS       décalage et aller à l'état 83
+    MINUS      décalage et aller à l'état 84
 
 
 État 65
 
-   43 ids: id . COMMA ids
-   44    | id .
+   39 arithmExpr: divMul .
+   40 divMul: divMul . MULTIPLY term
+   42       | divMul . DIVIDE term
 
-    COMMA  décalage et aller à l'état 49
+    MULTIPLY  décalage et aller à l'état 85
+    DIVIDE    décalage et aller à l'état 86
 
-    $défaut  réduction par utilisation de la règle 44 (ids)
+    $défaut  réduction par utilisation de la règle 39 (arithmExpr)
 
 
 État 66
 
-   43 ids: id COMMA ids .
+   36 arithmExpr: term . PLUS arithmExpr
+   38           | term . MINUS arithmExpr
+   41 divMul: term . DIVIDE divMul
+   43       | term . DIVIDE divMul
+   44       | term .
 
-    $défaut  réduction par utilisation de la règle 43 (ids)
+    PLUS    décalage et aller à l'état 87
+    MINUS   décalage et aller à l'état 88
+    DIVIDE  décalage et aller à l'état 89
+
+    PLUS      [réduction par utilisation de la règle 44 (divMul)]
+    MINUS     [réduction par utilisation de la règle 44 (divMul)]
+    DIVIDE    [réduction par utilisation de la règle 44 (divMul)]
+    $défaut  réduction par utilisation de la règle 44 (divMul)
 
 
 État 67
 
-   15 declaration: type id EQUAL value . SEMICOLON
+   53 ids: id . COMMA ids
+   54    | id .
 
-    SEMICOLON  décalage et aller à l'état 82
+    COMMA  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 54 (ids)
 
 
 État 68
 
-   19 print: PRINTF OPEN_PARENT value CLOSE_PARENT . SEMICOLON
+   53 ids: id COMMA ids .
 
-    SEMICOLON  décalage et aller à l'état 83
+    $défaut  réduction par utilisation de la règle 53 (ids)
 
 
 État 69
 
-   20 print: PRINTF OPEN_PARENT name CLOSE_PARENT . SEMICOLON
+   16 declaration: type id EQUAL value . SEMICOLON
 
-    SEMICOLON  décalage et aller à l'état 84
+    SEMICOLON  décalage et aller à l'état 90
 
 
 État 70
+
+   20 print: PRINTF OPEN_PARENT value CLOSE_PARENT . SEMICOLON
+
+    SEMICOLON  décalage et aller à l'état 91
+
+
+État 71
 
    21 ifBlock: IF OPEN_PARENT condition CLOSE_PARENT . body
 
     OPEN_BRACE  décalage et aller à l'état 14
 
-    body  aller à l'état 85
+    body  aller à l'état 92
 
 
-État 71
+État 72
 
-   26 condition: unaryOperand valueOrVar .
+   26 condition: unaryOperand term .
 
     $défaut  réduction par utilisation de la règle 26 (condition)
 
 
-État 72
+État 73
 
    32 binaryOperand: EQUALITY .
 
     $défaut  réduction par utilisation de la règle 32 (binaryOperand)
 
 
-État 73
+État 74
 
    33 binaryOperand: DIFF .
 
     $défaut  réduction par utilisation de la règle 33 (binaryOperand)
 
 
-État 74
+État 75
 
    28 binaryOperand: LESS .
 
     $défaut  réduction par utilisation de la règle 28 (binaryOperand)
 
 
-État 75
+État 76
 
    30 binaryOperand: MORE .
 
     $défaut  réduction par utilisation de la règle 30 (binaryOperand)
 
 
-État 76
+État 77
 
    29 binaryOperand: LESS_EQ .
 
     $défaut  réduction par utilisation de la règle 29 (binaryOperand)
 
 
-État 77
+État 78
 
    31 binaryOperand: MORE_EQ .
 
     $défaut  réduction par utilisation de la règle 31 (binaryOperand)
 
 
-État 78
-
-   27 condition: valueOrVar binaryOperand . valueOrVar
-
-    NUMBER  décalage et aller à l'état 37
-    EXPON   décalage et aller à l'état 38
-    ALPHA   décalage et aller à l'état 12
-
-    value       aller à l'état 59
-    name        aller à l'état 60
-    valueOrVar  aller à l'état 86
-
-
 État 79
 
-   22 ifBlock: ELSE IF OPEN_PARENT condition . CLOSE_PARENT body
+   27 condition: term binaryOperand . term
 
-    CLOSE_PARENT  décalage et aller à l'état 87
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    term   aller à l'état 93
+    value  aller à l'état 60
+    name   aller à l'état 61
 
 
 État 80
+
+   22 ifBlock: ELSE IF OPEN_PARENT condition . CLOSE_PARENT body
+
+    CLOSE_PARENT  décalage et aller à l'état 94
+
+
+État 81
 
    24 whileBlock: WHILE OPEN_PARENT condition CLOSE_PARENT . body
 
     OPEN_BRACE  décalage et aller à l'état 14
 
-    body  aller à l'état 88
-
-
-État 81
-
-   18 affectation: name EQUAL value SEMICOLON .
-
-    $défaut  réduction par utilisation de la règle 18 (affectation)
+    body  aller à l'état 95
 
 
 État 82
 
-   15 declaration: type id EQUAL value SEMICOLON .
+   19 affectation: name EQUAL arithmExpr SEMICOLON .
 
-    $défaut  réduction par utilisation de la règle 15 (declaration)
+    $défaut  réduction par utilisation de la règle 19 (affectation)
 
 
 État 83
 
-   19 print: PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON .
+   35 arithmExpr: arithmExpr PLUS . term
 
-    $défaut  réduction par utilisation de la règle 19 (print)
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    term   aller à l'état 96
+    value  aller à l'état 60
+    name   aller à l'état 61
 
 
 État 84
 
-   20 print: PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON .
+   37 arithmExpr: arithmExpr MINUS . term
+
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    term   aller à l'état 97
+    value  aller à l'état 60
+    name   aller à l'état 61
+
+
+État 85
+
+   40 divMul: divMul MULTIPLY . term
+
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    term   aller à l'état 98
+    value  aller à l'état 60
+    name   aller à l'état 61
+
+
+État 86
+
+   42 divMul: divMul DIVIDE . term
+
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    term   aller à l'état 99
+    value  aller à l'état 60
+    name   aller à l'état 61
+
+
+État 87
+
+   36 arithmExpr: term PLUS . arithmExpr
+
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    arithmExpr  aller à l'état 100
+    divMul      aller à l'état 65
+    term        aller à l'état 66
+    value       aller à l'état 60
+    name        aller à l'état 61
+
+
+État 88
+
+   38 arithmExpr: term MINUS . arithmExpr
+
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    arithmExpr  aller à l'état 101
+    divMul      aller à l'état 65
+    term        aller à l'état 66
+    value       aller à l'état 60
+    name        aller à l'état 61
+
+
+État 89
+
+   41 divMul: term DIVIDE . divMul
+   43       | term DIVIDE . divMul
+
+    NUMBER  décalage et aller à l'état 38
+    EXPON   décalage et aller à l'état 39
+    ALPHA   décalage et aller à l'état 12
+
+    divMul  aller à l'état 102
+    term    aller à l'état 103
+    value   aller à l'état 60
+    name    aller à l'état 61
+
+
+État 90
+
+   16 declaration: type id EQUAL value SEMICOLON .
+
+    $défaut  réduction par utilisation de la règle 16 (declaration)
+
+
+État 91
+
+   20 print: PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON .
 
     $défaut  réduction par utilisation de la règle 20 (print)
 
 
-État 85
+État 92
 
    21 ifBlock: IF OPEN_PARENT condition CLOSE_PARENT body .
 
     $défaut  réduction par utilisation de la règle 21 (ifBlock)
 
 
-État 86
+État 93
 
-   27 condition: valueOrVar binaryOperand valueOrVar .
+   27 condition: term binaryOperand term .
 
     $défaut  réduction par utilisation de la règle 27 (condition)
 
 
-État 87
+État 94
 
    22 ifBlock: ELSE IF OPEN_PARENT condition CLOSE_PARENT . body
 
     OPEN_BRACE  décalage et aller à l'état 14
 
-    body  aller à l'état 89
+    body  aller à l'état 104
 
 
-État 88
+État 95
 
    24 whileBlock: WHILE OPEN_PARENT condition CLOSE_PARENT body .
 
     $défaut  réduction par utilisation de la règle 24 (whileBlock)
 
 
-État 89
+État 96
+
+   35 arithmExpr: arithmExpr PLUS term .
+
+    $défaut  réduction par utilisation de la règle 35 (arithmExpr)
+
+
+État 97
+
+   37 arithmExpr: arithmExpr MINUS term .
+
+    $défaut  réduction par utilisation de la règle 37 (arithmExpr)
+
+
+État 98
+
+   40 divMul: divMul MULTIPLY term .
+
+    $défaut  réduction par utilisation de la règle 40 (divMul)
+
+
+État 99
+
+   42 divMul: divMul DIVIDE term .
+
+    $défaut  réduction par utilisation de la règle 42 (divMul)
+
+
+État 100
+
+   35 arithmExpr: arithmExpr . PLUS term
+   36           | term PLUS arithmExpr .
+   37           | arithmExpr . MINUS term
+
+    $défaut  réduction par utilisation de la règle 36 (arithmExpr)
+
+
+État 101
+
+   35 arithmExpr: arithmExpr . PLUS term
+   37           | arithmExpr . MINUS term
+   38           | term MINUS arithmExpr .
+
+    $défaut  réduction par utilisation de la règle 38 (arithmExpr)
+
+
+État 102
+
+   40 divMul: divMul . MULTIPLY term
+   41       | term DIVIDE divMul .
+   42       | divMul . DIVIDE term
+   43       | term DIVIDE divMul .
+
+    SEMICOLON  réduction par utilisation de la règle 41 (divMul)
+    SEMICOLON  [réduction par utilisation de la règle 43 (divMul)]
+    PLUS       réduction par utilisation de la règle 41 (divMul)
+    PLUS       [réduction par utilisation de la règle 43 (divMul)]
+    MINUS      réduction par utilisation de la règle 41 (divMul)
+    MINUS      [réduction par utilisation de la règle 43 (divMul)]
+    MULTIPLY   réduction par utilisation de la règle 41 (divMul)
+    MULTIPLY   [réduction par utilisation de la règle 43 (divMul)]
+    DIVIDE     réduction par utilisation de la règle 41 (divMul)
+    DIVIDE     [réduction par utilisation de la règle 43 (divMul)]
+    $défaut   réduction par utilisation de la règle 41 (divMul)
+
+
+État 103
+
+   41 divMul: term . DIVIDE divMul
+   43       | term . DIVIDE divMul
+   44       | term .
+
+    DIVIDE  décalage et aller à l'état 89
+
+    DIVIDE    [réduction par utilisation de la règle 44 (divMul)]
+    $défaut  réduction par utilisation de la règle 44 (divMul)
+
+
+État 104
 
    22 ifBlock: ELSE IF OPEN_PARENT condition CLOSE_PARENT body .
 

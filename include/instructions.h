@@ -20,13 +20,13 @@ enum ASM_CODES
     STR = 'E'
 };
 
-typedef struct Cell
+/*typedef struct Cell
 {
     int lineNumber;
-    char asm[MAX_SIZE];
+    char asmLine[MAX_SIZE];
     int jumpToLine;
     Cell *next;
-} Cell;
+} Cell;*/
 
 // Adds ASM readable instruction to output file
 int add_ASM_file(enum ASM_CODES code, int result, int operand1, int operand2);
