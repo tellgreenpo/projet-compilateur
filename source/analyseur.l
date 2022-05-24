@@ -14,8 +14,6 @@
 "*" {return MULTIPLY;}
 "/" {return DIVIDE;}
 "=" {return EQUAL;}
-"\n" {return EOL;}
-"." {return DOT;}
 "," {return COMMA;}
 ";" {return SEMICOLON;}
 "const" {return CONST;}
@@ -24,8 +22,6 @@
 ")" {return CLOSE_PARENT;}
 "{" {return OPEN_BRACE;}
 "}" {return CLOSE_BRACE;}
-"[" {return OPEN_BRACKET;}
-"]" {return CLOSE_BRACKET;}
 "==" {return EQUALITY;}
 "!=" {return DIFF;}
 "<" {return LESS;}
@@ -41,7 +37,7 @@
 "printf" {return PRINTF;}
 "10e"[-?0-9]+ {yylval.nb = atoi(yytext);
         return EXPON;}
-[0-9]+ {yylval.nb = atoi(yytext);
+[-?0-9]+ {yylval.nb = atoi(yytext);
         return NUMBER;}
 [A-Za-z]+ {yylval.str = strdup(yytext);
             return ALPHA;}
