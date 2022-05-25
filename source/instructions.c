@@ -1,85 +1,80 @@
 #include "../include/instructions.h"
 #include <stdio.h>
 #include <stdlib.h>
-#define str(x) #x
-#define xstr(x) str(x)
 
 Cell *asm_table = NULL;
+Cell *asm_table_last = NULL;
 
-// FIXME - No printing on file
 int add_ASM_file()
 {
-    system("rm asm_readable.txt");
-    system("rm asm_code.txt");
-    FILE *readableFile = fopen("asm_readable.txt", "a");
-    FILE *codeFile = fopen("asm_code.txt", "a");
+    FILE *readableFile = fopen("asm_readable.txt", "w");
+    FILE *codeFile = fopen("asm_code.txt", "w");
     Cell *aux = asm_table;
-
-    while (aux->next != NULL)
+    while (aux != NULL)
     {
         switch (aux->code)
         {
         case ADD:
             fprintf(codeFile, "%i %i %i %i\n", ADD, aux->result, aux->operand1, aux->operand2);
-            fprintf(codeFile, "%s %i %i %i\n", "ADD", aux->result, aux->operand1, aux->operand2);
+            fprintf(readableFile, "%s %i %i %i\n", "ADD", aux->result, aux->operand1, aux->operand2);
             break;
         case SOU:
             fprintf(codeFile, "%i %i %i %i\n", SOU, aux->result, aux->operand1, aux->operand2);
-            fprintf(codeFile, "%s %i %i %i\n", "SOU", aux->result, aux->operand1, aux->operand2);
+            fprintf(readableFile, "%s %i %i %i\n", "SOU", aux->result, aux->operand1, aux->operand2);
             break;
         case MUL:
             fprintf(codeFile, "%i %i %i %i\n", MUL, aux->result, aux->operand1, aux->operand2);
-            fprintf(codeFile, "%s %i %i %i\n", "MUL", aux->result, aux->operand1, aux->operand2);
+            fprintf(readableFile, "%s %i %i %i\n", "MUL", aux->result, aux->operand1, aux->operand2);
             break;
         case DIV:
             fprintf(codeFile, "%i %i %i %i\n", DIV, aux->result, aux->operand1, aux->operand2);
-            fprintf(codeFile, "%s %i %i %i\n", "DIV", aux->result, aux->operand1, aux->operand2);
+            fprintf(readableFile, "%s %i %i %i\n", "DIV", aux->result, aux->operand1, aux->operand2);
             break;
         case COP:
             fprintf(codeFile, "%i %i %i\n", COP, aux->result, aux->operand1);
-            fprintf(codeFile, "%s %i %i\n", "COP", aux->result, aux->operand1);
+            fprintf(readableFile, "%s %i %i\n", "COP", aux->result, aux->operand1);
             break;
         case AFC:
             fprintf(codeFile, "%i %i %i\n", AFC, aux->result, aux->operand1);
-            fprintf(codeFile, "%s %i %i\n", "AFC", aux->result, aux->operand1);
+            fprintf(readableFile, "%s %i %i\n", "AFC", aux->result, aux->operand1);
             break;
         case LOA:
             fprintf(codeFile, "%i %i %i\n", LOA, aux->result, aux->operand1);
-            fprintf(codeFile, "%s %i %i\n", "LOA", aux->result, aux->operand1);
+            fprintf(readableFile, "%s %i %i\n", "LOA", aux->result, aux->operand1);
             break;
         case STR:
             fprintf(codeFile, "%i %i %i\n", STR, aux->result, aux->operand1);
-            fprintf(codeFile, "%s %i %i\n", "STR", aux->result, aux->operand1);
+            fprintf(readableFile, "%s %i %i\n", "STR", aux->result, aux->operand1);
             break;
         case JMP:
             fprintf(codeFile, "%i %i\n", JMP, aux->result);
-            fprintf(codeFile, "%s %i\n", "JMP", aux->result);
+            fprintf(readableFile, "%s %i\n", "JMP", aux->result);
             break;
         case JMF:
             fprintf(codeFile, "%i %i %i\n", JMF, aux->result, aux->operand1);
-            fprintf(codeFile, "%s %i %i\n", "JMF", aux->result, aux->operand1);
+            fprintf(readableFile, "%s %i %i\n", "JMF", aux->result, aux->operand1);
             break;
         case INF:
             fprintf(codeFile, "%i %i %i %i\n", INF, aux->result, aux->operand1, aux->operand2);
-            fprintf(codeFile, "%s %i %i %i\n", "INF", aux->result, aux->operand1, aux->operand2);
+            fprintf(readableFile, "%s %i %i %i\n", "INF", aux->result, aux->operand1, aux->operand2);
             break;
         case SUP:
             fprintf(codeFile, "%i %i %i %i\n", SUP, aux->result, aux->operand1, aux->operand2);
-            fprintf(codeFile, "%s %i %i %i\n", "SUP", aux->result, aux->operand1, aux->operand2);
+            fprintf(readableFile, "%s %i %i %i\n", "SUP", aux->result, aux->operand1, aux->operand2);
             break;
         case EQU:
             fprintf(codeFile, "%i %i %i %i\n", EQU, aux->result, aux->operand1, aux->operand2);
-            fprintf(codeFile, "%s %i %i %i\n", "EQU", aux->result, aux->operand1, aux->operand2);
+            fprintf(readableFile, "%s %i %i %i\n", "EQU", aux->result, aux->operand1, aux->operand2);
             break;
         case PRI:
             fprintf(codeFile, "%i %i\n", PRI, aux->result);
-            fprintf(codeFile, "%s %i\n", "PRI", aux->result);
+            fprintf(readableFile, "%s %i\n", "PRI", aux->result);
             break;
         default:
             break;
         }
+        aux = aux->next;
     }
-
     fclose(readableFile);
     fclose(codeFile);
     return 0;
@@ -87,17 +82,17 @@ int add_ASM_file()
 
 int update_JMF(int jmfLine, int jumpDestination)
 {
-    int i = 0;
     bool found = false;
-    Cell *aux = asm_table;
-    while ((asm_table->next != NULL) && found)
+    Cell * aux = malloc(sizeof(Cell));
+    aux = asm_table;
+    while ((aux != NULL) && !found)
     {
-        if (i == jmfLine)
+
+        if (aux->lineNumber == jmfLine)
         {
             found = true;
             aux->operand1 = jumpDestination;
         }
-        i++;
         aux = aux->next;
     }
     return (int)found;
@@ -112,11 +107,19 @@ void add(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
+
 }
 
-void susbtract(int result, int operand1, int operand2, int lineNumber)
+void substract(int result, int operand1, int operand2, int lineNumber)
 {
     Cell *new = malloc(sizeof(Cell));
     new->code = SOU;
@@ -125,8 +128,15 @@ void susbtract(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void multiply(int result, int operand1, int operand2, int lineNumber)
@@ -138,8 +148,15 @@ void multiply(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void divide(int result, int operand1, int operand2, int lineNumber)
@@ -151,8 +168,15 @@ void divide(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void copy(int result, int operand, int lineNumber)
@@ -164,8 +188,15 @@ void copy(int result, int operand, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void affectation(int result, int value, int lineNumber)
@@ -177,8 +208,15 @@ void affectation(int result, int value, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void load(int result, int value, int lineNumber)
@@ -190,8 +228,15 @@ void load(int result, int value, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void store(int result, int value, int lineNumber)
@@ -203,8 +248,15 @@ void store(int result, int value, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void jump(int instructionLine, int lineNumber)
@@ -216,8 +268,15 @@ void jump(int instructionLine, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void jump_false(int regis, int instructionLine, int lineNumber)
@@ -229,8 +288,15 @@ void jump_false(int regis, int instructionLine, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void inferior(int result, int operand1, int operand2, int lineNumber)
@@ -242,8 +308,15 @@ void inferior(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void superior(int result, int operand1, int operand2, int lineNumber)
@@ -255,8 +328,15 @@ void superior(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void is_equal(int result, int operand1, int operand2, int lineNumber)
@@ -268,8 +348,15 @@ void is_equal(int result, int operand1, int operand2, int lineNumber)
     new->operand2 = operand2;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }
 
 void print(int result, int lineNumber)
@@ -281,6 +368,13 @@ void print(int result, int lineNumber)
     new->operand2 = -1;
     new->lineNumber = lineNumber;
 
-    new->next = asm_table;
-    asm_table = new;
+    if(asm_table == NULL){
+        new->next = asm_table;
+        asm_table = new;
+        asm_table_last = new;
+    }else{
+        new->next = NULL;
+        asm_table_last->next = new;
+        asm_table_last = new;
+    }
 }

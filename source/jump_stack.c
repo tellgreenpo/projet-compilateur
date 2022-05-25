@@ -46,22 +46,26 @@ int pop_while()
     };
 
 
-    int alpha = aux->lineNumber;
+    int line = aux->lineNumber;
     whileStack = aux->next;
     free(aux);
+    return line;
 
 }
 
 int pop_JMF()
 {
+    Node * aux = malloc(sizeof(Node));
+    aux = jumpStack;
+
     if (jumpStack == NULL)
     {
         printf("Poping nothing in jump stack bruv!\n");
         return -1;
     };
-    int line = jumpStack->lineNumber;
-    Node *aux = jumpStack;
-    jumpStack = jumpStack->next;
+
+    int line = aux->lineNumber;
+    jumpStack = aux->next;
     free(aux);
     return line;
 }
