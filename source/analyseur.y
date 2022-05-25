@@ -7,7 +7,7 @@
 //int str[26];
 extern int size; 
 int current_depth = 0;
-int calcul = 0; 
+int linenumber = 0; 
 // A utiliser quand on parcours le fichier
 int whileLoop = 0;
 enum t_type current_type; 
@@ -35,34 +35,37 @@ void yyerror(char *s);
 %%
 
 // 0 : return
+// 8-10 : operations booleennes (10 resultat op, 8 premier terme, 9 deuxieme terme)
 // 11-13 : opérations (13 resultat op, 11 premier terme, 12 deuxieme terme)
 // 14 : affectations
 // 15 : print
 
-main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body ; // TODO - automatiser suppression *.txt
+main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body {add_ASM_file();} ; // TODO - automatiser suppression *.txt
 
-body : OPEN_BRACE {current_depth++; printf("scope + 1\n");} declarations insts CLOSE_BRACE {if (current_depth > 0) {
+body : OPEN_BRACE {current_depth++; printf("scope + 1\n"); } declarations insts CLOSE_BRACE {if (current_depth > 0) {
                                       deleteScope(current_depth);
                                       current_depth--;
                                     } else {
                                       deleteScope(current_depth);
                                       current_depth = 0;
-                                    }
-                                    printf("%d\n", calcul);};
+                                    }};
 
 insts : inst insts | ;
 inst : affectation
       | print
       | ifBlock
       | whileBlock
-      | RETURN value SEMICOLON {affectation(0,$2);}
+      | RETURN value SEMICOLON {affectation(0,$2, linenumber);}
       | RETURN name SEMICOLON {
         int e = exists($2);
         if (e) {
           int add = getAddress($2);
-          load(0,add);
+          load(0,add, linenumber);
         } 
         // else erreur, la variable n'existe pas 
+        else {
+          printf("Erreur : la variable n'existe pas\n");
+        }
       };
 
 args : value COMMA args | value | ; // TODO - comment on gere les arguments dans la table des symboles ??
@@ -74,14 +77,17 @@ affectation : name EQUAL arithmExpr SEMICOLON {
                                           int e = exists($1);
                                           if (e) {
                                             int add = getAddress($1);
-                                            affectation(14,$3);
-                                            store(add, 14);
+                                            affectation(14,$3, linenumber);
+                                            store(add, 14, linenumber);
                                           } 
                                           // else erreur, la variable n'existe pas 
+                                          else {
+                                            printf("Erreur : la variable n'existe pas\n");
+                                          }
                                          } ;
 
-print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON { affectation(15, $3);
-                                                          print(15); 
+print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON { affectation(15, $3, linenumber);
+                                                          print(15, linenumber); 
                                                         };
 
 
@@ -92,56 +98,362 @@ ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body
 
 whileBlock : WHILE OPEN_PARENT condition CLOSE_PARENT body;
 
-condition : value
-          | name
-          | unaryOperand value
-          | unaryOperand name
-          | value binaryOperand value
+condition : value { if ($1==0) {
+                      affectation(10, 0, linenumber);
+                    }
+                    else {
+                      affectation(10, 1, linenumber);
+                    }
+                  }
+          | name { int e = exists($1);
+                    if (e) {
+                      int add = getAddress($1);
+                      load(10, add, linenumber);
+                      affectation(9, 1, linenumber);
+                      is_equal(10, 10, 9, linenumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    } ;
+          | unaryOperand value 
+            { if ($2==0) {
+                affectation(10, 1, linenumber);
+              }
+              else {
+                affectation(10, 0, linenumber);
+              }
+            }
+          | unaryOperand name { int e = exists($2);
+                    if (e) {
+                      int add = getAddress($2);
+                      load(10, add, linenumber);
+                      affectation(9, 0, linenumber);
+                      is_equal(10, 10, 9, linenumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    } ;
+                    
+          | value LESS value {
+            affectation(8, $1, linenumber);
+            affectation(9, $3, linenumber);
+            inferior(10, 8, 9, linumber);
+          }
+          | value LESS_EQ value {
+            affectation(8, $1, linenumber);
+            affectation(9, $3+1, linenumber);
+            inferior(10, 8, 9, linumber);
+          }
+          | value MORE value {
+            affectation(8, $1, linenumber);
+            affectation(9, $3, linenumber);
+            superior(10, 8, 9, linumber);
+          }
+          | value MORE_EQ value {
+            affectation(8, $1, linenumber);
+            affectation(9, $3-1, linenumber);
+            superior(10, 8, 9, linumber);
+          }
+          | value EQUALITY value {
+            affectation(8, $1, linenumber);
+            affectation(9, $3, linenumber);
+            is_equal(10, 8, 9, linumber);
+          }
+          | value DIFF value {
+            affectation(8, $1, linenumber);
+            affectation(9, $3, linenumber);
+            is_equal(10, 8, 9, linumber);
+            affectation(9, 0, linenumber);
+            is_equal(10, 9, 10, linenumber);
+          }
+
           | value binaryOperand name
+
           | name binaryOperand value
+
           | name binaryOperand name;
 
 binaryOperand : LESS | LESS_EQ | MORE | MORE_EQ | EQUALITY | DIFF;
 unaryOperand: EXCLAM;
 
-arithmExpr : value PLUS value  {calcul = $1+$3;}
-          | value PLUS name 
-          | name PLUS value
-          | name PLUS name
-          | value PLUS arithmExpr {calcul = calcul + $1;}
-          | name PLUS arithmExpr
-          | arithmExpr PLUS value {calcul = calcul + $3;}
-          | arithmExpr PLUS name
+arithmExpr : value PLUS value  { affectation(11, $1, linenumber);
+                              affectation(12, $3, linenumber);
+                              add(13,11,12, linenumber);}
+          | value PLUS name {int e = exists($3);
+                              if (e) {
+                                int addr = getAddress($3);
+                                load(12,addr, linenumber);
+                                affectation(11, $1, linenumber);
+                                add(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | name PLUS value {int e = exists($1);
+                              if (e) {
+                                int addr = getAddress($1);
+                                load(11, addr, linenumber);
+                                affectation(12, $3, linenumber);
+                                add(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | name PLUS name {int e1 = exists($1);
+                            int e2 = exists($3);
+                              if (e1 && e2) {
+                                int add1 = getAddress($1);
+                                int add2 = getAddress($3);
+                                load(11,add1, linenumber);
+                                load(12,add2, linenumber);
+                                add(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | value PLUS arithmExpr {affectation(11, $1, linenumber);
+                                  add(13, 11, 13, linenumber);}
+          | name PLUS arithmExpr {int e = exists($1);
+                              if (e) {
+                                int addr = getAddress($1);
+                                load(11, addr, linenumber);
+                                add(13, 11, 13, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | arithmExpr PLUS value {affectation(12, $3, linenumber);
+                                  add(13,13,12,linenumber);}
+          | arithmExpr PLUS name {int e = exists($3);
+                              if (e) {
+                                int addr = getAddress($3);
+                                load(12, addr, linenumber);
+                                add(13, 13, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
           | arithmExpr PLUS arithmExpr 
-          | value MINUS value  {calcul = $1-$3;}
-          | value MINUS name 
-          | name MINUS value
-          | name MINUS name
-          | value MINUS arithmExpr {calcul = calcul - $1;}
-          | name MINUS arithmExpr
-          | arithmExpr MINUS value {calcul = calcul - $3;}
-          | arithmExpr MINUS name
+          | value MINUS value  {affectation(11, $1, linenumber);
+                                affectation(12, $3, linenumber);
+                                substract(13, 11, 12, linenumber);}
+          | value MINUS name {int e = exists($3);
+                              if (e) {
+                                int addr = getAddress($3);
+                                load(12,addr, linenumber);
+                                affectation(11, $1, linenumber);
+                                substract(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | name MINUS value {int e = exists($1);
+                              if (e) {
+                                int addr = getAddress($1);
+                                load(11, addr, linenumber);
+                                affectation(12, $3, linenumber);
+                                substract(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | name MINUS name {int e1 = exists($1);
+                            int e2 = exists($3);
+                              if (e1 && e2) {
+                                int add1 = getAddress($1);
+                                int add2 = getAddress($3);
+                                load(11,add1, linenumber);
+                                load(12,add2, linenumber);
+                                substract(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | value MINUS arithmExpr {affectation(11, $1, linenumber);
+                                  add(13, 11, 13, linenumber);}
+          | name MINUS arithmExpr {int e = exists($1);
+                              if (e) {
+                                int addr = getAddress($1);
+                                load(11, addr, linenumber);
+                                substract(13, 11, 13, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | arithmExpr MINUS value {affectation(12, $3, linenumber);
+                                  substract(13,13,12,linenumber);}
+          | arithmExpr MINUS name {int e = exists($3);
+                              if (e) {
+                                int addr = getAddress($3);
+                                load(12, addr, linenumber);
+                                substract(13, 13, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
           | arithmExpr MINUS arithmExpr 
           | OPEN_PARENT arithmExpr CLOSE_PARENT
           | divMul;
 
-divMul : value MULTIPLY value  {calcul = $1*$3;}
-          | value MULTIPLY name 
-          | name MULTIPLY value
-          | name MULTIPLY name
-          | value MULTIPLY arithmExpr {calcul = $1 * calcul;}
-          | name MULTIPLY arithmExpr
-          | arithmExpr MULTIPLY value {calcul = calcul * $3;}
-          | arithmExpr MULTIPLY name
+divMul : value MULTIPLY value { affectation(11, $1, linenumber);
+                              affectation(12, $3, linenumber);
+                              multiply(13,11,12, linenumber);}
+          | value MULTIPLY name {int e = exists($3);
+                              if (e) {
+                                int addr = getAddress($3);
+                                load(12,addr, linenumber);
+                                affectation(11, $1, linenumber);
+                                multiply(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | name MULTIPLY value {int e = exists($1);
+                              if (e) {
+                                int addr = getAddress($1);
+                                load(11, addr, linenumber);
+                                affectation(12, $3, linenumber);
+                                multiply(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | name MULTIPLY name {int e1 = exists($1);
+                                int e2 = exists($3);
+                              if (e1 && e2) {
+                                int add1 = getAddress($1);
+                                int add2 = getAddress($3);
+                                load(11,add1, linenumber);
+                                load(12,add2, linenumber);
+                                multiply(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | value MULTIPLY arithmExpr {affectation(11, $1, linenumber);
+                                      multiply(13, 11, 13, linenumber);}
+          | name MULTIPLY arithmExpr {int e = exists($1);
+                                      if (e) {
+                                        int addr = getAddress($1);
+                                        load(11, addr, linenumber);
+                                        multiply(13, 11, 13, linenumber);
+                                      }
+                                      // else erreur, la variable n'existe pas 
+                                      else {
+                                        printf("Erreur : la variable n'existe pas\n");
+                                      }
+                                      }
+          | arithmExpr MULTIPLY value {affectation(12, $3, linenumber);
+                                      multiply(13,13,12,linenumber);}
+          | arithmExpr MULTIPLY name {int e = exists($3);
+                                      if (e) {
+                                        int addr = getAddress($3);
+                                        load(12, addr, linenumber);
+                                        multiply(13, 13, 12, linenumber);
+                                      }
+                                      // else erreur, la variable n'existe pas
+                                      else {
+                                       printf("Erreur : la variable n'existe pas\n");
+                                      } 
+                                      }
           | arithmExpr MULTIPLY arithmExpr 
-          | value DIVIDE value  {calcul = $1/$3;}
-          | value DIVIDE name 
-          | name DIVIDE value
-          | name DIVIDE name
-          | value DIVIDE arithmExpr {calcul = floor($1 / calcul);}
-          | name DIVIDE arithmExpr
-          | arithmExpr DIVIDE value {calcul = floor(calcul / $3);}
-          | arithmExpr DIVIDE name
+          | value DIVIDE value  { affectation(11, $1, linenumber);
+                              affectation(12, $3, linenumber);
+                              divide(13,11,12, linenumber);}
+          | value DIVIDE name {int e = exists($3);
+                              if (e) {
+                                int addr = getAddress($3);
+                                load(12,addr, linenumber);
+                                affectation(11, $1, linenumber);
+                                divide(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | name DIVIDE value {int e = exists($1);
+                              if (e) {
+                                int addr = getAddress($1);
+                                load(11, addr, linenumber);
+                                affectation(12, $3, linenumber);
+                                divide(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | name DIVIDE name {int e1 = exists($1);
+                                int e2 = exists($3);
+                              if (e1 && e2) {
+                                int add1 = getAddress($1);
+                                int add2 = getAddress($3);
+                                load(11,add1, linenumber);
+                                load(12,add2, linenumber);
+                                divide(13, 11, 12, linenumber);
+                              }
+                              // else erreur, la variable n'existe pas 
+                              else {
+                                printf("Erreur : la variable n'existe pas\n");
+                              }
+                              }
+          | value DIVIDE arithmExpr {affectation(11, $1, linenumber);
+                                      divide(13, 11, 13, linenumber);}
+          | name DIVIDE arithmExpr {int e = exists($1);
+                                      if (e) {
+                                        int addr = getAddress($1);
+                                        load(11, addr, linenumber);
+                                        divide(13, 11, 13, linenumber);
+                                      }
+                                      // else erreur, la variable n'existe pas 
+                                      else {
+                                        printf("Erreur : la variable n'existe pas\n");
+                                      }
+                                      }
+          | arithmExpr DIVIDE value {affectation(12, $3, linenumber);
+                                      divide(13,13,12,linenumber);}
+          | arithmExpr DIVIDE name {int e = exists($3);
+                                      if (e) {
+                                        int addr = getAddress($3);
+                                        load(12, addr, linenumber);
+                                        divide(13, 13, 12, linenumber);
+                                      }
+                                      // else erreur, la variable n'existe pas 
+                                      else {
+                                        printf("Erreur : la variable n'existe pas\n");
+                                      }
+                                      }
           | arithmExpr DIVIDE arithmExpr 
           | OPEN_PARENT arithmExpr CLOSE_PARENT
           | value
@@ -161,7 +473,7 @@ ids : id COMMA ids | id ;
 %%
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(void) {
-  printf("Analyser\n"); // yydebug=1;
+  printf("Analyser\n"); 
   yyparse();
   return 0;
 }

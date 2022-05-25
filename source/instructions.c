@@ -77,6 +77,7 @@ int add_ASM_file()
         default:
             break;
         }
+        aux = aux->next;
     }
 
     fclose(readableFile);
@@ -115,7 +116,7 @@ void add(int result, int operand1, int operand2, int lineNumber)
     asm_table = new;
 }
 
-void susbtract(int result, int operand1, int operand2, int lineNumber)
+void substract(int result, int operand1, int operand2, int lineNumber)
 {
     Cell *new = malloc(sizeof(Cell));
     new->code = SOU;
