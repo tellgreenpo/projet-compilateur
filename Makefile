@@ -5,7 +5,7 @@ BIN=analyseur
 CC=gcc
 CFLAGS=-Wall -g
 
-OBJ=y.tab.o lex.yy.o ts.o instructions.o
+OBJ=y.tab.o lex.yy.o ts.o instructions.o jump_stack.o
 
 all: $(BIN)
 
@@ -16,6 +16,9 @@ ts.o: source/ts.c
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 instructions.o: source/instructions.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+jump_stack.o: source/jump_stack.c
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 y.tab.c: $(GRM)
