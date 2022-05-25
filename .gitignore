@@ -4,3 +4,5 @@
 lex.yy.c
 compilator
 lexer
+*.txt
+exe
