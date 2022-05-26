@@ -171,11 +171,258 @@ condition : value { if ($1==0) {
             is_equal(10, 9, 10, linenumber);
           }
 
-          | value binaryOperand name
+          | value LESS name {int e = exists($3);
+                    if (e) {
+                      int add = getAddress($3);
+                      load(9, add, linenumber);
+                      affectation(8, $1, linenumber);
+                      inferior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | value LESS_EQ name {int e = exists($3);
+                    if (e) {
+                      int addr = getAddress($3);
+                      load(9, addr, linenumber);
+                      affectation(8, 1, linenumber);
+                      add(9, 8, 9, linenumber);
+                      affectation(8, $1, linenumber);
+                      inferior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | value MORE name {int e = exists($3);
+                    if (e) {
+                      int add = getAddress($3);
+                      load(9, add, linenumber);
+                      affectation(8, $1, linenumber);
+                      superior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | value MORE_EQ name {int e = exists($3);
+                    if (e) {
+                      int add = getAddress($3);
+                      load(9, add, linenumber);
+                      affectation(8, 1, linenumber);
+                      substract(9, 9, 8, linenumber);
+                      affectation(8, $1, linenumber);
+                      inferior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | value EQUALITY name {int e = exists($3);
+                    if (e) {
+                      int add = getAddress($3);
+                      load(9, add, linenumber);
+                      affectation(8, $1, linenumber);
+                      is_equal(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | value DIFF name {int e = exists($3);
+                    if (e) {
+                      int add = getAddress($3);
+                      load(9, add, linenumber);
+                      affectation(8, $1, linenumber);
+                      is_equal(10, 8, 9, linumber);
+                      affectation(9, 0, linenumber);
+                      is_equal(10, 9, 10, linenumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
 
-          | name binaryOperand value
 
-          | name binaryOperand name;
+          | name LESS value {int e = exists($1);
+                    if (e) {
+                      int add = getAddress($1);
+                      load(8, add, linenumber);
+                      affectation(9, $3, linenumber);
+                      inferior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | name LESS_EQ value {int e = exists($1);
+                    if (e) {
+                      int addr = getAddress($1);
+                      affectation(8, 1, linenumber);
+                      affectation(9, $3, linenumber);
+                      add(9, 8, 9, linenumber);
+                      load(8, addr, linenumber);
+                      inferior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | name MORE value {int e = exists($1);
+                    if (e) {
+                      int add = getAddress($1);
+                      load(8, add, linenumber);
+                      affectation(9, $1, linenumber);
+                      superior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | name MORE_EQ value {int e = exists($1);
+                    if (e) {
+                      int add = getAddress($1);
+                      load(8, add, linenumber);
+                      affectation(9, 1, linenumber);
+                      substract(8, 8, 9, linenumber);
+                      affectation(9, $3, linenumber);
+                      inferior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | name EQUALITY value {int e = exists($1);
+                    if (e) {
+                      int add = getAddress($1);
+                      load(8, add, linenumber);
+                      affectation(9, $1, linenumber);
+                      is_equal(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | name DIFF value {int e = exists($1);
+                    if (e) {
+                      int add = getAddress($1);
+                      load(8, add, linenumber);
+                      affectation(9, $1, linenumber);
+                      is_equal(10, 8, 9, linumber);
+                      affectation(9, 0, linenumber);
+                      is_equal(10, 9, 10, linenumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+
+          | name LESS name; {int e1 = exists($1);
+                    int e2 = exists($3);
+                    if (e2 && e1) {
+                      int add1 = getAddress($1);
+                      int add2 = getAddress($3);
+                      load(8, add1, linenumber);
+                      load(9, add2, linenumber);
+                      inferior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | name LESS_EQ name; {int e1 = exists($1);
+                    int e2 = exists($3);
+                    if (e2 && e1) {
+                      int add1 = getAddress($1);
+                      int add2 = getAddress($3);
+                      load(8, add1, linenumber);
+                      load(9, add2, linenumber);
+                      affectation(10, 1, linenumber);
+                      add(9, 9, 10, linenumber);
+                      inferior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    } 
+          | name MORE name; {int e1 = exists($1);
+                    int e2 = exists($3);
+                    if (e2 && e1) {
+                      int add1 = getAddress($1);
+                      int add2 = getAddress($3);
+                      load(8, add1, linenumber);
+                      load(9, add2, linenumber);
+                      superior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | name MORE_EQ name; {int e1 = exists($1);
+                    int e2 = exists($3);
+                    if (e2 && e1) {
+                      int add1 = getAddress($1);
+                      int add2 = getAddress($3);
+                      load(8, add1, linenumber);
+                      load(9, add2, linenumber);
+                      affectation(10, 1, linenumber);
+                      substract(9, 9, 10, linenumber);
+                      superior(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    } 
+          | name EQUALITY name; {int e1 = exists($1);
+                    int e2 = exists($3);
+                    if (e2 && e1) {
+                      int add1 = getAddress($1);
+                      int add2 = getAddress($3);
+                      load(8, add1, linenumber);
+                      load(9, add2, linenumber);
+                      is_equal(10, 8, 9, linumber);
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          | name DIFF name {int e1 = exists($1);
+                    int e2 = exists($3);
+                    if (e2 && e1) {
+                      int add1 = getAddress($1);
+                      int add2 = getAddress($3);
+                      load(8, add1, linenumber);
+                      load(9, add2, linenumber);
+                      is_equal(10, 8, 9, linumber) 
+                      affectation(9, 0, linenumber);
+                      is_equal(10, 9, 10, linenumber);;
+                    } 
+                    // else erreur, la variable n'existe pas 
+                    else {
+                      printf("Erreur : la variable n'existe pas\n");
+                    }
+                    }
+          
+          | condition binaryOperand condition
+          | unaryOperand condition;
 
 binaryOperand : LESS | LESS_EQ | MORE | MORE_EQ | EQUALITY | DIFF;
 unaryOperand: EXCLAM;
