@@ -5,6 +5,8 @@
 Cell *asm_table = NULL;
 Cell *asm_table_last = NULL;
 
+// TODO -- Gestion automatique ligne (variable globale)
+
 int add_ASM_file()
 {
     FILE *readableFile = fopen("asm_readable.txt", "w");

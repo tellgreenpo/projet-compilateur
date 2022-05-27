@@ -42,7 +42,7 @@ void yyerror(char *s);
 
 main_structure : type MAIN OPEN_PARENT params CLOSE_PARENT body {add_ASM_file();} ; // TODO - automatiser suppression *.txt
 
-body : OPEN_BRACE {current_depth++; printf("scope + 1\n"); } declarations insts CLOSE_BRACE {if (current_depth > 0) {
+body : OPEN_BRACE {current_depth++; } declarations insts CLOSE_BRACE {if (current_depth > 0) {
                                       deleteScope(current_depth);
                                       current_depth--;
                                     } else {
@@ -91,12 +91,16 @@ print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON { affectation(15, $3, li
                                                         };
 
 
-// TODO - Mateo fait l'asm
-ifBlock : IF OPEN_PARENT condition CLOSE_PARENT body
-        | ELSE IF OPEN_PARENT condition CLOSE_PARENT body
-        | ELSE body;
+if : IF OPEN_PARENT condition CLOSE_PARENT {jump_false(10, -1, linenumber); add_JMF(linenumber);} body { int jmf_start = pop_jmf(); 
+                                                                                                        update_jmf(jmf_start, linenumber+1);}
+ifBlock : if ELSE if
+        | if ELSE body;
 
-whileBlock : WHILE OPEN_PARENT condition CLOSE_PARENT body;
+whileBlock : WHILE {add_while(linenumber);} OPEN_PARENT condition CLOSE_PARENT {jump_false(10, -1, linenumber); add_JMF(linenumber);} body { int jmf_start;
+                                                                                                                                            int while_start = pop_while(linenumber); 
+                                                                                                                                            jump(while_start, linenumber);
+                                                                                                                                            jmf_start = pop_jmf();
+                                                                                                                                            update_jmf(jmf_start, linenumber+1); };
 
 condition : value { if ($1==0) {
                       affectation(10, 0, linenumber);
