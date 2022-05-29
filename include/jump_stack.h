@@ -5,11 +5,11 @@
 #ifndef JUMP_STACK_H
 #define JUMP_STACK_H
 
-typedef struct Node
+typedef struct NodeStack
 {
     int lineNumber;
-    struct Node *next;
-} Node;
+    struct NodeStack *next;
+} NodeStack;
 
 void add_while(int lineNumber);
 void add_JMF(int lineNumber);
