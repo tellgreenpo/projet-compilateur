@@ -4,6 +4,7 @@
 #include <math.h>
 #include "include/ts.h"
 #include "include/instructions.h"
+#include "include/jump_stack.h"
 //int str[26];
 extern int size;
 int current_depth = 0;
@@ -96,8 +97,8 @@ print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON { affectation(15, $3, li
                                                         };
 
 
-if : IF OPEN_PARENT condition CLOSE_PARENT {jump_false(10, -1, linenumber); add_JMF(linenumber); linenumber++;} body { int jmf_start = pop_jmf();
-                                                                                                        update_jmf(jmf_start, linenumber);}
+if : IF OPEN_PARENT condition CLOSE_PARENT {jump_false(10, -1, linenumber); add_JMF(linenumber); linenumber++;} body { int jmf_start = pop_JMF();
+                                                                                                        update_JMF(jmf_start, linenumber);}
 ifBlock : if ELSE if
         | if ELSE body;
 
@@ -105,8 +106,8 @@ whileBlock : WHILE {add_while(linenumber);} OPEN_PARENT condition CLOSE_PARENT {
                                                                                                                                             int while_start = pop_while();
                                                                                                                                             jump(while_start, linenumber);
                                                                                                                                             linenumber++;
-                                                                                                                                            jmf_start = pop_jmf();
-                                                                                                                                            update_jmf(jmf_start, linenumber); };
+                                                                                                                                            jmf_start = pop_JMF();
+                                                                                                                                            update_JMF(jmf_start, linenumber); };
 
 condition : value { if ($1==0) {
                       affectation(10, 0, linenumber);
@@ -354,7 +355,7 @@ condition : value { if ($1==0) {
                       int addr = getAddress($1);
                       load(8, addr, linenumber);
                        linenumber++;
-                      affectation(9, $1, linenumber);
+                      affectation(9, (int)(*($1)), linenumber);
                        linenumber++;
                       superior(10, 8, 9, linenumber);
                        linenumber++;
@@ -388,7 +389,7 @@ condition : value { if ($1==0) {
                       int addr = getAddress($1);
                       load(8, addr, linenumber);
                        linenumber++;
-                      affectation(9, $1, linenumber);
+                      affectation(9, (int)(*($1)), linenumber);
                        linenumber++;
                       is_equal(10, 8, 9, linenumber);
                        linenumber++;
@@ -403,7 +404,7 @@ condition : value { if ($1==0) {
                       int addr = getAddress($1);
                       load(8, addr, linenumber);
                        linenumber++;
-                      affectation(9, $1, linenumber);
+                      affectation(9, (int)(*($1)), linenumber);
                        linenumber++;
                       is_equal(10, 8, 9, linenumber);
                        linenumber++;
@@ -418,24 +419,24 @@ condition : value { if ($1==0) {
                     }
                     }
 
-          | name LESS name; {int e1 = exists($1);
+          | name LESS name { int e1 = exists($1);
                     int e2 = exists($3);
                     if (e2 && e1) {
                       int add1 = getAddress($1);
                       int add2 = getAddress($3);
                       load(8, add1, linenumber);
-                       linenumber++;
+                      linenumber++;
                       load(9, add2, linenumber);
-                       linenumber++;
+                      linenumber++;
                       inferior(10, 8, 9, linenumber);
-                       linenumber++;
+                      linenumber++;
                     }
                     // else erreur, la variable n'existe pas
                     else {
                       printf("Erreur : la variable n'existe pas\n");
                     }
                     }
-          | name LESS_EQ name; {int e1 = exists($1);
+          | name LESS_EQ name {int e1 = exists($1);
                     int e2 = exists($3);
                     if (e2 && e1) {
                       int add1 = getAddress($1);
@@ -456,7 +457,7 @@ condition : value { if ($1==0) {
                       printf("Erreur : la variable n'existe pas\n");
                     }
                     }
-          | name MORE name; {int e1 = exists($1);
+          | name MORE name {int e1 = exists($1);
                     int e2 = exists($3);
                     if (e2 && e1) {
                       int add1 = getAddress($1);
@@ -473,7 +474,7 @@ condition : value { if ($1==0) {
                       printf("Erreur : la variable n'existe pas\n");
                     }
                     }
-          | name MORE_EQ name; {int e1 = exists($1);
+          | name MORE_EQ name {int e1 = exists($1);
                     int e2 = exists($3);
                     if (e2 && e1) {
                       int add1 = getAddress($1);
@@ -494,7 +495,7 @@ condition : value { if ($1==0) {
                       printf("Erreur : la variable n'existe pas\n");
                     }
                     }
-          | name EQUALITY name; {int e1 = exists($1);
+          | name EQUALITY name {int e1 = exists($1);
                     int e2 = exists($3);
                     if (e2 && e1) {
                       int add1 = getAddress($1);

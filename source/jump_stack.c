@@ -2,41 +2,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Node *jumpStack = NULL;
-Node *whileStack = NULL;
+NodeStack *jumpStack = NULL;
+NodeStack *whileStack = NULL;
 
 void add_while(int lineNumber)
 {
     // create a link
-    Node *link = (Node *)malloc(sizeof(Node));
+    NodeStack *link = (NodeStack *)malloc(sizeof(NodeStack));
 
     link->lineNumber = lineNumber;
 
-    // point it to old first node
+    // point it to old first nodeStack
     link->next = whileStack;
 
-    // point first to new first node
+    // point first to new first nodeStack
     whileStack = link;
 }
 
 void add_JMF(int lineNumber)
 {
     // create a link
-    Node *link = (Node *)malloc(sizeof(Node));
+    NodeStack *link = (NodeStack *)malloc(sizeof(NodeStack));
 
     link->lineNumber = lineNumber;
 
-    // point it to old first node
+    // point it to old first nodeStack
     link->next = jumpStack;
 
-    // point first to new first node
+    // point first to new first nodeStack
     jumpStack = link;
 }
 
 
 int pop_while()
 {
-    Node * aux = malloc(sizeof(Node));
+    NodeStack * aux = malloc(sizeof(NodeStack));
     aux = whileStack;
 
     if (whileStack == NULL)
@@ -55,7 +55,7 @@ int pop_while()
 
 int pop_JMF()
 {
-    Node * aux = malloc(sizeof(Node));
+    NodeStack * aux = malloc(sizeof(NodeStack));
     aux = jumpStack;
 
     if (jumpStack == NULL)
