@@ -41,8 +41,8 @@ architecture Behavioral of lcPreAlu is
 begin
 
     DataOut <= "001" when Op = X"01" else
-               "011" when Op = X"02" else
-               "010" when Op = X"03" else
+               "010" when Op = X"02" else
+               "011" when Op = X"03" else
                "100" when Op = X"04" else "000";
 
 end Behavioral;
