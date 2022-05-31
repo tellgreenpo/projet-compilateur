@@ -79,9 +79,7 @@ affectation : name EQUAL arithmExpr SEMICOLON {
                                           int e = exists($1);
                                           if (e) {
                                             int addr = getAddress($1);
-                                            affectation(14,$3, linenumber);
-                                            linenumber++;
-                                            store(addr, 14, linenumber);
+                                            store(addr, 13, linenumber);
                                             linenumber++;
                                           }
                                           // else erreur, la variable n'existe pas
@@ -89,11 +87,45 @@ affectation : name EQUAL arithmExpr SEMICOLON {
                                             printf("Erreur : la variable n'existe pas\n");
                                           }
                                          } ;
+              | name EQUAL name SEMICOLON {
+                                          int e = exists($1);
+                                          int f = exists($3);
+                                          if (e && f) {
+                                            int addr1 = getAddress($1);
+                                            int addr2 = getAddress($3);
+                                            load(14,addr2,linenumber);
+                                            linenumber++;
+                                            store(addr1, 14, linenumber);
+                                            linenumber++;
+                                          }
+                                          // else erreur, la variable n'existe pas
+                                          else {
+                                            printf("Erreur : Une des variables n'existe pas\n");
+                                          }
+
+                                          };
 
 print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON { affectation(15, $3, linenumber);
                                                           linenumber++;
                                                           print(15, linenumber);
                                                           linenumber++;
+                                                        };
+        | PRINTF OPEN_PARENT name CLOSE_PARENT SEMICOLON {
+
+                                                          int f = exists($3);
+                                                          if (f) {
+
+                                                            int addr = getAddress($3);
+                                                            load(15,addr,linenumber);
+                                                            linenumber++;
+                                                            print(15, linenumber);
+                                                            linenumber++;
+                                                          }
+                                                          // else erreur, la variable n'existe pas
+                                                          else {
+                                                            printf("Erreur : Une des variables n'existe pas\n");
+                                                          }
+
                                                         };
 
 

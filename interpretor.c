@@ -96,15 +96,13 @@ match_return *matching(int lineNumber, char line[1000])
         }
         break;
     case 12:
-        printf("Inside register R%i: %i\n", intLine[1],registers[intLine[1]]);
+        printf("%i\n", registers[intLine[1]]);
         break;
     case 13:
-        printf("this is and loa\n");
         registers[intLine[1]] = memory[intLine[2]];
         break;
     case 14:
-        printf("this is and str\n");
-        memory[intLine[2]] = registers[intLine[1]];
+        memory[intLine[1]] = registers[intLine[2]];
         break;
 
     default:
@@ -114,6 +112,19 @@ match_return *matching(int lineNumber, char line[1000])
         toReturn->restart = true;
     return toReturn;
 }
+
+
+void print(){
+    for (int i=0; i<16; i++){
+        printf("R%i : %i\n",i,registers[i]);
+    }
+    printf("\n");
+    for (int i=0; i<20; i++){
+        printf("M%i : %i\n",i,memory[i]);
+    }
+    printf("\n");
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -161,6 +172,7 @@ int main(int argc, char *argv[])
             }
         }
         lineNumber++;
+        // print();
     }
 
     return 0;

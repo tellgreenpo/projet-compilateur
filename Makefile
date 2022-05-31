@@ -35,3 +35,6 @@ clean:
 
 test: all
 	./analyseur < main.c
+
+interpretor:
+	$(CC) -g interpretor.c -o interpretor
