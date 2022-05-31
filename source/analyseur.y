@@ -99,7 +99,8 @@ print : PRINTF OPEN_PARENT value CLOSE_PARENT SEMICOLON { affectation(15, $3, li
 
 if : IF OPEN_PARENT condition CLOSE_PARENT {jump_false(10, -1, linenumber); add_JMF(linenumber); linenumber++;} body { int jmf_start = pop_JMF();
                                                                                                         update_JMF(jmf_start, linenumber);}
-ifBlock : if ELSE if
+ifBlock : if
+        | if ELSE if
         | if ELSE body;
 
 whileBlock : WHILE {add_while(linenumber);} OPEN_PARENT condition CLOSE_PARENT {jump_false(10, -1, linenumber); add_JMF(linenumber); linenumber++;} body { int jmf_start;
