@@ -52,14 +52,14 @@ end register_bank;
 architecture Behavioral of register_bank is
 
 type registers is array (0 to 15 ) of std_logic_vector(7 downto 0);
-signal bank : registers;
+signal bank : registers := (others => X"00");
 
 begin
     process (CLK) is
     begin
         if rising_edge(CLK) then
             if (RST = '0') then
-                bank <= (others => x"0");
+                bank <= (others => x"00");
             end if;
             if (W = '1') then
                 bank(to_integer(unsigned(adrW))) <= DATA;
